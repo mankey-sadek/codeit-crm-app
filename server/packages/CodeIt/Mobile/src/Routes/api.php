@@ -149,6 +149,17 @@ Route::middleware([MobileAuth::class, 'throttle:codeit-mobile'])->group(function
         Route::post('pipelines', 'storePipeline');
         Route::put('pipelines/{id}', 'updatePipeline')->whereNumber('id');
         Route::delete('pipelines/{id}', 'destroyPipeline')->whereNumber('id');
+        Route::get('hr-departments', 'hrDepartments');
+        Route::post('hr-departments', 'saveHrDepartments');
+        Route::get('hr', 'hrSettings');
+        Route::post('hr', 'saveHrSettings');
+        Route::post('hr/holidays', 'storeHoliday');
+        Route::delete('hr/holidays/{id}', 'deleteHoliday')->whereNumber('id');
+        Route::get('email-templates', 'emailTemplates');
+        Route::post('email-templates', 'storeEmailTemplate');
+        Route::put('email-templates/{id}', 'updateEmailTemplate')->whereNumber('id');
+        Route::delete('email-templates/{id}', 'destroyEmailTemplate')->whereNumber('id');
+        Route::post('web-link', 'webLink');
         Route::get('{kind}', 'simpleIndex')->where('kind', 'groups|sources|types|tags');
         Route::post('{kind}', 'simpleStore')->where('kind', 'groups|sources|types|tags');
         Route::put('{kind}/{id}', 'simpleUpdate')->where('kind', 'groups|sources|types|tags')->whereNumber('id');

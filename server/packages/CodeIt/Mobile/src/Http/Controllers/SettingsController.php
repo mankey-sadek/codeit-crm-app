@@ -30,9 +30,20 @@ class SettingsController extends Controller
             'users' => 'admin.settings.users.index', 'roles' => 'admin.settings.roles.index', 'groups' => 'admin.settings.groups.index',
             'pipelines' => 'admin.settings.pipelines.index', 'sources' => 'admin.settings.sources.index',
             'types' => 'admin.settings.types.index', 'tags' => 'admin.settings.tags.index',
+            'hr_departments' => 'admin.codeit.hr.departments', 'hr_settings' => 'admin.codeit.hr.settings',
+            'email_templates' => 'admin.settings.email_templates.index',
+            'workflows' => 'admin.settings.workflows.index', 'webhooks' => 'admin.settings.webhooks.index',
+            'web_forms' => 'admin.settings.web_forms.index', 'attributes' => 'admin.settings.attributes.index',
+            'warehouses' => 'admin.settings.warehouses.index', 'events' => 'admin.settings.marketing.events.index',
+            'campaigns' => 'admin.settings.marketing.campaigns.index', 'imports' => 'admin.settings.data_transfer.imports.index',
+            'configuration' => 'admin.configuration.index',
         ];
 
-        return response()->json(['data' => collect($all)->filter(fn ($r) => RouteGate::can($r))->keys()->values()]);
+        return response()->json([
+            'data' => collect($all)->filter(fn ($r) => \Illuminate\Support\Facades\Route::has($r) && RouteGate::can($r))->keys()->values(),
+            'web' => collect($all)->only(['workflows', 'webhooks', 'web_forms', 'attributes', 'warehouses', 'events', 'campaigns', 'imports', 'configuration'])
+                ->filter(fn ($r) => \Illuminate\Support\Facades\Route::has($r))->map(fn ($r) => parse_url(route($r), PHP_URL_PATH)),
+        ]);
     }
 
     /* ------------------------------------------------------------------ simple lists */
@@ -272,5 +283,108 @@ class SettingsController extends Controller
         }
 
         return $in;
+    }
+
+    /* ------------------------------------------------------------------ HR: departments, work rules, holidays */
+
+    public function hrDepartments(): JsonResponse
+    {
+        $d = $this->page('admin.codeit.hr.departments');
+
+        return response()->json([
+            'data' => collect($d['deps'] ?? [])->map(fn ($g) => [
+                'id' => (int) $g->id, 'name' => $g->name, 'prefix' => $g->prefix, 'manager_id' => $g->manager_id ? (int) $g->manager_id : null,
+                'manager' => $g->manager, 'size' => (int) (($d['sizes'] ?? [])[$g->id] ?? 0),
+            ])->values(),
+            'users' => collect($d['users'] ?? [])->map(fn ($u) => ['id' => (int) $u->id, 'name' => $u->name])->values(),
+        ]);
+    }
+
+    public function saveHrDepartments(): JsonResponse
+    {
+        $dep = [];
+        foreach ((array) request('departments', []) as $row) {
+            if (is_array($row) && ! empty($row['id'])) {
+                $dep[(int) $row['id']] = ['prefix' => $row['prefix'] ?? null, 'manager_id' => $row['manager_id'] ?? null];
+            }
+        }
+
+        return $this->act('admin.codeit.hr.departments.save', [], ['dep' => $dep]);
+    }
+
+    public function hrSettings(): JsonResponse
+    {
+        $d = $this->page('admin.codeit.hr.settings');
+        $s = (array) ($d['s'] ?? []);
+
+        return response()->json(['data' => [
+            'work_start' => $s['work_start'] ?? '09:00', 'work_end' => $s['work_end'] ?? '17:00',
+            'grace_minutes' => (int) ($s['grace_minutes'] ?? 15), 'late_free_minutes' => (int) ($s['late_free_minutes'] ?? 0),
+            'weekend' => array_values(array_map('intval', array_filter(explode(',', (string) ($s['weekend'] ?? '5,6')), 'strlen'))),
+            'annual_leave_days' => (int) ($s['annual_leave_days'] ?? 21), 'month_days' => (int) ($s['month_days'] ?? 30),
+            'currency' => $s['currency'] ?? 'EGP',
+            'deduct_absence' => (string) ($s['deduct_absence'] ?? '0') === '1', 'deduct_late' => (string) ($s['deduct_late'] ?? '0') === '1',
+            'holidays' => collect($d['holidays'] ?? [])->map(fn ($h) => ['id' => (int) $h->id, 'date' => (string) $h->date, 'name' => $h->name])->values(),
+        ]]);
+    }
+
+    public function saveHrSettings(): JsonResponse
+    {
+        $in = request()->only(['work_start', 'work_end', 'grace_minutes', 'weekend', 'annual_leave_days', 'month_days', 'currency', 'late_free_minutes']);
+        $in['deduct_absence'] = request()->boolean('deduct_absence') ? 1 : 0;
+        $in['deduct_late'] = request()->boolean('deduct_late') ? 1 : 0;
+
+        return $this->act('admin.codeit.hr.settings.save', [], $in + ['weekend' => []]);
+    }
+
+    public function storeHoliday(): JsonResponse
+    {
+        return $this->act('admin.codeit.hr.holidays.store', [], request()->only(['date', 'name']));
+    }
+
+    public function deleteHoliday(int $id): JsonResponse
+    {
+        return $this->act('admin.codeit.hr.holidays.delete', ['id' => $id]);
+    }
+
+    /* ------------------------------------------------------------------ e-mail templates */
+
+    public function emailTemplates(): JsonResponse
+    {
+        (new RouteGate)->authorizeRoute('admin.settings.email_templates.index');
+
+        return response()->json(['data' => DB::table('email_templates')->orderBy('name')->get(['id', 'name', 'subject', 'content'])]);
+    }
+
+    public function storeEmailTemplate(): JsonResponse
+    {
+        return $this->act('admin.settings.email_templates.store', [], request()->only(['name', 'subject', 'content']));
+    }
+
+    public function updateEmailTemplate(int $id): JsonResponse
+    {
+        return $this->act('admin.settings.email_templates.update', ['id' => $id], request()->only(['name', 'subject', 'content']));
+    }
+
+    public function destroyEmailTemplate(int $id): JsonResponse
+    {
+        return $this->act('admin.settings.email_templates.delete', ['id' => $id]);
+    }
+
+    /* ------------------------------------------------------------------ the rest: the web page inside the app */
+
+    /**
+     * Pages that are big forms on the web (workflows, webhooks, web forms, attributes, warehouses,
+     * marketing, imports, configuration) open inside the app as the web page itself. This makes a
+     * one-time link (60 seconds, one use) that signs this person in to the web and opens that page.
+     */
+    public function webLink(): JsonResponse
+    {
+        $to = (string) request('to', '/admin/settings');
+        abort_unless(preg_match('#^/admin(/[A-Za-z0-9_\-/]*)?$#', $to) === 1, 422);
+        $code = \Illuminate\Support\Str::random(48);
+        \Illuminate\Support\Facades\Cache::put('codeit-mobile-web|'.hash('sha256', $code), ['user' => $this->user()->id, 'to' => $to], 60);
+
+        return response()->json(['url' => url('mobile-web/'.$code)]);
     }
 }

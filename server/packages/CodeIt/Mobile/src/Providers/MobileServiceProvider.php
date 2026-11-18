@@ -35,6 +35,10 @@ class MobileServiceProvider extends ServiceProvider
             ->middleware([\CodeIt\Brand\Http\Middleware\ApiErrors::class, MobileJson::class, \Illuminate\Routing\Middleware\SubstituteBindings::class])
             ->group(dirname(__DIR__).'/Routes/api.php');
 
+        // one-time link from the app to a web page (signed in as the same person)
+        Route::middleware(['web', 'throttle:20,1'])->get('mobile-web/{code}', \CodeIt\Mobile\Http\Controllers\WebHandoffController::class)
+            ->where('code', '[A-Za-z0-9]{48}');
+
         $this->loadMigrationsFrom(dirname(__DIR__).'/Database/Migrations');
 
         if ($this->app->runningInConsole()) {

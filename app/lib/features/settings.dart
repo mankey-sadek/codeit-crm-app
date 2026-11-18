@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../core/api.dart';
@@ -9,8 +10,10 @@ import '../ui/forms.dart';
 import '../ui/kit.dart';
 import 'forms.dart' show pickMany, saveButton;
 
-/// CRM settings (the web's Settings menu): users, roles, groups, pipelines, lead sources and types, tags.
-/// Every save runs the web's own action, so the same rules and checks apply.
+/// CRM settings (the web's Settings menu): users, roles, groups, pipelines, lead sources and types, tags,
+/// HR departments and work rules, e-mail templates. Every save runs the web's own action, so the same rules
+/// and checks apply. The big builder pages (workflows, web forms, attributes...) open as the web page inside
+/// the app, already signed in.
 
 const _sections = <String, (String icon, String title, String sub)>{
   'users': ('users', 'المستخدمين', 'مين يدخل الـ CRM، الدور والأقسام'),
@@ -20,7 +23,27 @@ const _sections = <String, (String icon, String title, String sub)>{
   'sources': ('branch', 'مصادر العملاء', 'العميل جه منين'),
   'types': ('folder', 'أنواع الفرص', 'تصنيف الفرص'),
   'tags': ('check', 'الوسوم', 'علامات على الفرص'),
+  'hr_departments': ('staff', 'أقسام الموظفين', 'كود كل قسم ومديره'),
+  'hr_settings': ('clock', 'إعدادات الدوام', 'المواعيد، الإجازات، الخصومات والعطلات'),
+  'email_templates': ('invoice', 'قوالب الإيميل', 'رسايل الـ workflows'),
+  'workflows': ('branch', 'الـ Workflows', 'تشغيل تلقائي لما يحصل حاجة'),
+  'webhooks': ('api', 'Webhooks', 'ابعت بيانات لأنظمة تانية'),
+  'web_forms': ('code', 'فورمات الويب', 'فورم على موقعك يدخل فرص'),
+  'attributes': ('database', 'الحقول', 'حقول إضافية للعملاء والفرص'),
+  'warehouses': ('server', 'المخازن', 'أماكن المنتجات'),
+  'events': ('calendar', 'أحداث التسويق', 'مناسبات الحملات'),
+  'campaigns': ('bell', 'الحملات', 'إيميلات تسويق'),
+  'imports': ('cloud', 'استيراد البيانات', 'رفع ملفات Excel / CSV'),
+  'configuration': ('gear', 'الإعدادات العامة', 'إعدادات Krayin العامة'),
 };
+
+/// Opens a web settings page inside the app, already signed in (one-time link from the server).
+Future<void> openWebSettings(BuildContext context, String path) async {
+  final r = await doAction(context, () => Api.I.post('settings/web-link', {'to': path}));
+  final url = r?.s('url') ?? '';
+  if (url.isEmpty) return;
+  await launchUrl(Uri.parse(url), mode: LaunchMode.inAppBrowserView);
+}
 
 class CrmSettingsScreen extends StatelessWidget {
   const CrmSettingsScreen({super.key});
@@ -33,31 +56,45 @@ class CrmSettingsScreen extends StatelessWidget {
           builder: (c, d, reload) {
             final keys = d.ls('data');
             if (keys.isEmpty) return const EmptyState('مش مسموحلك تفتح الإعدادات', icon: 'lock');
-            return Column(children: [
-              for (final k in keys)
-                if (_sections[k] case final s?)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Panel(
-                      onTap: () => c.push('/crm-settings/$k'),
-                      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-                      child: Row(children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(color: c.ci.brandSoft, borderRadius: BorderRadius.circular(9)),
-                          child: CiIcon(s.$1, size: 19, color: c.ci.brand),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(s.$2, style: c.tt.titleSmall),
-                          Text(s.$3, style: c.tt.bodySmall),
-                        ])),
-                        Icon(Icons.chevron_left_rounded, color: c.ci.subtle),
-                      ]),
+            final web = d.o('web');
+            Widget tile(String k) {
+              final s = _sections[k]!;
+              final isWeb = web.has(k);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Panel(
+                  onTap: () => isWeb ? openWebSettings(c, web.s(k)) : c.push('/crm-settings/$k'),
+                  padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+                  child: Row(children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: c.ci.brandSoft, borderRadius: BorderRadius.circular(9)),
+                      child: CiIcon(s.$1, size: 19, color: c.ci.brand),
                     ),
-                  ),
+                    const SizedBox(width: 12),
+                    Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(s.$2, style: c.tt.titleSmall),
+                      Text(s.$3, style: c.tt.bodySmall),
+                    ])),
+                    isWeb ? Icon(Icons.open_in_new_rounded, size: 18, color: c.ci.subtle) : Icon(Icons.chevron_left_rounded, color: c.ci.subtle),
+                  ]),
+                ),
+              );
+            }
+
+            final native = keys.where((k) => _sections.containsKey(k) && !web.has(k)).toList();
+            final pages = keys.where((k) => _sections.containsKey(k) && web.has(k)).toList();
+            return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              for (final k in native) tile(k),
+              if (pages.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 14, 4, 8),
+                  child: Text('بتتفتح زي صفحة الويب جوه التطبيق', style: c.tt.labelMedium?.copyWith(color: c.ci.subtle)),
+                ),
+                for (final k in pages) tile(k),
+              ],
             ]);
           },
         ),
@@ -69,6 +106,9 @@ Widget settingsSection(String kind) => switch (kind) {
       'users' => const UsersSettingsScreen(),
       'roles' => const RolesSettingsScreen(),
       'pipelines' => const PipelinesSettingsScreen(),
+      'hr_departments' => const HrDepartmentsScreen(),
+      'hr_settings' => const HrSettingsScreen(),
+      'email_templates' => const EmailTemplatesScreen(),
       _ => SimpleSettingsScreen(kind: kind),
     };
 
@@ -625,6 +665,328 @@ class _PipelineFormScreenState extends State<PipelineFormScreen> {
     };
     final p = widget.pipeline;
     final r = await doAction(context, () => p == null ? Api.I.post('settings/pipelines', body) : Api.I.put('settings/pipelines/${p.i('id')}', body));
+    if (!mounted) return;
+    setState(() => busy = false);
+    if (r != null) Navigator.pop(context, true);
+  }
+}
+
+/* ------------------------------------------------------------------ HR departments */
+
+class HrDepartmentsScreen extends StatefulWidget {
+  const HrDepartmentsScreen({super.key});
+  @override
+  State<HrDepartmentsScreen> createState() => _HrDepartmentsScreenState();
+}
+
+class _HrDepartmentsScreenState extends State<HrDepartmentsScreen> {
+  final _key = GlobalKey<LoaderState>();
+
+  @override
+  Widget build(BuildContext context) => CiPage(
+        title: 'أقسام الموظفين',
+        eyebrow: 'hr.departments',
+        body: Loader(
+          key: _key,
+          load: () => Api.I.get('settings/hr-departments'),
+          builder: (c, d, reload) {
+            final deps = d.l('data');
+            if (deps.isEmpty) return const EmptyState('مفيش أقسام. ضيفها من الأقسام (المجموعات).', icon: 'staff');
+            return Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text('البادئة بتبدأ بيها أكواد موظفين القسم (مثلاً DEV-001). المدير بيوافق على إجازات قسمه.', style: c.tt.bodySmall),
+              ),
+              for (final g in deps)
+                _row(
+                  c,
+                  title: g.s('name'),
+                  sub: '${g.i('size')} موظف · المدير: ${g.s('manager', 'مفيش')}',
+                  lead: Container(
+                    constraints: const BoxConstraints(minWidth: 46),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: c.ci.brandSoft, borderRadius: BorderRadius.circular(7)),
+                    child: Text(g.s('prefix', '—'), style: mono(c, size: 12, color: c.ci.brand, w: FontWeight.w700)),
+                  ),
+                  onTap: () => _edit(g, d.l('users')),
+                ),
+            ]);
+          },
+        ),
+      );
+
+  Future<void> _edit(Obj g, List<Obj> users) async {
+    final prefix = TextEditingController(text: g.s('prefix'));
+    int? manager = g.has('manager_id') ? g.i('manager_id') : null;
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      builder: (c) => StatefulBuilder(
+        builder: (c, set) => Padding(
+          padding: EdgeInsets.fromLTRB(16, 0, 16, MediaQuery.of(c).viewInsets.bottom + 16),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text(g.s('name'), style: c.tt.titleMedium),
+            const SizedBox(height: 12),
+            FieldLabel('بادئة الكود (حروف إنجليزي وأرقام)', child: TextField(controller: prefix, textDirection: TextDirection.ltr, textCapitalization: TextCapitalization.characters, maxLength: 8)),
+            FieldLabel('مدير القسم', child: PickBox(
+              icon: 'users',
+              text: users.where((u) => u.i('id') == manager).firstOrNull?.s('name') ?? 'من غير مدير',
+              placeholder: manager == null,
+              onTap: () async {
+                final v = await pickOne(c, 'مدير القسم', {'0': 'من غير مدير', for (final u in users) '${u.i('id')}': u.s('name')}, current: '${manager ?? 0}');
+                if (v != null) set(() => manager = v == '0' ? null : int.parse(v));
+              },
+            )),
+            FilledButton(
+              onPressed: () async {
+                final body = {
+                  'departments': [
+                    {'id': g.i('id'), 'prefix': prefix.text.trim().toUpperCase(), 'manager_id': manager},
+                  ],
+                };
+                final res = await doAction(c, () => Api.I.post('settings/hr-departments', body));
+                if (res != null && c.mounted) Navigator.pop(c, true);
+              },
+              child: const Text('احفظ'),
+            ),
+          ]),
+        ),
+      ),
+    );
+    if (ok == true) _key.currentState?.reload();
+  }
+}
+
+/* ------------------------------------------------------------------ HR work rules + holidays */
+
+const _days = {6: 'السبت', 0: 'الأحد', 1: 'الاتنين', 2: 'التلات', 3: 'الأربع', 4: 'الخميس', 5: 'الجمعة'};
+
+class HrSettingsScreen extends StatefulWidget {
+  const HrSettingsScreen({super.key});
+  @override
+  State<HrSettingsScreen> createState() => _HrSettingsScreenState();
+}
+
+class _HrSettingsScreenState extends State<HrSettingsScreen> {
+  final _key = GlobalKey<LoaderState>();
+
+  @override
+  Widget build(BuildContext context) => CiPage(
+        title: 'إعدادات الدوام',
+        eyebrow: 'hr.settings',
+        body: Loader(
+          key: _key,
+          load: () => Api.I.get('settings/hr'),
+          builder: (c, d, reload) => _HrForm(key: ValueKey(d.j.hashCode), s: d.o('data'), reload: reload),
+        ),
+      );
+}
+
+class _HrForm extends StatefulWidget {
+  const _HrForm({super.key, required this.s, required this.reload});
+  final Obj s;
+  final VoidCallback reload;
+  @override
+  State<_HrForm> createState() => _HrFormState();
+}
+
+class _HrFormState extends State<_HrForm> {
+  Obj get s => widget.s;
+  late String start = s.s('work_start', '09:00'), end = s.s('work_end', '17:00');
+  late final grace = TextEditingController(text: '${s.i('grace_minutes')}'),
+      lateFree = TextEditingController(text: '${s.i('late_free_minutes')}'),
+      leave = TextEditingController(text: '${s.i('annual_leave_days')}'),
+      currency = TextEditingController(text: s.s('currency'));
+  late Set<int> weekend = s.ls('weekend').map(int.parse).toSet();
+  late int monthDays = s.i('month_days', 30);
+  late bool absence = s.b('deduct_absence'), late_ = s.b('deduct_late');
+  bool busy = false;
+
+  Future<void> _time(bool isStart) async {
+    final cur = (isStart ? start : end).split(':');
+    final t = await showTimePicker(context: context, initialTime: TimeOfDay(hour: int.tryParse(cur[0]) ?? 9, minute: int.tryParse(cur.elementAtOrNull(1) ?? '0') ?? 0));
+    if (t == null) return;
+    final v = '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
+    setState(() => isStart ? start = v : end = v);
+  }
+
+  Widget _num(String label, TextEditingController ctl) => FieldLabel(label, child: TextField(controller: ctl, keyboardType: TextInputType.number, textDirection: TextDirection.ltr));
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context;
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Row(children: [
+        Expanded(child: FieldLabel('بداية اليوم', child: PickBox(icon: 'clock', text: start, onTap: () => _time(true)))),
+        const SizedBox(width: 10),
+        Expanded(child: FieldLabel('نهاية اليوم', child: PickBox(icon: 'clock', text: end, onTap: () => _time(false)))),
+      ]),
+      Row(children: [
+        Expanded(child: _num('سماح التأخير (دقيقة)', grace)),
+        const SizedBox(width: 10),
+        Expanded(child: _num('تأخير مسموح في الشهر (دقيقة)', lateFree)),
+      ]),
+      FieldLabel('أيام الإجازة الأسبوعية', child: Wrap(spacing: 6, runSpacing: 6, children: [
+        for (final e in _days.entries)
+          FilterChip(
+            label: Text(e.value, style: TextStyle(color: weekend.contains(e.key) ? c.ci.brand : c.ci.ink)),
+            selected: weekend.contains(e.key),
+            showCheckmark: false,
+            onSelected: (v) => setState(() => v ? weekend.add(e.key) : weekend.remove(e.key)),
+          ),
+      ])),
+      Row(children: [
+        Expanded(child: _num('إجازة سنوية (يوم)', leave)),
+        const SizedBox(width: 10),
+        Expanded(child: FieldLabel('العملة', child: TextField(controller: currency))),
+      ]),
+      FieldLabel('أيام الشهر في حساب المرتب', child: SegmentedButton<int>(
+        showSelectedIcon: false,
+        segments: const [ButtonSegment(value: 26, label: Text('26 يوم شغل')), ButtonSegment(value: 30, label: Text('30 يوم'))],
+        selected: {monthDays},
+        onSelectionChanged: (v) => setState(() => monthDays = v.first),
+      )),
+      SwitchListTile(contentPadding: EdgeInsets.zero, value: absence, onChanged: (v) => setState(() => absence = v), title: Text('خصم الغياب', style: c.tt.titleSmall), subtitle: Text('يوم الغياب من غير إجازة يتخصم', style: c.tt.bodySmall)),
+      SwitchListTile(contentPadding: EdgeInsets.zero, value: late_, onChanged: (v) => setState(() => late_ = v), title: Text('خصم التأخير', style: c.tt.titleSmall), subtitle: Text('اللي فوق المسموح في الشهر يتخصم', style: c.tt.bodySmall)),
+      const SizedBox(height: 8),
+      saveButton(busy: busy, text: 'احفظ الإعدادات', onPressed: _save),
+      const SizedBox(height: 26),
+      Row(children: [
+        Expanded(child: Text('العطلات الرسمية', style: c.tt.titleMedium)),
+        TextButton.icon(onPressed: _addHoliday, icon: const CiIcon('plus', size: 16), label: const Text('عطلة')),
+      ]),
+      const SizedBox(height: 6),
+      if (s.l('holidays').isEmpty) Text('مفيش عطلات السنة دي لسه.', style: c.tt.bodySmall),
+      for (final h in s.l('holidays'))
+        _row(
+          c,
+          title: h.s('name'),
+          sub: h.s('date'),
+          lead: CiIcon('calendar', size: 18, color: c.ci.brand),
+          trail: IconButton(
+            onPressed: () async {
+              if (await _delete(c, h.s('name'), 'settings/hr/holidays/${h.i('id')}')) widget.reload();
+            },
+            icon: CiIcon('trash', size: 18, color: c.ci.subtle),
+          ),
+        ),
+    ]);
+  }
+
+  Future<void> _save() async {
+    if (weekend.isEmpty) return toast(context, 'اختار يوم إجازة واحد على الأقل.', error: true);
+    setState(() => busy = true);
+    final r = await doAction(context, () => Api.I.post('settings/hr', {
+          'work_start': start, 'work_end': end, 'grace_minutes': int.tryParse(grace.text) ?? 0,
+          'late_free_minutes': int.tryParse(lateFree.text) ?? 0, 'weekend': weekend.toList()..sort(),
+          'annual_leave_days': int.tryParse(leave.text) ?? 0, 'month_days': monthDays, 'currency': currency.text.trim(),
+          'deduct_absence': absence, 'deduct_late': late_,
+        }));
+    if (!mounted) return;
+    setState(() => busy = false);
+    if (r != null) widget.reload();
+  }
+
+  Future<void> _addHoliday() async {
+    final day = await pickDate(context);
+    if (day == null || !mounted) return;
+    final name = await askText(context, 'اسم العطلة', action: 'أضف', lines: 1);
+    if (name == null || name.trim().isEmpty || !mounted) return;
+    final date = '${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
+    if (await doAction(context, () => Api.I.post('settings/hr/holidays', {'date': date, 'name': name.trim()})) != null) widget.reload();
+  }
+}
+
+/* ------------------------------------------------------------------ e-mail templates */
+
+class EmailTemplatesScreen extends StatefulWidget {
+  const EmailTemplatesScreen({super.key});
+  @override
+  State<EmailTemplatesScreen> createState() => _EmailTemplatesScreenState();
+}
+
+class _EmailTemplatesScreenState extends State<EmailTemplatesScreen> {
+  final _key = GlobalKey<LoaderState>();
+
+  @override
+  Widget build(BuildContext context) => CiPage(
+        title: 'قوالب الإيميل',
+        eyebrow: 'settings.email_templates',
+        fab: FloatingActionButton(onPressed: () => _open(null), child: const CiIcon('plus', size: 22)),
+        body: Loader(
+          key: _key,
+          load: () => Api.I.get('settings/email-templates'),
+          builder: (c, d, reload) {
+            final rows = d.l('data');
+            if (rows.isEmpty) return const EmptyState('مفيش قوالب لسه', icon: 'invoice');
+            return Column(children: [
+              for (final t in rows)
+                _row(
+                  c,
+                  title: t.s('name'),
+                  sub: t.s('subject'),
+                  trail: IconButton(
+                    onPressed: () async {
+                      if (await _delete(c, t.s('name'), 'settings/email-templates/${t.i('id')}')) reload();
+                    },
+                    icon: CiIcon('trash', size: 18, color: c.ci.subtle),
+                  ),
+                  onTap: () => _open(t),
+                ),
+            ]);
+          },
+        ),
+      );
+
+  Future<void> _open(Obj? t) async {
+    final ok = await Navigator.of(context).push<bool>(MaterialPageRoute(builder: (_) => EmailTemplateFormScreen(template: t)));
+    if (ok == true) _key.currentState?.reload();
+  }
+}
+
+class EmailTemplateFormScreen extends StatefulWidget {
+  const EmailTemplateFormScreen({super.key, this.template});
+  final Obj? template;
+  @override
+  State<EmailTemplateFormScreen> createState() => _EmailTemplateFormScreenState();
+}
+
+class _EmailTemplateFormScreenState extends State<EmailTemplateFormScreen> {
+  late final name = TextEditingController(text: widget.template?.s('name') ?? ''),
+      subject = TextEditingController(text: widget.template?.s('subject') ?? ''),
+      content = TextEditingController(text: widget.template?.s('content') ?? '');
+  bool busy = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = widget.template;
+    return CiPage(
+      title: t == null ? 'قالب جديد' : t.s('name'),
+      eyebrow: t == null ? 'template.new' : 'template #${t.i('id')}',
+      body: ListView(padding: const EdgeInsets.fromLTRB(16, 16, 16, 40), children: [
+        FieldLabel('الاسم', child: TextField(controller: name)),
+        FieldLabel('العنوان', child: TextField(controller: subject)),
+        FieldLabel('المحتوى (HTML، وتقدر تستخدم {%leads.title%} وغيرها)', child: TextField(
+          controller: content,
+          minLines: 10,
+          maxLines: 24,
+          textDirection: TextDirection.ltr,
+          style: mono(context, size: 12),
+        )),
+        saveButton(busy: busy, text: t == null ? 'أضف القالب' : 'احفظ', onPressed: _save),
+      ]),
+    );
+  }
+
+  Future<void> _save() async {
+    if (name.text.trim().isEmpty || subject.text.trim().isEmpty || content.text.trim().isEmpty) {
+      return toast(context, 'الاسم والعنوان والمحتوى مطلوبين.', error: true);
+    }
+    setState(() => busy = true);
+    final body = {'name': name.text.trim(), 'subject': subject.text.trim(), 'content': content.text};
+    final t = widget.template;
+    final r = await doAction(context, () => t == null ? Api.I.post('settings/email-templates', body) : Api.I.put('settings/email-templates/${t.i('id')}', body));
     if (!mounted) return;
     setState(() => busy = false);
     if (r != null) Navigator.pop(context, true);
