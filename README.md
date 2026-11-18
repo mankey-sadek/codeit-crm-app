@@ -1,6 +1,59 @@
 # code it CRM app
 
-Native mobile app (Android + iOS) for the code it CRM (crm.coditvision.com).
+Native mobile app (Android + iOS) for the code it CRM (crm.coditvision.com). Arabic, right to left, dark by default
+(light and "follow the phone" in Settings), code it brand (mint `#2BFF88`, the `>` command bar, square dots, Western digits).
 
-- `app/`: Flutter app (one codebase for Android and iOS).
-- `server/`: the CRM side: Laravel package `CodeIt\Mobile` (the app's API, `/api/mobile/v1`) and its install script.
+- `app/`: Flutter app, one codebase for Android and iOS.
+- `server/`: the CRM side. Laravel package `CodeIt\Mobile` (the app's API at `/api/mobile/v1`) plus install and rollback scripts.
+- `.github/workflows/build.yml`: builds the Android APK and the iOS app on GitHub.
+
+## What is in the app
+
+Every CRM module, with the same permissions as the web (the API calls the CRM's own controllers and ACL):
+home (today, approvals, tickets, pipeline), search, bell notifications, team tasks (board, status moves, comments, files),
+projects, support tickets (reply, internal note, status/priority/assignee, hours), invoices (payments), leads pipeline,
+contacts and companies (call, WhatsApp, email), activities, quotes, products, mail (folders, read, reply, new),
+team chat, my HR file (check in / out, attendance calendar, leave balance, payslips), leaves (request, approve), employees,
+attendance (managers can edit a day), payroll, careers applications. Each person only sees the modules their role allows.
+
+## Server: install the API (once)
+
+The web CRM is not changed. Run as root on serv1:
+
+```bash
+tar xzf /root/mobile-api.tgz -C /root
+bash /root/mobile-api/apply-mobile-api.sh       # backup first, checks at the end
+bash /root/mobile-api/rollback-mobile-api.sh    # undo (logs phones out, keeps the web as it was)
+```
+
+Build the bundle from this repo: `tar czf mobile-api.tgz --transform 's,^server,mobile-api,' server`.
+
+## Builds (GitHub Actions)
+
+Every push builds:
+
+- **Android**: `codeit-crm-<n>.apk` in the run's artifacts. Without a keystore it is debug-signed: fine to install and test,
+  not for the Play Store. For release signing add these repository secrets:
+  `ANDROID_KEYSTORE_BASE64` (the .jks file, base64), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`.
+  Keep the same keystore forever: Android only updates an app signed with the same key.
+- **iOS**: without signing secrets it only checks that the app builds. To get an installable `.ipa` you need an Apple Developer
+  account, then add `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_TEAM_ID` (and optionally the variable
+  `IOS_EXPORT_METHOD`: `ad-hoc` or `app-store`).
+
+## Run locally
+
+```bash
+cd app
+flutter pub get
+flutter run                                   # talks to https://crm.coditvision.com/api/mobile/v1
+flutter run --dart-define=API=http://10.0.2.2:8000/api/mobile/v1   # a local CRM from the Android emulator
+flutter build web --dart-define=DEMO=true --no-web-resources-cdn         # demo with recorded data, no server needed
+```
+
+`assets/demo/api.json` holds the demo answers (made-up data).
+
+## Push notifications (later)
+
+The server side is ready (`codeit:mobile-push`, every minute through the Laravel scheduler). It stays off until a Firebase
+service-account file is placed at `storage/app/private/codeit-fcm.json` on the server and the app gets its
+`google-services.json` / `GoogleService-Info.plist` (plus an APNs key from the Apple account for iPhones).

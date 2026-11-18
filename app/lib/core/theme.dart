@@ -128,6 +128,11 @@ ThemeData buildTheme(Ci c) {
     onPrimary: c.onBrand,
     secondary: c.teal,
     onSecondary: c.onBrand,
+    secondaryContainer: c.brandSoft,
+    onSecondaryContainer: c.brand,
+    primaryContainer: c.brandSoft,
+    onPrimaryContainer: c.brand,
+    onSurfaceVariant: c.muted,
     error: c.danger,
     onError: Colors.white,
     surface: c.surface,
@@ -197,10 +202,21 @@ ThemeData buildTheme(Ci c) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: c.brand, textStyle: text.labelLarge, shape: r8),
     ),
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? c.brandSoft : c.sunken),
+        foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? c.brand : c.muted),
+        side: WidgetStatePropertyAll(BorderSide(color: c.line)),
+        textStyle: WidgetStatePropertyAll(text.labelLarge!.copyWith(fontSize: 13)),
+        shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        minimumSize: const WidgetStatePropertyAll(Size(0, 44)),
+      ),
+    ),
     chipTheme: ChipThemeData(
-      backgroundColor: c.sunken,
-      side: BorderSide(color: c.line),
-      labelStyle: text.labelMedium,
+      color: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? c.brandSoft : c.sunken),
+      side: WidgetStateBorderSide.resolveWith((s) => BorderSide(color: s.contains(WidgetState.selected) ? c.brand.withValues(alpha: .55) : c.line)),
+      labelStyle: WidgetStateTextStyle.resolveWith((s) => text.labelMedium!.copyWith(color: s.contains(WidgetState.selected) ? c.brand : c.ink, fontWeight: s.contains(WidgetState.selected) ? FontWeight.w600 : FontWeight.w500)),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
     bottomSheetTheme: BottomSheetThemeData(

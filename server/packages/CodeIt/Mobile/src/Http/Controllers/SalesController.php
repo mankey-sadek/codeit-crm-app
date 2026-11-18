@@ -71,7 +71,7 @@ class SalesController extends Controller
     {
         $lead = $this->page('admin.leads.view', ['id' => $id])['lead'] ?? null;
         abort_unless($lead, 404);
-        $lead->load(['person.organization', 'stage', 'pipeline.stages', 'user', 'source', 'type', 'tags', 'products', 'quotes', 'activities.user']);
+        $lead->load(['person.organization', 'stage', 'pipeline.stages', 'user', 'source', 'type', 'tags', 'products', 'activities.user']);
 
         return response()->json(['data' => $this->leadJson($lead, true)]);
     }
@@ -115,8 +115,8 @@ class SalesController extends Controller
                 'pipeline' => $l->pipeline ? ['id' => $l->pipeline->id, 'name' => $l->pipeline->name,
                     'stages' => $l->pipeline->stages->sortBy('sort_order')->map(fn ($s) => ['id' => $s->id, 'code' => $s->code, 'name' => $s->name, 'probability' => (int) $s->probability])->values()] : null,
                 'products' => $l->products->map(fn ($p) => ['name' => $p->product?->name ?? $p->name, 'quantity' => (float) $p->quantity, 'price' => (float) $p->price, 'total' => (float) $p->amount])->values(),
-                'quotes' => $l->quotes->map(fn ($q) => ['id' => $q->id, 'subject' => $q->subject, 'grand_total' => (float) $q->grand_total])->values(),
-                'activities' => $l->activities->sortByDesc('created_at')->take(50)->map(fn ($a) => $this->activityJson($a))->values(),
+                'quotes' => DB::table('lead_quotes')->join('quotes', 'quotes.id', '=', 'lead_quotes.quote_id')->where('lead_id', $l->id)->get(['quotes.id', 'quotes.subject', 'quotes.grand_total'])->map(fn ($q) => ['id' => (int) $q->id, 'subject' => $q->subject, 'grand_total' => (float) $q->grand_total])->values(),
+                'activities' => tap($l->activities->sortByDesc('created_at')->take(50), fn ($r) => $this->attachLinks($r))->map(fn ($a) => $this->activityJson($a))->values(),
             ];
         }
 
@@ -143,7 +143,7 @@ class SalesController extends Controller
 
         return response()->json(['data' => $this->personJson($p) + [
             'leads' => $p->leads->filter(fn ($l) => ! $users || in_array($l->user_id, $users))->map(fn ($l) => ['id' => $l->id, 'title' => $l->title, 'value' => (float) $l->lead_value, 'stage' => $l->stage?->name])->values(),
-            'activities' => $p->activities->sortByDesc('created_at')->take(30)->map(fn ($a) => $this->activityJson($a))->values(),
+            'activities' => tap($p->activities->sortByDesc('created_at')->take(30), fn ($r) => $this->attachLinks($r))->map(fn ($a) => $this->activityJson($a))->values(),
             'tags' => $p->tags->pluck('name'),
         ]]);
     }
@@ -198,12 +198,13 @@ class SalesController extends Controller
         $from = request('from') ? \Carbon\Carbon::parse(request('from')) : now()->startOfDay()->subDays(1);
         $to = request('to') ? \Carbon\Carbon::parse(request('to')) : now()->endOfDay()->addDays(14);
         $users = bouncer()->getAuthorizedUserIds();
-        $rows = Activity::with(['user', 'leads', 'persons'])
+        $rows = Activity::with(['user'])
             ->whereIn('type', ['call', 'meeting', 'lunch', 'task'])
             ->when($users, fn ($q) => $q->where(fn ($w) => $w->whereIn('user_id', $users)->orWhereHas('participants', fn ($p) => $p->whereIn('user_id', $users))))
             ->when(request('done') !== null, fn ($q) => $q->where('is_done', (int) request('done')))
             ->whereBetween('schedule_from', [$from, $to])
             ->orderBy('schedule_from')->limit(300)->get();
+        $this->attachLinks($rows);
 
         return response()->json(['data' => $rows->map(fn ($a) => $this->activityJson($a))->values()]);
     }
@@ -233,7 +234,34 @@ class SalesController extends Controller
         $a = Activity::findOrFail($id);
         $input = array_filter(request()->only(['is_done', 'title', 'comment', 'schedule_from', 'schedule_to']), fn ($v) => $v !== null);
 
-        return $this->act('admin.activities.update', ['id' => $id], $input + ['type' => $a->type], fn () => $this->activityJson(Activity::with(['user', 'leads', 'persons'])->find($id)));
+        return $this->act('admin.activities.update', ['id' => $id], $input + ['type' => $a->type], function () use ($id) {
+            $a = Activity::with('user')->find($id);
+            $this->attachLinks(collect([$a]));
+
+            return $this->activityJson($a);
+        });
+    }
+
+    /**
+     * Lead + person of each activity, read from the pivot tables directly.
+     * (Eager loading Activity::leads/persons breaks on the live models' column scopes.)
+     */
+    protected function attachLinks($rows): void
+    {
+        $ids = $rows->pluck('id')->all();
+        if (! $ids) {
+            return;
+        }
+        $leads = DB::table('lead_activities')->join('leads', 'leads.id', '=', 'lead_activities.lead_id')
+            ->whereIn('activity_id', $ids)->get(['activity_id', 'leads.id', 'leads.title'])->keyBy('activity_id');
+        $persons = DB::table('person_activities')->join('persons', 'persons.id', '=', 'person_activities.person_id')
+            ->whereIn('activity_id', $ids)->get(['activity_id', 'persons.id', 'persons.name'])->keyBy('activity_id');
+        foreach ($rows as $a) {
+            $l = $leads->get($a->id);
+            $p = $persons->get($a->id);
+            $a->setAttribute('ci_lead', $l ? ['id' => (int) $l->id, 'name' => (string) $l->title] : null);
+            $a->setAttribute('ci_person', $p ? ['id' => (int) $p->id, 'name' => (string) $p->name] : null);
+        }
     }
 
     protected function activityJson(Activity $a): array
@@ -243,8 +271,8 @@ class SalesController extends Controller
             'schedule_from' => self::iso($a->schedule_from), 'schedule_to' => self::iso($a->schedule_to),
             'is_done' => (bool) $a->is_done, 'location' => $a->location,
             'user' => self::ref($a->user),
-            'lead' => self::ref($a->leads?->first(), 'title') ?? null,
-            'person' => self::ref($a->persons?->first()),
+            'lead' => $a->getAttribute('ci_lead'),
+            'person' => $a->getAttribute('ci_person'),
             'created_at' => self::iso($a->created_at),
         ];
     }
@@ -254,7 +282,7 @@ class SalesController extends Controller
     public function quotes(): JsonResponse
     {
         $g = $this->grid('admin.quotes.index', [], [], ['column' => 'id', 'order' => 'desc']);
-        $rows = self::ordered(Quote::class, $g['ids'], ['person', 'leads']);
+        $rows = self::ordered(Quote::class, $g['ids'], ['person']);
 
         return response()->json(['data' => $rows->map(fn ($q) => $this->quoteJson($q))->values(), 'meta' => $g['meta']]);
     }
@@ -263,7 +291,7 @@ class SalesController extends Controller
     {
         $q = $this->page('admin.quotes.edit', ['id' => $id])['quote'] ?? null;
         abort_unless($q, 404);
-        $q->load(['items', 'person', 'leads', 'user']);
+        $q->load(['items', 'person', 'user']);
 
         return response()->json(['data' => $this->quoteJson($q) + [
             'description' => (string) $q->description,
@@ -278,7 +306,7 @@ class SalesController extends Controller
     {
         return [
             'id' => $q->id, 'subject' => $q->subject, 'grand_total' => (float) $q->grand_total,
-            'expired_at' => self::iso($q->expired_at), 'person' => self::ref($q->person), 'lead' => self::ref($q->leads?->first(), 'title'),
+            'expired_at' => self::iso($q->expired_at), 'person' => self::ref($q->person), 'lead' => self::ref(DB::table('lead_quotes')->join('leads', 'leads.id', '=', 'lead_quotes.lead_id')->where('quote_id', $q->id)->select('leads.id', 'leads.title')->first(), 'title'),
         ];
     }
 
