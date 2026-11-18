@@ -52,8 +52,11 @@ abstract class Controller extends Base
         }
         $error = $session->get('error') ?? $session->get('warning');
         $errors = $session->get('errors');
-        if ($errors && method_exists($errors, 'first') && $errors->first()) {
-            return response()->json(['error' => ['code' => 'validation', 'message' => $errors->first()]], 422);
+        if ($errors instanceof \Illuminate\Support\ViewErrorBag) {
+            $errors = $errors->getBag('default');
+        }
+        if ($errors instanceof \Illuminate\Support\MessageBag && $errors->any()) {
+            return response()->json(['error' => ['code' => 'validation', 'message' => $errors->first(), 'details' => $errors->toArray()]], 422);
         }
         if ($error && ! $session->get('success')) {
             return response()->json(['error' => ['code' => 'rejected', 'message' => is_string($error) ? $error : trans('codeit_brand::api.validation')]], 422);
@@ -91,11 +94,61 @@ abstract class Controller extends Base
         [$class, $method] = explode('@', $route->getActionName());
         $controller = app($class);
 
-        try {
-            return app()->call([$controller, $method], $params);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            throw $e;
+        return app()->call([$controller, $method], $params);
+    }
+
+    /**
+     * A web list (Krayin DataGrid) as the app needs it: the ids the person may see, in order,
+     * with search / filters / paging, plus the raw rows for list-only columns.
+     */
+    protected function grid(string $routeName, array $params = [], array $filters = [], ?array $sort = null, int $per = 20): array
+    {
+        $page = max(1, (int) request('page', 1));
+        $q = ['pagination' => ['page' => $page, 'per_page' => in_array($per, [10, 20, 30, 40, 50], true) ? $per : 20]];
+        $search = trim((string) request('q'));
+        if ($search !== '') {
+            $filters['all'] = [$search];
         }
+        if ($filters) {
+            $q['filters'] = $filters;
+        }
+        if ($sort) {
+            $q['sort'] = $sort;
+        }
+        $old = request()->headers->get('X-Requested-With');
+        request()->headers->set('X-Requested-With', 'XMLHttpRequest');
+        try {
+            $d = $this->page($routeName, $params, $q);
+        } finally {
+            request()->headers->set('X-Requested-With', $old);
+        }
+        $rows = collect($d['records'] ?? []);
+
+        return [
+            'ids' => $rows->pluck('id')->map(fn ($v) => (int) $v)->all(),
+            'rows' => $rows->keyBy('id'),
+            'meta' => [
+                'total' => (int) ($d['meta']['total'] ?? $rows->count()),
+                'current_page' => (int) ($d['meta']['current_page'] ?? 1),
+                'last_page' => (int) ($d['meta']['last_page'] ?? 1),
+            ],
+        ];
+    }
+
+    /** Models for grid ids, in the grid's order. */
+    protected static function ordered(string $model, array $ids, array $with = [])
+    {
+        if (! $ids) {
+            return collect();
+        }
+        $byId = $model::with($with)->whereIn('id', $ids)->get()->keyBy('id');
+
+        return collect($ids)->map(fn ($id) => $byId[$id] ?? null)->filter()->values();
+    }
+
+    protected static function plain($v): string
+    {
+        return trim(html_entity_decode(strip_tags((string) $v), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
     }
 
     /* ---------- shaping helpers ---------- */
