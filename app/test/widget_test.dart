@@ -1,3 +1,5 @@
+import 'package:codeit_crm/core/api.dart';
+import 'package:dio/dio.dart';
 import 'package:codeit_crm/core/fmt.dart' as f;
 import 'package:codeit_crm/core/obj.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,5 +15,10 @@ void main() {
     expect(o.b('b'), true);
     expect(o.ref('ref'), 'سارة');
     expect(o.i('missing', 7), 7);
+  });
+
+  test('API calls go to /api/mobile/v1/<path>', () {
+    final o = RequestOptions(baseUrl: Api.I.dio.options.baseUrl, path: 'auth/login');
+    expect(o.uri.toString(), 'https://crm.coditvision.com/api/mobile/v1/auth/login');
   });
 }

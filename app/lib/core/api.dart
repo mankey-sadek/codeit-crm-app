@@ -33,7 +33,7 @@ class Api {
   void Function()? onUnauthorized;
 
   late final Dio dio = Dio(BaseOptions(
-    baseUrl: kApiBase,
+    baseUrl: kApiBase.endsWith('/') ? kApiBase : '$kApiBase/', // dio just glues baseUrl + path
     connectTimeout: const Duration(seconds: 15),
     receiveTimeout: const Duration(seconds: 30),
     headers: {'Accept': 'application/json', 'X-Locale': 'ar', 'X-App-Build': '$kAppBuild'},
