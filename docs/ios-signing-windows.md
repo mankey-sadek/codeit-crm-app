@@ -35,6 +35,8 @@ Certificates ← **+** ← **Apple Distribution** ← Continue ← ارفع `cod
 هيطلب منك باسورد مرتين. اختار باسورد جديد واحفظه في `codeit-secrets.txt`، ده هيبقى **IOS_P12_PASSWORD**.
 
 ## 5) الـ Provisioning Profile
+> قبل الخطوة دي: افتح Identifiers ← `com.coditvision.crm` ← علّم **Push Notifications** ← Save (عشان الإشعارات، تفاصيلها في `push-firebase.md`). لو عملت الـ Profile قبل كده، اعمله تاني.
+
 Profiles ← **+** ← تحت Distribution اختار **App Store Connect** ← Continue ← App ID: `com.coditvision.crm` ← اختار الشهادة اللي عملتها
 ← الاسم: `codeit crm appstore` ← Generate ← **Download**. حط الملف (`.mobileprovision`) في الفولدر.
 

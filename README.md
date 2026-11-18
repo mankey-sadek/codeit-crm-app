@@ -54,8 +54,12 @@ flutter build web --dart-define=DEMO=true --no-web-resources-cdn         # demo 
 
 `assets/demo/api.json` holds the demo answers (made-up data).
 
-## Push notifications (later)
+## Push notifications
 
-The server side is ready (`codeit:mobile-push`, every minute through the Laravel scheduler). It stays off until a Firebase
-service-account file is placed at `storage/app/private/codeit-fcm.json` on the server and the app gets its
-`google-services.json` / `GoogleService-Info.plist` (plus an APNs key from the Apple account for iPhones).
+Server: `codeit:mobile-push` runs every minute (Laravel scheduler) and sends new bell notifications and chat messages.
+It is on once the Firebase service-account file is at `storage/app/private/codeit-fcm.json`.
+App: the Firebase ids come from two repository secrets, `FIREBASE_ANDROID_JSON` (google-services.json) and
+`FIREBASE_IOS_PLIST` (GoogleService-Info.plist), pasted as text; `.github/firebase-defines.py` turns them into
+`--dart-define`s, so nothing Firebase is committed. Without them the app builds and works, just without push.
+iPhones also need Push Notifications on the App ID (then a new provisioning profile) and an APNs key uploaded to Firebase.
+Steps: `docs/push-firebase.md`.

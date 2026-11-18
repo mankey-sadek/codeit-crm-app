@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api.dart';
 import 'obj.dart';
+import 'push.dart';
 
 /// Who is signed in, what they may open, and app preferences (theme).
 class Session extends ChangeNotifier {
@@ -43,6 +44,8 @@ class Session extends ChangeNotifier {
       }
       if (me != null) _cache(p, me!);
     }
+    await Push.init();
+    if (me != null) Push.register();
     booting = false;
     notifyListeners();
   }
@@ -53,9 +56,11 @@ class Session extends ChangeNotifier {
     me = r.o('user');
     _cache(await SharedPreferences.getInstance(), me!);
     notifyListeners();
+    Push.register();
   }
 
   Future<void> logout() async {
+    await Push.unregister();
     try {
       await Api.I.post('auth/logout');
     } catch (_) {}

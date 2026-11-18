@@ -58,19 +58,24 @@ jobs:
             echo "No ANDROID_KEYSTORE_BASE64 secret: APK will be debug-signed (testing only)."
           fi
       - run: flutter pub get
+      - name: Firebase ids for push (optional)
+        env:
+          FIREBASE_ANDROID_JSON: ${{ secrets.FIREBASE_ANDROID_JSON }}
+          FIREBASE_IOS_PLIST: ${{ secrets.FIREBASE_IOS_PLIST }}
+        run: python3 ../.github/firebase-defines.py "$RUNNER_TEMP/firebase.json"
       - name: Build APK
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: flutter build apk --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }}
+        run: flutter build apk --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --dart-define-from-file="$RUNNER_TEMP/firebase.json"
       - name: Build App Bundle (Play Store)
         if: env.ANDROID_KEYSTORE_PATH != ''
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: flutter build appbundle --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }}
+        run: flutter build appbundle --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --dart-define-from-file="$RUNNER_TEMP/firebase.json"
       - run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/codeit-crm-${{ github.run_number }}.apk
       - uses: actions/upload-artifact@v4
         with:
@@ -92,6 +97,11 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - name: Firebase ids for push (optional)
+        env:
+          FIREBASE_ANDROID_JSON: ${{ secrets.FIREBASE_ANDROID_JSON }}
+          FIREBASE_IOS_PLIST: ${{ secrets.FIREBASE_IOS_PLIST }}
+        run: python3 ../.github/firebase-defines.py "$RUNNER_TEMP/firebase.json"
       - name: Signing (optional)
         id: sign
         env:
@@ -129,7 +139,7 @@ jobs:
       - name: Build iOS (unsigned)
         if: steps.sign.outputs.signed != 'true'
         run: |
-          flutter build ios --release --no-codesign --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }}
+          flutter build ios --release --no-codesign --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --dart-define-from-file="$RUNNER_TEMP/firebase.json"
           cd build/ios/iphoneos && zip -qr ../codeit-crm-ios-unsigned.zip Runner.app
       - name: Build IPA (signed)
         if: steps.sign.outputs.signed == 'true'
@@ -149,7 +159,7 @@ jobs:
             <key>provisioningProfiles</key><dict><key>com.coditvision.crm</key><string>${PROFILE_NAME}</string></dict>
           </dict></plist>
           PLIST
-          flutter build ipa --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --export-options-plist="$RUNNER_TEMP/export.plist"
+          flutter build ipa --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --dart-define-from-file="$RUNNER_TEMP/firebase.json" --export-options-plist="$RUNNER_TEMP/export.plist"
       - name: Upload to TestFlight (optional)
         if: steps.sign.outputs.signed == 'true' && github.event_name == 'push'
         env:

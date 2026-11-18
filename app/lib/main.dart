@@ -2,12 +2,30 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart' show GlobalCupertinoLocalizations, GlobalWidgetsLocalizations;
 import 'package:material_ui/material_ui.dart';
 
+import 'core/push.dart';
 import 'core/session.dart';
 import 'core/theme.dart';
+import 'features/home.dart';
 import 'router.dart';
+import 'ui/kit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Push.onOpen = (link) {
+    if (!Session.I.signedIn) return;
+    router.push(link.startsWith('/') ? link : (crmLinkRoute(link) ?? '/notifications'));
+  };
+  Push.onForeground = (m) {
+    final d = m.data;
+    if (d['kind'] == 'chat') {
+      Session.I.setBadges(chat: Session.I.unreadChat + 1);
+    } else {
+      Session.I.setBadges(notices: Session.I.unreadNotices + 1);
+    }
+    final c = rootKey.currentContext;
+    final n = m.notification;
+    if (c != null && n != null) toast(c, [n.title, n.body].whereType<String>().where((x) => x.isNotEmpty).join(' · '));
+  };
   await Session.I.boot();
   runApp(const CodeItApp());
 }

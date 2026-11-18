@@ -377,7 +377,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             onTap: () async {
               if (!n.b('is_read')) Api.I.post('notifications/${n.i('id')}/read');
               final link = n.s('link');
-              final route = _routeFor(link);
+              final route = crmLinkRoute(link);
               if (route != null) c.push(route);
             },
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -392,26 +392,26 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
         ),
       );
+}
 
-  /// CRM web links in the bell -> screens in the app.
-  static String? _routeFor(String link) {
-    final m = <RegExp, String Function(Match)>{
-      RegExp(r'team-tasks/(\d+)'): (m) => '/tasks/${m[1]}',
-      RegExp(r'tickets/view/(\d+)'): (m) => '/tickets/${m[1]}',
-      RegExp(r'projects/view/(\d+)'): (m) => '/projects/${m[1]}',
-      RegExp(r'leads/view/(\d+)'): (m) => '/leads/${m[1]}',
-      RegExp(r'invoices/view/(\d+)'): (m) => '/invoices/${m[1]}',
-      RegExp(r'careers/view/(\d+)'): (m) => '/careers/${m[1]}',
-      RegExp(r'employees/leaves'): (m) => '/hr/leaves',
-      RegExp(r'employees/payslip/(\d+)'): (m) => '/hr/payslips/${m[1]}',
-      RegExp(r'employees/(\d+)'): (m) => '/hr/employees/${m[1]}',
-      RegExp(r'employees/me'): (m) => '/me',
-      RegExp(r'/chat'): (m) => '/chat',
-    };
-    for (final e in m.entries) {
-      final x = e.key.firstMatch(link);
-      if (x != null) return e.value(x);
-    }
-    return null;
+/// CRM web links in the bell -> screens in the app.
+String? crmLinkRoute(String link) {
+  final m = <RegExp, String Function(Match)>{
+    RegExp(r'team-tasks/(\d+)'): (m) => '/tasks/${m[1]}',
+    RegExp(r'tickets/view/(\d+)'): (m) => '/tickets/${m[1]}',
+    RegExp(r'projects/view/(\d+)'): (m) => '/projects/${m[1]}',
+    RegExp(r'leads/view/(\d+)'): (m) => '/leads/${m[1]}',
+    RegExp(r'invoices/view/(\d+)'): (m) => '/invoices/${m[1]}',
+    RegExp(r'careers/view/(\d+)'): (m) => '/careers/${m[1]}',
+    RegExp(r'employees/leaves'): (m) => '/hr/leaves',
+    RegExp(r'employees/payslip/(\d+)'): (m) => '/hr/payslips/${m[1]}',
+    RegExp(r'employees/(\d+)'): (m) => '/hr/employees/${m[1]}',
+    RegExp(r'employees/me'): (m) => '/me',
+    RegExp(r'/chat'): (m) => '/chat',
+  };
+  for (final e in m.entries) {
+    final x = e.key.firstMatch(link);
+    if (x != null) return e.value(x);
   }
+  return null;
 }
