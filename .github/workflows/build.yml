@@ -161,7 +161,7 @@ jobs:
           PLIST
           flutter build ipa --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --dart-define-from-file="$RUNNER_TEMP/firebase.json" --export-options-plist="$RUNNER_TEMP/export.plist"
       - name: Upload to TestFlight (optional)
-        if: steps.sign.outputs.signed == 'true' && github.event_name == 'push'
+        if: steps.sign.outputs.signed == 'true' && github.event_name != 'pull_request'
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
