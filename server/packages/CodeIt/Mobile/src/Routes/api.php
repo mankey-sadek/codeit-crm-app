@@ -8,6 +8,7 @@ use CodeIt\Mobile\Http\Controllers\HomeController;
 use CodeIt\Mobile\Http\Controllers\HrController;
 use CodeIt\Mobile\Http\Controllers\MailController;
 use CodeIt\Mobile\Http\Controllers\SalesController;
+use CodeIt\Mobile\Http\Controllers\SettingsController;
 use CodeIt\Mobile\Http\Controllers\WorkController;
 use CodeIt\Mobile\Http\Middleware\MobileAuth;
 use Illuminate\Support\Facades\Route;
@@ -131,5 +132,26 @@ Route::middleware([MobileAuth::class, 'throttle:codeit-mobile'])->group(function
         Route::get('{id}', 'show')->whereNumber('id');
         Route::put('{id}', 'update')->whereNumber('id');
         Route::get('{id}/files/{fileId}', 'file')->whereNumber(['id', 'fileId']);
+    });
+
+    // CRM settings
+    Route::controller(SettingsController::class)->prefix('settings')->group(function () {
+        Route::get('', 'catalog');
+        Route::get('users', 'users');
+        Route::post('users', 'storeUser');
+        Route::put('users/{id}', 'updateUser')->whereNumber('id');
+        Route::delete('users/{id}', 'destroyUser')->whereNumber('id');
+        Route::get('roles', 'roles');
+        Route::post('roles', 'storeRole');
+        Route::put('roles/{id}', 'updateRole')->whereNumber('id');
+        Route::delete('roles/{id}', 'destroyRole')->whereNumber('id');
+        Route::get('pipelines', 'pipelines');
+        Route::post('pipelines', 'storePipeline');
+        Route::put('pipelines/{id}', 'updatePipeline')->whereNumber('id');
+        Route::delete('pipelines/{id}', 'destroyPipeline')->whereNumber('id');
+        Route::get('{kind}', 'simpleIndex')->where('kind', 'groups|sources|types|tags');
+        Route::post('{kind}', 'simpleStore')->where('kind', 'groups|sources|types|tags');
+        Route::put('{kind}/{id}', 'simpleUpdate')->where('kind', 'groups|sources|types|tags')->whereNumber('id');
+        Route::delete('{kind}/{id}', 'simpleDestroy')->where('kind', 'groups|sources|types|tags')->whereNumber('id');
     });
 });

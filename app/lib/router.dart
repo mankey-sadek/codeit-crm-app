@@ -13,6 +13,7 @@ import 'features/hr.dart';
 import 'features/mail.dart';
 import 'features/more.dart';
 import 'features/sales.dart';
+import 'features/settings.dart';
 import 'features/work.dart';
 import 'ui/kit.dart';
 
@@ -59,6 +60,8 @@ final router = GoRouter(
     _r('/tickets/new', (s) => NewTicketScreen(organizationId: _q(s, 'organization'), projectId: _q(s, 'project'))),
     _r('/tickets/:id', (s) => TicketScreen(id: _id(s))),
     _r('/support-packages', (s) => const PackagesScreen()),
+    _r('/crm-settings', (s) => const CrmSettingsScreen()),
+    _r('/crm-settings/:kind', (s) => settingsSection(s.pathParameters['kind'] ?? '')),
     _r('/invoices', (s) => const InvoicesScreen()),
     _r('/invoices/new', (s) => InvoiceFormScreen(organizationId: _q(s, 'organization'), projectId: _q(s, 'project'))),
     _r('/invoices/:id', (s) => InvoiceScreen(id: _id(s))),

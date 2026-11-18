@@ -482,7 +482,7 @@ class _ProjectFormScreenState extends State<ProjectFormScreen> with _Saving {
           text: members.isEmpty ? 'محدش لسه' : members.map((id) => _nameOf(users, id, '')).where((n) => n.isNotEmpty).join('، '),
           placeholder: members.isEmpty,
           onTap: () async {
-            final v = await _pickMany(context, 'الفريق', users, members);
+            final v = await pickMany(context, 'الفريق', users, members);
             if (v != null) setState(() => members = v);
           },
         )),
@@ -520,7 +520,7 @@ class _ProjectFormScreenState extends State<ProjectFormScreen> with _Saving {
   }
 }
 
-Future<List<int>?> _pickMany(BuildContext context, String title, List<Obj> items, List<int> current) {
+Future<List<int>?> pickMany(BuildContext context, String title, List<Obj> items, List<int> current) {
   final picked = {...current};
   return showModalBottomSheet<List<int>>(
     context: context,

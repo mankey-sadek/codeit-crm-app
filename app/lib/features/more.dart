@@ -37,6 +37,9 @@ class MoreScreen extends StatelessWidget {
       ('careers', 'users', 'التوظيف', '/careers'),
       ('chat_monitor', 'shield', 'متابعة الشات', '/chat/monitor'),
     ]),
+    ('النظام', [
+      ('settings', 'gear', 'إعدادات النظام', '/crm-settings'),
+    ]),
   ];
 
   @override

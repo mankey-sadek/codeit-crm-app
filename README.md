@@ -15,7 +15,8 @@ projects (new, edit), support tickets (new, reply, internal note, status/priorit
 invoices (new, edit, payments), leads pipeline (new lead with an existing or new contact),
 contacts and companies (new, call, WhatsApp, email), activities, quotes, products, mail (folders, read, reply, new),
 team chat (files and images, plus the admins' read-only chat monitor), my HR file (check in / out, attendance calendar, leave balance, payslips), leaves (request, approve), employees,
-attendance (managers can edit a day), payroll, careers applications. Each person only sees the modules their role allows.
+attendance (managers can edit a day), payroll, careers applications, and the CRM settings (users, roles and
+permissions, groups, pipelines and stages, lead sources and types, tags). Each person only sees the modules their role allows.
 
 ## Server: install the API (once)
 

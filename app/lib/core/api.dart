@@ -72,6 +72,7 @@ class Api {
   Future<Obj> get(String path, [Map<String, dynamic>? q]) => _wrap(() => dio.get(path, queryParameters: _clean(q)));
   Future<Obj> post(String path, [Object? body]) => _wrap(() => dio.post(path, data: body));
   Future<Obj> put(String path, [Object? body]) => _wrap(() => dio.put(path, data: body));
+  Future<Obj> delete(String path) => _wrap(() => dio.delete(path));
 
   Map<String, dynamic>? _clean(Map<String, dynamic>? q) => q == null ? null : (Map.of(q)..removeWhere((k, v) => v == null || v == ''));
 

@@ -109,6 +109,7 @@ class AuthController extends Controller
             'hr_attendance' => 'admin.codeit.hr.attendance',
             'hr_leaves' => 'admin.codeit.hr.leaves',
             'hr_payroll' => 'admin.codeit.hr.payroll',
+            'settings' => 'admin.settings.index',
         ] as $key => $route) {
             if (\Illuminate\Support\Facades\Route::has($route) && RouteGate::can($route)) {
                 $screens[] = $key;
