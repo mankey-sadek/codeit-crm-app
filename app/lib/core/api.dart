@@ -95,6 +95,10 @@ class Api {
         code = 'offline';
       } else if (status == 429) {
         msg = 'طلبات كتير ورا بعض. استنى دقيقة.';
+      } else {
+        // say what happened, so a screenshot is enough to find the cause
+        msg = 'حصلت مشكلة (${status > 0 ? status : e.type.name}). جرّب تاني.';
+        debugPrint('api ${e.requestOptions.method} ${e.requestOptions.path}: $status ${e.type} ${e.error}');
       }
       if (status == 401 && !kDemo) {
         await saveToken(null);
