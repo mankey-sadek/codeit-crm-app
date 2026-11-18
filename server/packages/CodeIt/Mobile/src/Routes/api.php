@@ -3,6 +3,7 @@
 use CodeIt\Mobile\Http\Controllers\AuthController;
 use CodeIt\Mobile\Http\Controllers\CareersController;
 use CodeIt\Mobile\Http\Controllers\ChatController;
+use CodeIt\Mobile\Http\Controllers\FormsController;
 use CodeIt\Mobile\Http\Controllers\HomeController;
 use CodeIt\Mobile\Http\Controllers\HrController;
 use CodeIt\Mobile\Http\Controllers\MailController;
@@ -85,6 +86,28 @@ Route::middleware([MobileAuth::class, 'throttle:codeit-mobile'])->group(function
         Route::get('{id}/messages', 'messages')->whereNumber('id');
         Route::post('{id}/messages', 'send')->whereNumber('id')->middleware('throttle:codeit-chat-send');
         Route::get('{id}/files/{messageId}', 'file')->whereNumber(['id', 'messageId']);
+        Route::get('monitor', 'monitor');
+        Route::get('monitor/{id}', 'monitorMessages')->whereNumber('id');
+        Route::get('monitor/{id}/files/{messageId}', 'monitorFile')->whereNumber(['id', 'messageId']);
+    });
+
+    // create / edit forms (each save runs the web form action)
+    Route::controller(FormsController::class)->group(function () {
+        Route::get('forms/options', 'options');
+        Route::post('persons', 'storePerson');
+        Route::post('organizations', 'storeOrganization');
+        Route::post('leads', 'storeLead');
+        Route::post('tickets', 'storeTicket');
+        Route::post('projects', 'storeProject');
+        Route::get('projects/{id}/form', 'projectForm')->whereNumber('id');
+        Route::put('projects/{id}', 'updateProject')->whereNumber('id');
+        Route::post('invoices', 'storeInvoice');
+        Route::get('invoices/{id}/form', 'invoiceForm')->whereNumber('id');
+        Route::put('invoices/{id}', 'updateInvoice')->whereNumber('id');
+        Route::get('tasks/{id}/form', 'taskForm')->whereNumber('id');
+        Route::put('tasks/{id}', 'updateTask')->whereNumber('id');
+        Route::get('support-packages', 'packages');
+        Route::post('support-packages/{id}/{action}', 'packageAction')->whereNumber('id')->where('action', 'renew|toggle');
     });
 
     Route::controller(HrController::class)->prefix('hr')->group(function () {

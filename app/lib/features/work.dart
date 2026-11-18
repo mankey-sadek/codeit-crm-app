@@ -14,6 +14,13 @@ import '../ui/forms.dart';
 import '../ui/kit.dart';
 import 'home.dart' show TaskTile, TicketTile;
 
+final _projectsKey = GlobalKey<PagedListState>(), _ticketsKey = GlobalKey<PagedListState>(), _invoicesKey = GlobalKey<PagedListState>();
+
+/// Open a form; when it saved, show the record again (fresh).
+Future<void> editThen(BuildContext c, String form, String back) async {
+  if (await c.push<bool>(form) == true && c.mounted) c.pushReplacement(back);
+}
+
 /* ================================================================== tasks */
 
 class TasksScreen extends StatefulWidget {
@@ -163,6 +170,7 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'مهمة',
         eyebrow: 'task #$id',
+        actions: [IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/tasks/$id/edit', '/tasks/$id'), icon: const CiIcon('edit', size: 20))],
         body: Loader(
           load: () => Api.I.get('tasks/$id'),
           builder: (c, r, reload) {
@@ -306,8 +314,10 @@ class _Timeline extends StatelessWidget {
 }
 
 class NewTaskScreen extends StatefulWidget {
-  const NewTaskScreen({super.key, this.projectId});
+  const NewTaskScreen({super.key, this.projectId, this.taskId});
   final int? projectId;
+  /// Set when editing an existing task.
+  final int? taskId;
   @override
   State<NewTaskScreen> createState() => _NewTaskScreenState();
 }
@@ -326,6 +336,26 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     super.initState();
     project = widget.projectId;
     Api.I.get('tasks', {'who': 'all'}).then((r) => mounted ? setState(() => meta = r) : null).catchError((_) => null);
+    if (widget.taskId != null) {
+      Api.I.get('tasks/${widget.taskId}/form').then((r) {
+        final t = r.o('data');
+        if (!mounted) return;
+        setState(() {
+          title.text = t.s('title');
+          desc.text = t.s('description');
+          link.text = t.s('link');
+          priority = t.s('priority', 'normal');
+          assignee = t.i('assignee_id') == 0 ? null : t.i('assignee_id');
+          group = t.i('group_id') == 0 ? null : t.i('group_id');
+          project = t.i('project_id') == 0 ? null : t.i('project_id');
+          due = t.t('due_date') ?? due;
+          final hm = t.s('due_time').split(':');
+          if (hm.length == 2) time = TimeOfDay(hour: int.tryParse(hm[0]) ?? 17, minute: int.tryParse(hm[1]) ?? 0);
+        });
+      }).catchError((e) {
+        if (mounted) toast(context, '$e', error: true);
+      });
+    }
   }
 
   @override
@@ -334,8 +364,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     final groups = meta?.l('groups') ?? const <Obj>[];
     String nameOf(List<Obj> l, int? id, String or) => l.where((x) => x.i('id') == id).firstOrNull?.s('name') ?? or;
     return CiPage(
-      title: 'مهمة جديدة',
-      eyebrow: 'tasks.new',
+      title: widget.taskId == null ? 'مهمة جديدة' : 'تعديل المهمة',
+      eyebrow: widget.taskId == null ? 'tasks.new' : 'task #${widget.taskId}',
       body: ListView(padding: const EdgeInsets.fromLTRB(16, 16, 16, 32), children: [
         FieldLabel('العنوان', child: TextField(controller: title, autofocus: true, decoration: const InputDecoration(hintText: 'مثلاً: تصميم صفحة الدفع'))),
         FieldLabel('التفاصيل', child: TextField(controller: desc, minLines: 3, maxLines: 8, decoration: const InputDecoration(hintText: 'المطلوب بالظبط'))),
@@ -380,7 +410,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         const SizedBox(height: 8),
         FilledButton(
           onPressed: busy ? null : _save,
-          child: busy ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('أضف المهمة'),
+          child: busy ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)) : Text(widget.taskId == null ? 'أضف المهمة' : 'احفظ التعديلات'),
         ),
       ]),
     );
@@ -389,7 +419,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   Future<void> _save() async {
     if (title.text.trim().isEmpty) return toast(context, 'اكتب عنوان المهمة.', error: true);
     setState(() => busy = true);
-    final r = await doAction(context, () => Api.I.post('tasks', {
+    final body = {
           'title': title.text.trim(),
           'description': desc.text.trim(),
           'link': link.text.trim(),
@@ -399,7 +429,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           'project_id': project,
           'due_date': f.ymd(due),
           'due_time': '${f.two(time.hour)}:${f.two(time.minute)}',
-        }));
+        };
+    final r = await doAction(context, () => widget.taskId == null ? Api.I.post('tasks', body) : Api.I.put('tasks/${widget.taskId}', body));
     if (!mounted) return;
     setState(() => busy = false);
     if (r != null) context.pop(true);
@@ -414,7 +445,9 @@ class ProjectsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'المشاريع',
         eyebrow: 'projects',
+        fab: FloatingActionButton(onPressed: () => context.push('/projects/new').then((_) => _projectsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
+          key: _projectsKey,
           path: 'projects',
           searchHint: 'دوّر باسم المشروع أو الكود',
           empty: 'مفيش مشاريع لسه',
@@ -468,6 +501,17 @@ class ProjectScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'مشروع',
         eyebrow: 'project #$id',
+        actions: [
+          IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/projects/$id/edit', '/projects/$id'), icon: const CiIcon('edit', size: 20)),
+          PopupMenuButton<String>(
+            icon: const CiIcon('plus', size: 20),
+            onSelected: (v) => context.push(v),
+            itemBuilder: (c) => [
+              PopupMenuItem(value: '/tickets/new?project=$id', child: const Text('تذكرة جديدة')),
+              PopupMenuItem(value: '/invoices/new?project=$id', child: const Text('فاتورة جديدة')),
+            ],
+          ),
+        ],
         body: Loader(
         load: () => Api.I.get('projects/$id'),
         builder: (c, r, reload) {
@@ -617,7 +661,10 @@ class _TicketsScreenState extends State<TicketsScreen> {
   Widget build(BuildContext context) => CiPage(
         title: 'تذاكر الدعم',
         eyebrow: 'support.tickets',
+        actions: [IconButton(tooltip: 'باقات الدعم', onPressed: () => context.push('/support-packages'), icon: const CiIcon('clock', size: 20))],
+        fab: FloatingActionButton(onPressed: () => context.push('/tickets/new').then((_) => _ticketsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
+          key: _ticketsKey,
           path: 'tickets',
           query: {'status': status},
           searchHint: 'رقم التذكرة أو الموضوع',
@@ -865,7 +912,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
   Widget build(BuildContext context) => CiPage(
         title: 'الفواتير',
         eyebrow: 'billing.invoices',
+        fab: FloatingActionButton(onPressed: () => context.push('/invoices/new').then((_) => _invoicesKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
+          key: _invoicesKey,
           path: 'invoices',
           query: {'status': status},
           searchHint: 'رقم الفاتورة أو العميل',
@@ -914,6 +963,7 @@ class InvoiceScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'فاتورة',
         eyebrow: 'invoice #$id',
+        actions: [IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/invoices/$id/edit', '/invoices/$id'), icon: const CiIcon('edit', size: 20))],
         body: Loader(
           load: () => Api.I.get('invoices/$id'),
           builder: (c, r, reload) {

@@ -7,6 +7,7 @@ import 'core/theme.dart';
 import 'features/auth.dart';
 import 'features/chat.dart';
 import 'features/careers.dart';
+import 'features/forms.dart';
 import 'features/home.dart';
 import 'features/hr.dart';
 import 'features/mail.dart';
@@ -19,6 +20,7 @@ final rootKey = GlobalKey<NavigatorState>();
 
 GoRoute _r(String path, Widget Function(GoRouterState s) b) => GoRoute(path: path, parentNavigatorKey: rootKey, pageBuilder: (c, s) => MaterialPage(child: b(s)));
 int _id(GoRouterState s, [String k = 'id']) => int.tryParse(s.pathParameters[k] ?? '') ?? 0;
+int? _q(GoRouterState s, String k) => int.tryParse(s.uri.queryParameters[k] ?? '');
 
 final router = GoRouter(
   navigatorKey: rootKey,
@@ -48,17 +50,27 @@ final router = GoRouter(
     _r('/settings', (s) => const SettingsScreen()),
     _r('/tasks/new', (s) => NewTaskScreen(projectId: int.tryParse(s.uri.queryParameters['project'] ?? ''))),
     _r('/tasks/:id', (s) => TaskScreen(id: _id(s))),
+    _r('/tasks/:id/edit', (s) => NewTaskScreen(taskId: _id(s))),
     _r('/projects', (s) => const ProjectsScreen()),
+    _r('/projects/new', (s) => ProjectFormScreen(organizationId: _q(s, 'organization'))),
     _r('/projects/:id', (s) => ProjectScreen(id: _id(s))),
+    _r('/projects/:id/edit', (s) => ProjectFormScreen(id: _id(s))),
     _r('/tickets', (s) => const TicketsScreen()),
+    _r('/tickets/new', (s) => NewTicketScreen(organizationId: _q(s, 'organization'), projectId: _q(s, 'project'))),
     _r('/tickets/:id', (s) => TicketScreen(id: _id(s))),
+    _r('/support-packages', (s) => const PackagesScreen()),
     _r('/invoices', (s) => const InvoicesScreen()),
+    _r('/invoices/new', (s) => InvoiceFormScreen(organizationId: _q(s, 'organization'), projectId: _q(s, 'project'))),
     _r('/invoices/:id', (s) => InvoiceScreen(id: _id(s))),
+    _r('/invoices/:id/edit', (s) => InvoiceFormScreen(id: _id(s))),
     _r('/leads', (s) => const LeadsBoardScreen()),
+    _r('/leads/new', (s) => NewLeadScreen(personId: _q(s, 'person'))),
     _r('/leads/:id', (s) => LeadScreen(id: _id(s))),
     _r('/persons', (s) => const PersonsScreen()),
+    _r('/persons/new', (s) => NewPersonScreen(organizationId: _q(s, 'organization'))),
     _r('/persons/:id', (s) => PersonScreen(id: _id(s))),
     _r('/organizations', (s) => const OrganizationsScreen()),
+    _r('/organizations/new', (s) => const NewOrganizationScreen()),
     _r('/organizations/:id', (s) => OrganizationScreen(id: _id(s))),
     _r('/activities', (s) => const ActivitiesScreen()),
     _r('/activities/new', (s) => NewActivityScreen(leadId: int.tryParse(s.uri.queryParameters['lead'] ?? ''), personId: int.tryParse(s.uri.queryParameters['person'] ?? ''))),
@@ -69,6 +81,8 @@ final router = GoRouter(
     _r('/mail/compose', (s) => ComposeScreen(to: s.uri.queryParameters['to'], subject: s.uri.queryParameters['subject'], parentId: int.tryParse(s.uri.queryParameters['parent'] ?? ''))),
     _r('/mail/:folder/:id', (s) => MailViewScreen(folder: s.pathParameters['folder'] ?? 'inbox', id: _id(s))),
     _r('/chat/new', (s) => const NewChatScreen()),
+    _r('/chat/monitor', (s) => const ChatMonitorScreen()),
+    _r('/chat/monitor/:id', (s) => MonitorConversationScreen(id: _id(s), title: s.uri.queryParameters['t'] ?? '')),
     _r('/chat/:id', (s) => ConversationScreen(id: _id(s), title: s.uri.queryParameters['t'] ?? '')),
     _r('/hr/leaves', (s) => const LeavesScreen()),
     _r('/hr/leaves/new', (s) => const NewLeaveScreen()),

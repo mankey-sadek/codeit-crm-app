@@ -69,6 +69,34 @@ class ChatController extends Controller
         return $this->run('admin.codeit.chat.file', ['id' => $id, 'messageId' => $messageId], []);
     }
 
+    /** Admins: every conversation (read-only), like the web's chat monitor. */
+    public function monitor(): JsonResponse
+    {
+        return $this->run('admin.codeit.chatmonitor.list', [], array_filter(request()->only(['q', 'user'])));
+    }
+
+    public function monitorMessages(int $id): JsonResponse
+    {
+        $res = $this->run('admin.codeit.chatmonitor.messages', ['id' => $id], array_filter(['before' => request('before')]));
+        $d = $res->getData(true);
+        $names = DB::table('users')->pluck('name', 'id');
+        $d['messages'] = collect($d['messages'] ?? [])->map(function ($m) use ($id, $names) {
+            $m = $this->msg($m, $id, $names);
+            if (! empty($m['file']['url'])) {
+                $m['file']['url'] = url('api/mobile/v1/chat/monitor/'.$id.'/files/'.$m['id']);
+            }
+
+            return $m;
+        })->values();
+
+        return response()->json($d, $res->getStatusCode());
+    }
+
+    public function monitorFile(int $id, int $messageId)
+    {
+        return $this->run('admin.codeit.chatmonitor.file', ['id' => $id, 'messageId' => $messageId], []);
+    }
+
     protected function msg(array $m, int $conversation, $names): array
     {
         $m['sender'] = $names[$m['user_id'] ?? 0] ?? '';

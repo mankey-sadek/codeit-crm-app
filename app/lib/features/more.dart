@@ -25,6 +25,7 @@ class MoreScreen extends StatelessWidget {
       ('projects', 'branch', 'المشاريع', '/projects'),
       ('team_tasks', 'tasks', 'المهام', '/tasks'),
       ('tickets', 'bug', 'التذاكر', '/tickets'),
+      ('support_packages', 'clock', 'باقات الدعم', '/support-packages'),
       ('invoices', 'invoice', 'الفواتير', '/invoices'),
       ('mail', 'bell', 'البريد', '/mail'),
     ]),
@@ -34,6 +35,7 @@ class MoreScreen extends StatelessWidget {
       ('hr_leaves', 'calendar', 'الإجازات', '/hr/leaves'),
       ('hr_payroll', 'chart', 'المرتبات', '/hr/payroll'),
       ('careers', 'users', 'التوظيف', '/careers'),
+      ('chat_monitor', 'shield', 'متابعة الشات', '/chat/monitor'),
     ]),
   ];
 

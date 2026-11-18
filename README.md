@@ -10,10 +10,11 @@ Native mobile app (Android + iOS) for the code it CRM (crm.coditvision.com). Ara
 ## What is in the app
 
 Every CRM module, with the same permissions as the web (the API calls the CRM's own controllers and ACL):
-home (today, approvals, tickets, pipeline), search, bell notifications, team tasks (board, status moves, comments, files),
-projects, support tickets (reply, internal note, status/priority/assignee, hours), invoices (payments), leads pipeline,
-contacts and companies (call, WhatsApp, email), activities, quotes, products, mail (folders, read, reply, new),
-team chat, my HR file (check in / out, attendance calendar, leave balance, payslips), leaves (request, approve), employees,
+home (today, approvals, tickets, pipeline), search, bell notifications, team tasks (board, new, edit, status moves, comments, files),
+projects (new, edit), support tickets (new, reply, internal note, status/priority/assignee, hours), support packages (renew, pause),
+invoices (new, edit, payments), leads pipeline (new lead with an existing or new contact),
+contacts and companies (new, call, WhatsApp, email), activities, quotes, products, mail (folders, read, reply, new),
+team chat (files and images, plus the admins' read-only chat monitor), my HR file (check in / out, attendance calendar, leave balance, payslips), leaves (request, approve), employees,
 attendance (managers can edit a day), payroll, careers applications. Each person only sees the modules their role allows.
 
 ## Server: install the API (once)

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart' show FormData, MultipartFile;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
@@ -62,6 +64,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
       title: 'الشات',
       eyebrow: 'team.chat',
       back: false,
+      actions: [if (Session.I.can('chat_monitor')) IconButton(tooltip: 'متابعة كل المحادثات', onPressed: () => context.push('/chat/monitor'), icon: const Icon(Icons.visibility_outlined, size: 21))],
       fab: FloatingActionButton(onPressed: () => context.push('/chat/new').then((_) => _load()), child: const CiIcon('edit', size: 20)),
       body: convs == null
           ? (error != null ? ErrorState(error!, onRetry: _load) : const Padding(padding: EdgeInsets.all(16), child: Skeleton()))
@@ -315,12 +318,24 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
     }
   }
 
-  Future<void> _send() async {
+  Future<void> _attach() async {
+    if (sending) return;
+    final files = await FilePicker.pickFiles();
+    if (files.isEmpty || files.first.path == null || !mounted) return;
+    final x = files.first;
+    if (await x.xFile.length() > 20 * 1024 * 1024) {
+      if (mounted) toast(context, 'الملف أكبر من 20 ميجا.', error: true);
+      return;
+    }
+    await _send(file: await MultipartFile.fromFile(x.path!, filename: x.name));
+  }
+
+  Future<void> _send({MultipartFile? file}) async {
     final text = input.text.trim();
-    if (text.isEmpty || sending) return;
+    if ((text.isEmpty && file == null) || sending) return;
     setState(() => sending = true);
     try {
-      final r = await Api.I.post('chat/${widget.id}/messages', {'body': text});
+      final r = await Api.I.post('chat/${widget.id}/messages', file == null ? {'body': text} : FormData.fromMap({'body': text, 'file': file}));
       input.clear();
       if (r.has('message') && mounted) setState(() => _merge([r.o('message')]));
       HapticFeedback.selectionClick();
@@ -375,6 +390,7 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
             padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
             decoration: BoxDecoration(color: context.ci.surface, border: Border(top: BorderSide(color: context.ci.line))),
             child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              IconButton(tooltip: 'ابعت ملف أو صورة', onPressed: sending ? null : _attach, icon: Icon(Icons.attach_file_rounded, size: 21, color: context.ci.muted)),
               Expanded(
                 child: TextField(
                   controller: input,
@@ -386,7 +402,7 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
               ),
               const SizedBox(width: 8),
               IconButton.filled(
-                onPressed: sending ? null : _send,
+                onPressed: sending ? null : () => _send(),
                 icon: sending ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)) : const CiIcon('arrow', size: 20),
               ),
             ]),
@@ -469,6 +485,161 @@ class _Bubble extends StatelessWidget {
           Align(alignment: AlignmentDirectional.centerEnd, child: Text(f.time(m.t('at')), style: mono(context, size: 9.5))),
         ]),
       ),
+    );
+  }
+}
+
+
+/* ================================================================== monitor (admins) */
+
+class ChatMonitorScreen extends StatefulWidget {
+  const ChatMonitorScreen({super.key});
+  @override
+  State<ChatMonitorScreen> createState() => _ChatMonitorScreenState();
+}
+
+class _ChatMonitorScreenState extends State<ChatMonitorScreen> {
+  String q = '';
+  Timer? _deb;
+  final _key = GlobalKey<LoaderState>();
+
+  @override
+  void dispose() {
+    _deb?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => CiPage(
+        title: 'متابعة المحادثات',
+        eyebrow: 'chat.monitor',
+        body: Loader(
+          key: _key,
+          load: () async {
+            final r = await Api.I.get('chat/monitor', {if (q.isNotEmpty) 'q': q});
+            final u = await Api.I.get('chat/users');
+            return Obj({'conversations': r.j['conversations'], 'users': u.j['users']});
+          },
+          builder: (c, d, reload) {
+            final names = {for (final u in d.l('users')) u.i('id'): u.s('name')};
+            final list = d.l('conversations');
+            return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              CommandField(hint: 'دوّر في الرسايل أو الأسماء', onChanged: (v) {
+                _deb?.cancel();
+                _deb = Timer(const Duration(milliseconds: 450), () {
+                  q = v.trim();
+                  _key.currentState?.reload();
+                });
+              }),
+              const SizedBox(height: 10),
+              Text('بتشوف كل المحادثات للقراءة بس. محدش بيعرف إنك فتحتها.', style: c.tt.bodySmall),
+              const SizedBox(height: 10),
+              if (list.isEmpty) const EmptyState('مفيش محادثات', icon: 'users'),
+              for (final cv in list) _MonitorRow(cv, names),
+            ]);
+          },
+        ),
+      );
+}
+
+class _MonitorRow extends StatelessWidget {
+  const _MonitorRow(this.c, this.names);
+  final Obj c;
+  final Map<int, String> names;
+  @override
+  Widget build(BuildContext context) {
+    final people = c.ls('members').map((id) => names[int.tryParse(id) ?? 0] ?? '').where((n) => n.isNotEmpty).toList();
+    final title = c.s('type') == 'group' && c.has('title') ? c.s('title') : people.join(' و ');
+    final last = c.on('last');
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Panel(
+        padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+        onTap: () => context.push('/chat/monitor/${c.i('id')}?t=${Uri.encodeComponent(title)}'),
+        child: Row(children: [
+          Avatar(title.isEmpty ? '؟' : title, size: 40, group: c.s('type') == 'group'),
+          const SizedBox(width: 12),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(title, style: context.tt.titleSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+            if (last != null)
+              Text('${names[last.i('user_id')] ?? ''}: ${last.b('deleted') ? 'رسالة اتمسحت' : last.on('file') != null ? '📎 ${last.o('file').s('name')}' : last.s('body')}',
+                  style: context.tt.bodySmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ])),
+          const SizedBox(width: 8),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text(f.ago(c.t('at')), style: mono(context, size: 10.5, color: context.ci.subtle)),
+            const SizedBox(height: 4),
+            Text('${c.i('count')} رسالة', style: mono(context, size: 10.5, color: context.ci.muted)),
+          ]),
+        ]),
+      ),
+    );
+  }
+}
+
+class MonitorConversationScreen extends StatefulWidget {
+  const MonitorConversationScreen({super.key, required this.id, this.title = ''});
+  final int id;
+  final String title;
+  @override
+  State<MonitorConversationScreen> createState() => _MonitorConversationScreenState();
+}
+
+class _MonitorConversationScreenState extends State<MonitorConversationScreen> {
+  final msgs = <Obj>[];
+  bool loading = true, more = true;
+  String? error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load({bool older = false}) async {
+    try {
+      final r = await Api.I.get('chat/monitor/${widget.id}', {if (older && msgs.isNotEmpty) 'before': msgs.first.i('id')});
+      final got = r.l('messages');
+      if (!mounted) return;
+      setState(() {
+        msgs.insertAll(0, got.where((m) => !msgs.any((x) => x.i('id') == m.i('id'))));
+        more = got.length >= 30;
+        loading = false;
+      });
+    } on ApiError catch (e) {
+      if (mounted) setState(() => (error = e.message, loading = false));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final items = msgs.reversed.toList();
+    return CiPage(
+      title: widget.title.isEmpty ? 'محادثة' : widget.title,
+      eyebrow: 'monitor #${widget.id} · قراءة بس',
+      body: loading
+          ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
+          : error != null
+              ? ErrorState(error!, onRetry: _load)
+              : ListView.builder(
+                  reverse: true,
+                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 16),
+                  itemCount: items.length + (more ? 1 : 0),
+                  itemBuilder: (c, i) {
+                    if (i == items.length) {
+                      return Center(child: TextButton(onPressed: () => _load(older: true), child: const Text('رسايل أقدم')));
+                    }
+                    final m = items[i];
+                    final prev = i + 1 < items.length ? items[i + 1] : null;
+                    final newDay = prev == null || f.ymd(prev.t('at') ?? DateTime(2000)) != f.ymd(m.t('at') ?? DateTime(2000));
+                    final showName = newDay || prev.i('user_id') != m.i('user_id');
+                    final view = Obj({...m.j, 'mine': false});
+                    return Column(children: [
+                      if (newDay) _DayChip(m.t('at')),
+                      _Bubble(view, convId: widget.id, showName: showName),
+                    ]);
+                  },
+                ),
     );
   }
 }

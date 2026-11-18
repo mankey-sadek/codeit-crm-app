@@ -10,6 +10,8 @@ import '../ui/data.dart';
 import '../ui/forms.dart';
 import '../ui/kit.dart';
 
+final _personsKey = GlobalKey<PagedListState>(), _orgsKey = GlobalKey<PagedListState>(), _boardKey = GlobalKey<LoaderState>();
+
 /// Krayin's default stage codes, in the CRM's Arabic wording.
 const stageNames = {'new': 'جديد', 'follow-up': 'متابعة', 'prospect': 'محتمل', 'negotiation': 'تفاوض', 'won': 'اتكسب', 'lost': 'اتخسر'};
 String stageName(Obj s) => stageNames[s.s('code')] ?? s.s('name');
@@ -38,7 +40,9 @@ class _LeadsBoardScreenState extends State<LeadsBoardScreen> {
   Widget build(BuildContext context) => CiPage(
         title: 'الفرص',
         eyebrow: 'sales.pipeline',
+        fab: FloatingActionButton(onPressed: () => context.push('/leads/new').then((_) => _boardKey.currentState?.reload()), child: const CiIcon('plus', size: 22)),
         body: Loader(
+          key: _boardKey,
           load: () => Api.I.get('leads/board', {if (q.isNotEmpty) 'q': q}),
           builder: (c, d, reload) {
             final stages = d.l('stages');
@@ -268,7 +272,9 @@ class PersonsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'العملاء',
         eyebrow: 'contacts.persons',
+        fab: FloatingActionButton(onPressed: () => context.push('/persons/new').then((_) => _personsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
+          key: _personsKey,
           path: 'persons',
           searchHint: 'اسم، تليفون أو إيميل',
           empty: 'مفيش عملاء',
@@ -298,6 +304,7 @@ class PersonScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'عميل',
         eyebrow: 'person #$id',
+        actions: [IconButton(tooltip: 'فرصة جديدة', onPressed: () => context.push('/leads/new?person=$id'), icon: const CiIcon('plus', size: 20))],
         body: Loader(
           load: () => Api.I.get('persons/$id'),
           builder: (c, r, reload) {
@@ -345,7 +352,9 @@ class OrganizationsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'الشركات',
         eyebrow: 'contacts.organizations',
+        fab: FloatingActionButton(onPressed: () => context.push('/organizations/new').then((_) => _orgsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
+          key: _orgsKey,
           path: 'organizations',
           searchHint: 'اسم الشركة',
           empty: 'مفيش شركات',
@@ -377,6 +386,18 @@ class OrganizationScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'شركة',
         eyebrow: 'organization #$id',
+        actions: [
+          PopupMenuButton<String>(
+            icon: const CiIcon('plus', size: 20),
+            onSelected: (v) => context.push(v),
+            itemBuilder: (c) => [
+              PopupMenuItem(value: '/persons/new?organization=$id', child: const Text('جهة اتصال جديدة')),
+              PopupMenuItem(value: '/tickets/new?organization=$id', child: const Text('تذكرة جديدة')),
+              PopupMenuItem(value: '/projects/new?organization=$id', child: const Text('مشروع جديد')),
+              PopupMenuItem(value: '/invoices/new?organization=$id', child: const Text('فاتورة جديدة')),
+            ],
+          ),
+        ],
         body: Loader(
           load: () => Api.I.get('organizations/$id'),
           builder: (c, r, reload) {
