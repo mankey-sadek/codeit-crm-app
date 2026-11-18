@@ -98,21 +98,33 @@ jobs:
           P12_B64: ${{ secrets.IOS_P12_BASE64 }}
           P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
           PROFILE_B64: ${{ secrets.IOS_PROFILE_BASE64 }}
+          TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
         run: |
-          if [ -z "$P12_B64" ] || [ -z "$PROFILE_B64" ]; then
+          if [ -z "$P12_B64" ] || [ -z "$PROFILE_B64" ] || [ -z "$TEAM_ID" ]; then
             echo "No iOS signing secrets: building without code signing (checks the build only)."
             echo "signed=false" >> "$GITHUB_OUTPUT"; exit 0
           fi
+          # base64 from Windows certutil may carry -----BEGIN/END----- lines and CRLF: strip them
+          unb64() { tr -d '\r' | grep -v '^-----' | base64 -D; }
           KC="$RUNNER_TEMP/ci.keychain-db"; KP="$(uuidgen)"
           security create-keychain -p "$KP" "$KC"
           security set-keychain-settings -lut 21600 "$KC"
           security unlock-keychain -p "$KP" "$KC"
-          echo "$P12_B64" | base64 -d > "$RUNNER_TEMP/cert.p12"
+          printf '%s' "$P12_B64" | unb64 > "$RUNNER_TEMP/cert.p12"
           security import "$RUNNER_TEMP/cert.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KC"
-          security set-key-partition-list -S apple-tool:,apple: -k "$KP" "$KC"
-          security list-keychain -d user -s "$KC"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KP" "$KC" >/dev/null
+          security list-keychain -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$PROFILE_B64" | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/codeit.mobileprovision
+          PP=~/Library/MobileDevice/Provisioning\ Profiles/codeit.mobileprovision
+          printf '%s' "$PROFILE_B64" | unb64 > "$PP"
+          security cms -D -i "$PP" > "$RUNNER_TEMP/profile.plist"
+          NAME=$(/usr/libexec/PlistBuddy -c 'Print Name' "$RUNNER_TEMP/profile.plist")
+          UUID=$(/usr/libexec/PlistBuddy -c 'Print UUID' "$RUNNER_TEMP/profile.plist")
+          cp "$PP" ~/Library/MobileDevice/Provisioning\ Profiles/$UUID.mobileprovision
+          echo "Profile: $NAME"
+          # manual signing for the app target only (pods stay unsigned frameworks)
+          sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = com.coditvision.crm;/PRODUCT_BUNDLE_IDENTIFIER = com.coditvision.crm; CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = $TEAM_ID; PROVISIONING_PROFILE_SPECIFIER = \"$NAME\"; \"CODE_SIGN_IDENTITY[sdk=iphoneos*]\" = \"Apple Distribution\";/" ios/Runner.xcodeproj/project.pbxproj
+          echo "profile_name=$NAME" >> "$GITHUB_OUTPUT"
           echo "signed=true" >> "$GITHUB_OUTPUT"
       - name: Build iOS (unsigned)
         if: steps.sign.outputs.signed != 'true'
@@ -123,7 +135,8 @@ jobs:
         if: steps.sign.outputs.signed == 'true'
         env:
           TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
-          EXPORT_METHOD: ${{ vars.IOS_EXPORT_METHOD || 'ad-hoc' }}
+          PROFILE_NAME: ${{ steps.sign.outputs.profile_name }}
+          EXPORT_METHOD: ${{ vars.IOS_EXPORT_METHOD || 'app-store-connect' }}
         run: |
           cat > "$RUNNER_TEMP/export.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
@@ -132,10 +145,24 @@ jobs:
             <key>method</key><string>${EXPORT_METHOD}</string>
             <key>teamID</key><string>${TEAM_ID}</string>
             <key>signingStyle</key><string>manual</string>
-            <key>provisioningProfiles</key><dict><key>com.coditvision.crm</key><string>$(security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/codeit.mobileprovision | plutil -extract Name raw -)</string></dict>
+            <key>signingCertificate</key><string>Apple Distribution</string>
+            <key>provisioningProfiles</key><dict><key>com.coditvision.crm</key><string>${PROFILE_NAME}</string></dict>
           </dict></plist>
           PLIST
           flutter build ipa --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }} --export-options-plist="$RUNNER_TEMP/export.plist"
+      - name: Upload to TestFlight (optional)
+        if: steps.sign.outputs.signed == 'true' && github.event_name == 'push'
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          if [ -z "$ASC_KEY_ID" ] || [ -z "$ASC_ISSUER_ID" ] || [ -z "$ASC_KEY_P8" ]; then
+            echo "No App Store Connect API key secrets: the IPA is in the artifacts, not uploaded."; exit 0
+          fi
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s\n' "$ASC_KEY_P8" | tr -d '\r' > ~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
+          xcrun altool --upload-app -f build/ios/ipa/*.ipa -t ios --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
       - uses: actions/upload-artifact@v4
         with:
           name: codeit-crm-ios-${{ github.run_number }}

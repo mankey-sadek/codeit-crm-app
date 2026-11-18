@@ -36,9 +36,11 @@ Every push builds:
   not for the Play Store. For release signing add these repository secrets:
   `ANDROID_KEYSTORE_BASE64` (the .jks file, base64), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`.
   Keep the same keystore forever: Android only updates an app signed with the same key.
-- **iOS**: without signing secrets it only checks that the app builds. To get an installable `.ipa` you need an Apple Developer
-  account, then add `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_TEAM_ID` (and optionally the variable
-  `IOS_EXPORT_METHOD`: `ad-hoc` or `app-store`).
+- **iOS**: without signing secrets it only checks that the app builds. With an Apple Developer account, add
+  `IOS_P12_BASE64` (Apple Distribution certificate + key as .p12, base64), `IOS_P12_PASSWORD`,
+  `IOS_PROFILE_BASE64` (App Store provisioning profile for `com.coditvision.crm`, base64) and `IOS_TEAM_ID`: each push then
+  builds a signed `.ipa`. Add `ASC_KEY_ID`, `ASC_ISSUER_ID` and `ASC_KEY_P8` (App Store Connect API key, the .p8 text) and it
+  is uploaded to TestFlight too. Step-by-step guide for Windows: `docs/ios-signing-windows.md`.
 
 ## Run locally
 
