@@ -39,6 +39,12 @@ class MobileServiceProvider extends ServiceProvider
         Route::middleware(['web', 'throttle:20,1'])->get('mobile-web/{code}', \CodeIt\Mobile\Http\Controllers\WebHandoffController::class)
             ->where('code', '[A-Za-z0-9]{48}');
 
+        // public pages the App Store and Google Play link to
+        foreach (['privacy', 'support'] as $page) {
+            Route::get('app/'.$page, fn () => response(file_get_contents(dirname(__DIR__).'/Resources/pages/'.$page.'.html'))
+                ->header('Content-Type', 'text/html; charset=utf-8')->header('Cache-Control', 'public, max-age=3600'))->name('codeit.mobile.'.$page);
+        }
+
         $this->loadMigrationsFrom(dirname(__DIR__).'/Database/Migrations');
 
         if ($this->app->runningInConsole()) {

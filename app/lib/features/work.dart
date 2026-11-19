@@ -243,7 +243,7 @@ class TaskScreen extends StatelessWidget {
       );
 
   Future<void> _upload(BuildContext c, Obj t, Future<void> Function() reload) async {
-    if (kDemo) return toast(c, 'رفع الملفات مقفول في النسخة التجريبية.');
+    if (Api.demo) return toast(c, 'رفع الملفات مقفول في النسخة التجريبية.');
     final files = await FilePicker.pickFiles();
     if (files.isEmpty || !c.mounted) return;
     final max = t.i('max_file_mb', 20) * 1024 * 1024;

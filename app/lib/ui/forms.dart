@@ -101,7 +101,7 @@ Future<Obj?> doAction(BuildContext context, Future<Obj> Function() call, {String
 
 /// Download a CRM file with the login token and open it in the phone's viewer.
 Future<void> openFile(BuildContext context, String url, String name) async {
-  if (kIsWeb || kDemo) {
+  if (kIsWeb || Api.demo) {
     toast(context, 'فتح الملفات بيشتغل على الموبايل.');
     return;
   }

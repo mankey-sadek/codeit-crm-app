@@ -54,7 +54,7 @@ class Push {
 
   /// After sign-in (and on every start while signed in): ask once, then send the token to the CRM.
   static Future<void> register() async {
-    if (!_ready || kDemo) return;
+    if (!_ready || Api.demo) return;
     try {
       final fm = FirebaseMessaging.instance;
       final s = await fm.requestPermission();

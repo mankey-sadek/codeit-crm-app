@@ -28,6 +28,7 @@ class Session extends ChangeNotifier {
   Future<void> boot() async {
     final p = await SharedPreferences.getInstance();
     themeMode = switch (p.getString('theme')) { 'light' => ThemeMode.light, 'system' => ThemeMode.system, _ => ThemeMode.dark };
+    if (p.getBool('demo') ?? false) Api.demo = true;
     await Api.loadDemo();
     await Api.I.load();
     Api.I.onUnauthorized = () {
@@ -51,6 +52,13 @@ class Session extends ChangeNotifier {
   }
 
   Future<void> login(String email, String password) async {
+    final p = await SharedPreferences.getInstance();
+    if (email.trim().toLowerCase() == kReviewEmail && password == kReviewPassword) {
+      // App Store / Google Play reviewers: the demo with made-up data, no CRM data is shown
+      Api.demo = true;
+      await p.setBool('demo', true);
+      await Api.loadDemo();
+    }
     final r = await Api.I.post('auth/login', {'email': email.trim(), 'password': password, 'device': defaultTargetPlatform.name});
     await Api.I.saveToken(r.s('token'));
     me = r.o('user');
@@ -65,6 +73,10 @@ class Session extends ChangeNotifier {
       await Api.I.post('auth/logout');
     } catch (_) {}
     await Api.I.saveToken(null);
+    if (Api.demo && !kDemo) {
+      Api.demo = false;
+      (await SharedPreferences.getInstance()).remove('demo');
+    }
     me = null;
     notifyListeners();
   }

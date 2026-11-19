@@ -10,6 +10,10 @@ import 'obj.dart';
 
 const kApiBase = String.fromEnvironment('API', defaultValue: 'https://crm.coditvision.com/api/mobile/v1');
 const kDemo = bool.fromEnvironment('DEMO');
+
+/// The store reviewers' sign-in: opens the demo (made-up data bundled in the app, nothing reaches the CRM).
+const kReviewEmail = 'review@coditvision.com';
+const kReviewPassword = 'CodeIt-Review-2026';
 const kAppBuild = int.fromEnvironment('BUILD', defaultValue: 1);
 
 class ApiError implements Exception {
@@ -28,6 +32,9 @@ class Api {
   Api._();
   static final Api I = Api._();
 
+  /// Demo answers instead of the CRM: DEMO builds, or after the reviewers' sign-in.
+  static bool demo = kDemo;
+
   final _store = const FlutterSecureStorage();
   String? _token;
   void Function()? onUnauthorized;
@@ -40,7 +47,7 @@ class Api {
   ))
     ..interceptors.add(InterceptorsWrapper(onRequest: (o, h) {
       if (_token != null) o.headers['Authorization'] = 'Bearer $_token';
-      if (kDemo) return h.resolve(_demo(o));
+      if (demo) return h.resolve(_demo(o));
       h.next(o);
     }));
 
@@ -48,7 +55,7 @@ class Api {
   bool get hasToken => _token != null;
 
   Future<void> load() async {
-    if (kDemo) {
+    if (demo) {
       _token = 'demo';
       return;
     }
@@ -61,7 +68,7 @@ class Api {
 
   Future<void> saveToken(String? t) async {
     _token = t;
-    if (kDemo) return;
+    if (demo) return;
     if (t == null) {
       await _store.delete(key: 'token');
     } else {
@@ -101,7 +108,7 @@ class Api {
         msg = 'حصلت مشكلة (${status > 0 ? status : e.type.name}). جرّب تاني.';
         debugPrint('api ${e.requestOptions.method} ${e.requestOptions.path}: $status ${e.type} ${e.error}');
       }
-      if (status == 401 && !kDemo) {
+      if (status == 401 && !demo) {
         await saveToken(null);
         onUnauthorized?.call();
       }
@@ -113,7 +120,7 @@ class Api {
   static Map<String, dynamic>? _fixtures;
 
   static Future<void> loadDemo() async {
-    if (!kDemo) return;
+    if (!demo || _fixtures != null) return;
     final raw = await rootBundle.loadString('assets/demo/api.json');
     _fixtures = Map<String, dynamic>.from(jsonDecode(raw));
   }

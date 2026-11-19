@@ -141,7 +141,7 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Column(children: [
                 KV('غيّر كلمة السر', 'من الموقع', onTap: () => openUrl(kApiBase.replaceFirst('/api/mobile/v1', '/admin/account'))),
-                KV('الإصدار', 'build $kAppBuild${kDemo ? ' · تجريبي' : ''}', monoValue: true),
+                KV('الإصدار', 'build $kAppBuild${Api.demo ? ' · تجريبي' : ''}', monoValue: true),
               ]),
             ),
             const SizedBox(height: 24),

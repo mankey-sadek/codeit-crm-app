@@ -2,7 +2,9 @@ import 'package:codeit_crm/core/api.dart';
 import 'package:dio/dio.dart';
 import 'package:codeit_crm/core/fmt.dart' as f;
 import 'package:codeit_crm/core/obj.dart';
+import 'package:codeit_crm/core/session.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   test('money uses Western digits and EGP', () {
@@ -20,5 +22,15 @@ void main() {
   test('API calls go to /api/mobile/v1/<path>', () {
     final o = RequestOptions(baseUrl: Api.I.dio.options.baseUrl, path: 'auth/login');
     expect(o.uri.toString(), 'https://crm.coditvision.com/api/mobile/v1/auth/login');
+  });
+
+  test('the store reviewers sign-in opens the demo, without the CRM', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
+    await Session.I.login(kReviewEmail, kReviewPassword);
+    expect(Api.demo, isTrue);
+    expect(Session.I.me?.s('email'), kReviewEmail);
+    expect((await Api.I.get('settings/users')).l('data'), isNotEmpty);
+    Api.demo = false;
   });
 }
