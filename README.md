@@ -58,6 +58,18 @@ flutter build web --dart-define=DEMO=true --no-web-resources-cdn         # demo 
 
 `assets/demo/api.json` holds the demo answers (made-up data).
 
+## Tests
+
+`flutter test` (run on every push, before the builds):
+- every screen in the dark theme, the light theme and the largest text size, as the admin and as an employee,
+  against API answers recorded from a test CRM (`app/test/fixtures/`). A screen fails if it throws, overflows,
+  shows its error state or calls an endpoint that isn't there.
+- the theme colours meet WCAG AA contrast (4.5:1) in both themes; every icon the code names has its svg.
+
+Server (read-only, safe on the live CRM): `python3 server/tests/api_smoke.py https://crm.coditvision.com/api/mobile/v1 you@company.com`
+opens every endpoint the app uses and reports anything that isn't 200 / 403.
+After changing what an endpoint returns, record the fixtures again from a test CRM with `server/tests/record_fixtures.py`.
+
 ## Push notifications
 
 Server: `codeit:mobile-push` runs every minute (Laravel scheduler) and sends new bell notifications and chat messages.
