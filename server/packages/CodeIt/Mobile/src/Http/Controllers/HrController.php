@@ -12,9 +12,22 @@ class HrController extends Controller
 {
     public function me(): JsonResponse
     {
+        // admins don't get a file made for them automatically (same as the web); the app offers a button
+        if (! \CodeIt\Hr\Models\Employee::find($this->user()->id) && Hr::isAdmin()) {
+            return response()->json(['no_file' => true]);
+        }
         $d = $this->page('admin.codeit.hr.me', [], array_filter(['month' => request('month')]));
 
         return response()->json($this->fileJson($d));
+    }
+
+    /** An admin makes their own employee file from the app (to clock in and see their attendance). */
+    public function createMyFile(): JsonResponse
+    {
+        (new \CodeIt\Mobile\Support\RouteGate)->authorizeRoute('admin.codeit.hr.me');
+        \CodeIt\Hr\Models\Employee::firstOrCreate(['user_id' => $this->user()->id], ['status' => 'active']);
+
+        return response()->json(['ok' => true, 'message' => 'اتعمل ملفك.']);
     }
 
     public function employee(int $id): JsonResponse

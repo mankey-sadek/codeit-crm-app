@@ -114,7 +114,19 @@ class _MyFileScreenState extends State<MyFileScreen> {
         body: Loader(
           key: ValueKey(month),
           load: () => Api.I.get('hr/me', {'month': month}),
-          builder: (c, d, reload) => EmployeeFile(d, onMonth: (m) => setState(() => month = m), reload: reload),
+          builder: (c, d, reload) => d.b('no_file')
+              ? Column(children: [
+                  const EmptyState('إنت لسه مالكش ملف موظف', icon: 'staff'),
+                  Text('اعمل لنفسك ملف لو عايز تسجّل حضورك وتشوف إجازاتك.', style: c.tt.bodySmall, textAlign: TextAlign.center),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: () async {
+                      if (await doAction(c, () => Api.I.post('hr/me', {})) != null) reload();
+                    },
+                    child: const Text('اعمل ملفي'),
+                  ),
+                ])
+              : EmployeeFile(d, onMonth: (m) => setState(() => month = m), reload: reload),
         ),
       );
 }

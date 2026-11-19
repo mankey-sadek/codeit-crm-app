@@ -103,7 +103,7 @@ code() { curl -s -o /dev/null -w '%{http_code}' "$@"; }
 echo "web login page         $(code $B/admin/login)  (want 200, the web CRM is unchanged)"
 echo "app: profile, no login $(code -H 'Accept: application/json' $B/api/mobile/v1/me)  (want 401)"
 echo "app: wrong password    $(code -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' -d '{"email":"nobody@coditvision.com","password":"x"}' $B/api/mobile/v1/auth/login)  (want 422)"
-echo "app routes             $(sudo -u "$RUNAS" php artisan route:list --path=api/mobile/v1 2>/dev/null | grep -c 'api/mobile/v1')  (want 117)"
+echo "app routes             $(sudo -u "$RUNAS" php artisan route:list --path=api/mobile/v1 2>/dev/null | grep -c 'api/mobile/v1')  (want 118)"
 echo "phones table           $(sql "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'codeit_mobile_devices'")  (want 1)"
 if crontab -l -u "$RUNAS" 2>/dev/null | grep -q 'schedule:run' || grep -rqs 'schedule:run' /etc/cron.d /etc/crontab /var/spool/cron; then
   echo "scheduler cron         found (push notifications will run once Firebase is set up)"

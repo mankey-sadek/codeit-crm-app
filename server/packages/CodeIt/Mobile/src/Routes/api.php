@@ -113,6 +113,7 @@ Route::middleware([MobileAuth::class, 'throttle:codeit-mobile'])->group(function
 
     Route::controller(HrController::class)->prefix('hr')->group(function () {
         Route::get('me', 'me');
+        Route::post('me', 'createMyFile');
         Route::post('punch', 'punch');
         Route::get('employees', 'employees');
         Route::get('employees/{id}', 'employee')->whereNumber('id');
