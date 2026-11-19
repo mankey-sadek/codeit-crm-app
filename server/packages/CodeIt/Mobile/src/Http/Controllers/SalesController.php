@@ -264,10 +264,21 @@ class SalesController extends Controller
         }
     }
 
+    /** Krayin writes system activities with the English field name ("تم تحديث Stage"); say it in Arabic. */
+    public static function fieldsAr(string $t): string
+    {
+        return strtr($t, [
+            'Estimated Lead Value' => 'القيمة المتوقعة', 'Contact Numbers' => 'أرقام التليفون', 'Expected Close Date' => 'تاريخ الإغلاق المتوقع',
+            'Sales Owner' => 'المسؤول', 'Job Title' => 'الوظيفة', 'Pipeline' => 'مسار البيع', 'Stage' => 'المرحلة', 'Source' => 'المصدر',
+            'Emails' => 'الإيميل', 'Organization' => 'الشركة', 'Person' => 'جهة الاتصال', 'Description' => 'الوصف', 'Address' => 'العنوان',
+            'Title' => 'العنوان', 'Type' => 'النوع', 'Name' => 'الاسم', 'Products' => 'المنتجات', 'Tags' => 'الوسوم',
+        ]);
+    }
+
     protected function activityJson(Activity $a): array
     {
         return [
-            'id' => $a->id, 'type' => $a->type, 'title' => (string) $a->title, 'comment' => (string) $a->comment,
+            'id' => $a->id, 'type' => $a->type, 'title' => self::fieldsAr((string) $a->title), 'comment' => (string) $a->comment,
             'schedule_from' => self::iso($a->schedule_from), 'schedule_to' => self::iso($a->schedule_to),
             'is_done' => (bool) $a->is_done, 'location' => $a->location,
             'user' => self::ref($a->user),

@@ -259,6 +259,10 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
     super.dispose();
   }
 
+  String name = '';
+  bool group = false;
+  String get title => widget.title.isNotEmpty ? widget.title : (name.isNotEmpty ? name : 'محادثة');
+
   void _merge(List<Obj> list) {
     final ids = msgs.map((m) => m.i('id')).toSet();
     for (final m in list) {
@@ -275,6 +279,10 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
         _merge(r.l('messages'));
         hasMore = r.b('has_more');
         loading = false;
+        if (r.on('conversation') case final c?) {
+          name = c.s('name');
+          group = c.s('type') == 'group';
+        }
       });
       _tick(seen: true);
       _start();
@@ -354,9 +362,9 @@ class _ConversationScreenState extends State<ConversationScreen> with WidgetsBin
         titleSpacing: 0,
         shape: Border(bottom: BorderSide(color: context.ci.line)),
         title: Row(children: [
-          Avatar(widget.title.isEmpty ? 'محادثة' : widget.title, size: 34),
+          Avatar(title, size: 34, group: group),
           const SizedBox(width: 10),
-          Expanded(child: Text(widget.title.isEmpty ? 'محادثة' : widget.title, style: context.tt.titleMedium, overflow: TextOverflow.ellipsis)),
+          Expanded(child: Text(title, style: context.tt.titleMedium, overflow: TextOverflow.ellipsis)),
         ]),
       ),
       body: SafeArea(

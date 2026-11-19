@@ -39,6 +39,12 @@ class ChatController extends Controller
         $d = $this->page('admin.codeit.chat.messages', ['id' => $id], array_filter(['before' => request('before')]));
         $names = DB::table('users')->pluck('name', 'id');
         $d['messages'] = collect($d['messages'] ?? [])->map(fn ($m) => $this->msg($m, $id, $names))->values();
+        // the conversation's name, for when the app opens it from a notification
+        $conv = DB::table('codeit_chat_conversations')->find($id);
+        if ($conv) {
+            $other = DB::table('codeit_chat_members')->where('conversation_id', $id)->where('user_id', '!=', $this->user()->id)->value('user_id');
+            $d['conversation'] = ['id' => $id, 'type' => $conv->type, 'name' => $conv->type === 'group' ? ($conv->title ?: 'جروب') : ($names[$other] ?? 'محادثة')];
+        }
 
         return response()->json($d);
     }

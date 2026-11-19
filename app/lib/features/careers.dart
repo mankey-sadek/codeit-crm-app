@@ -51,7 +51,7 @@ class _CareersScreenState extends State<CareersScreen> {
                 for (final e in {null: 'الكل', ...appStatus}.entries)
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8),
-                    child: ChoiceChip(selected: status == e.key, showCheckmark: false, label: Text(e.value), onSelected: (_) => setState(() => status = e.key)),
+                    child: CiChip(selected: status == e.key, label: e.value, onSelected: (_) => setState(() => status = e.key)),
                   ),
               ]),
             ),

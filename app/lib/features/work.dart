@@ -99,10 +99,9 @@ class _TasksScreenState extends State<TasksScreen> {
     final on = who == v;
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 8),
-      child: ChoiceChip(
+      child: CiChip(
         selected: on,
-        showCheckmark: false,
-        label: Text(count == null ? text : '$text  $count'),
+        label: count == null ? text : '$text  $count',
         onSelected: (_) {
           setState(() => who = v);
           _key.currentState?.reload();
@@ -678,7 +677,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                 for (final e in {null: 'الكل', ...ticketStatus}.entries)
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8),
-                    child: ChoiceChip(selected: status == e.key, showCheckmark: false, label: Text(e.value), onSelected: (_) => setState(() => status = e.key)),
+                    child: CiChip(selected: status == e.key, label: e.value, onSelected: (_) => setState(() => status = e.key)),
                   ),
               ]),
             ),
@@ -928,7 +927,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 for (final e in {null: 'الكل', ...invoiceStatus}.entries)
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8),
-                    child: ChoiceChip(selected: status == e.key, showCheckmark: false, label: Text(e.value), onSelected: (_) => setState(() => status = e.key)),
+                    child: CiChip(selected: status == e.key, label: e.value, onSelected: (_) => setState(() => status = e.key)),
                   ),
               ]),
             ),
@@ -1063,7 +1062,7 @@ class InvoiceScreen extends StatelessWidget {
             FieldLabel('المبلغ', child: TextField(controller: amount, keyboardType: const TextInputType.numberWithOptions(decimal: true), textDirection: TextDirection.ltr)),
             FieldLabel('طريقة الدفع', child: Wrap(spacing: 8, children: [
               for (final m in ['تحويل بنكي', 'إنستاباي', 'فودافون كاش', 'كاش', 'شيك'])
-                ChoiceChip(selected: method == m, showCheckmark: false, label: Text(m), onSelected: (_) => set(() => method = m)),
+                CiChip(selected: method == m, label: m, onSelected: (_) => set(() => method = m)),
             ])),
             FieldLabel('رقم مرجعي (اختياري)', child: TextField(controller: ref, textDirection: TextDirection.ltr)),
             FilledButton(onPressed: () => Navigator.pop(s, true), child: const Text('سجّل الدفعة')),

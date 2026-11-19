@@ -53,11 +53,16 @@ class _PunchCardState extends State<PunchCard> {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Eyebrow('attendance.today'),
             const SizedBox(height: 8),
-            Row(children: [
-              _Stamp('حضور', inAt, warn: t.i('late_minutes') > 0),
-              Container(width: 18, height: 1, margin: const EdgeInsets.symmetric(horizontal: 10), color: context.ci.line),
-              _Stamp('انصراف', outAt),
-            ]),
+            // shrinks instead of overflowing when the phone uses large text
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerStart,
+              child: Row(children: [
+                _Stamp('حضور', inAt, warn: t.i('late_minutes') > 0),
+                Container(width: 18, height: 1, margin: const EdgeInsets.symmetric(horizontal: 10), color: context.ci.line),
+                _Stamp('انصراف', outAt),
+              ]),
+            ),
             if (worked != null) Padding(padding: const EdgeInsets.only(top: 6), child: Text('${worked.inHours} س ${worked.inMinutes % 60} د شغل${t.i('late_minutes') > 0 ? ' · متأخر ${t.i('late_minutes')} د' : ''}', style: context.tt.bodySmall)),
             if (inAt == null && t.has('work_start')) Padding(padding: const EdgeInsets.only(top: 6), child: Text('اليوم بيبدأ ${t.s('work_start')}', style: context.tt.bodySmall)),
           ]),
@@ -470,7 +475,7 @@ class _NewLeaveScreenState extends State<NewLeaveScreen> {
               ),
               const SizedBox(height: 16),
               FieldLabel('نوع الإجازة', child: Wrap(spacing: 8, runSpacing: 8, children: [
-                for (final e in types.entries) ChoiceChip(selected: type == e.key, showCheckmark: false, label: Text(e.value), onSelected: (_) => setState(() => type = e.key)),
+                for (final e in types.entries) CiChip(selected: type == e.key, label: e.value, onSelected: (_) => setState(() => type = e.key)),
               ])),
               Row(children: [
                 Expanded(child: FieldLabel('من', child: PickBox(text: f.dateShort(from), onTap: () async {
@@ -612,7 +617,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   for (final g in [const Obj({'id': null, 'name': 'كل الأقسام'}), ...d.l('departments')])
                     Padding(
                       padding: const EdgeInsetsDirectional.only(end: 8),
-                      child: ChoiceChip(selected: group == (g.j['id'] as int?), showCheckmark: false, label: Text(g.s('name')), onSelected: (_) => setState(() => group = g.j['id'] as int?)),
+                      child: CiChip(selected: group == (g.j['id'] as int?), label: g.s('name'), onSelected: (_) => setState(() => group = g.j['id'] as int?)),
                     ),
                 ]),
               ),

@@ -166,17 +166,28 @@ class _Sentence extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: context.ci.surface,
           borderRadius: BorderRadius.circular(12),
-          border: BorderDirectional(start: BorderSide(color: context.ci.brand, width: 3), top: BorderSide(color: context.ci.line), bottom: BorderSide(color: context.ci.line), end: BorderSide(color: context.ci.line)),
+          border: Border.all(color: context.ci.line),
         ),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('>', style: mono(context, size: 15, color: context.ci.brand, w: FontWeight.w600)),
-          const SizedBox(width: 10),
-          Expanded(child: Text.rich(TextSpan(children: [TextSpan(text: text, style: context.tt.bodyLarge!.copyWith(height: 1.6)), const WidgetSpan(alignment: PlaceholderAlignment.middle, child: Padding(padding: EdgeInsetsDirectional.only(start: 4), child: Caret(height: 15)))]))),
-        ]),
+        // the mint bar on the start edge, inside the rounded card
+        child: IntrinsicHeight(
+          child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Container(width: 3, color: context.ci.brand),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(13, 14, 16, 14),
+                child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('>', style: mono(context, size: 15, color: context.ci.brand, w: FontWeight.w600)),
+                  const SizedBox(width: 10),
+                  Expanded(child: Text.rich(TextSpan(children: [TextSpan(text: text, style: context.tt.bodyLarge!.copyWith(height: 1.6)), const WidgetSpan(alignment: PlaceholderAlignment.middle, child: Padding(padding: EdgeInsetsDirectional.only(start: 4), child: Caret(height: 15)))]))),
+                ]),
+              ),
+            ),
+          ]),
+        ),
       );
 }
 

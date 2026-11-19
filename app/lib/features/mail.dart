@@ -50,7 +50,7 @@ class _MailScreenState extends State<MailScreen> {
                 for (final e in _folders.entries)
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 8),
-                    child: ChoiceChip(selected: folder == e.key, showCheckmark: false, label: Text(e.value), onSelected: (_) => setState(() => folder = e.key)),
+                    child: CiChip(selected: folder == e.key, label: e.value, onSelected: (_) => setState(() => folder = e.key)),
                   ),
               ]),
             ),
@@ -125,8 +125,8 @@ class MailViewScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Wrap(spacing: 8, children: [
-                    if (m.has('lead')) ActionChip(label: Text(m.ref('lead')), onPressed: () => c.push('/leads/${m.refId('lead')}')),
-                    if (m.has('person')) ActionChip(label: Text(m.ref('person')), onPressed: () => c.push('/persons/${m.refId('person')}')),
+                    if (m.has('lead')) CiChip(label: m.ref('lead'), selected: false, onSelected: (_) => c.push('/leads/${m.refId('lead')}')),
+                    if (m.has('person')) CiChip(label: m.ref('person'), selected: false, onSelected: (_) => c.push('/persons/${m.refId('person')}')),
                   ]),
                 ),
               const SizedBox(height: 14),

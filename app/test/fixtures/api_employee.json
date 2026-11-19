@@ -1,0 +1,1729 @@
+{
+"home": {
+"now": "2026-11-19T08:31:59+05:30",
+"tasks": {
+"open": 3,
+"late": 2,
+"today": 0,
+"review": 1,
+"next": [
+{
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-18T17:00:00+00:00",
+"late": true
+},
+{
+"id": 8,
+"title": "مهمة معدلة",
+"status": "todo",
+"priority": "urgent",
+"due_date": "2026-11-25T18:30:00+00:00",
+"late": false
+}
+]
+},
+"attendance": {
+"check_in": null,
+"check_out": null,
+"late_minutes": 0,
+"work_start": "09:00",
+"work_end": "17:00"
+},
+"approvals": 0,
+"chat_unread": 0,
+"notifications_unread": 1,
+"sentence": "عندك 2 مهام متأخرة."
+},
+"me": {
+"user": {
+"id": 2,
+"name": "أحمد علي",
+"email": "ahmed@codeit.test",
+"role": "موظف",
+"avatar": null,
+"is_admin": false,
+"is_manager": true,
+"department": "DevOps",
+"employee_code": "EMP-001",
+"job_title": "DevOps",
+"permissions": [
+"codeit-team-tasks",
+"codeit-chat",
+"codeit-hr"
+],
+"screens": [
+"team_tasks",
+"chat",
+"hr_me",
+"hr_employees",
+"hr_attendance",
+"hr_leaves"
+]
+},
+"min_build": 1
+},
+"notifications": {
+"data": [
+{
+"id": 8,
+"title": "عندك مهمة جديدة من محمود صادق",
+"body": "مهمة معدلة — فاضل 6 أيام و14 ساعة",
+"kind": "codeit-task",
+"entity_id": 8,
+"link": "https://crm.example.test/admin/team-tasks/8",
+"is_read": false,
+"created_at": "2026-11-19T04:08:08+05:30"
+}
+],
+"meta": {
+"total": 1,
+"current_page": 1,
+"last_page": 1
+},
+"unread": 1
+},
+"search": {
+"data": {
+"tasks": [],
+"employees": []
+}
+},
+"forms/options": {
+"data": {
+"users": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 6,
+"name": "كريم عادل"
+},
+{
+"id": 1,
+"name": "محمود صادق"
+},
+{
+"id": 5,
+"name": "منى إبراهيم"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+],
+"organizations": [
+{
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+{
+"id": 4,
+"name": "شركة تجربة"
+},
+{
+"id": 1,
+"name": "مجوهرات ذهبي"
+}
+],
+"persons": [
+{
+"id": 2,
+"name": "رانيا سمير",
+"organization_id": 2
+},
+{
+"id": 3,
+"name": "علي تجربة",
+"organization_id": null
+},
+{
+"id": 4,
+"name": "منى جديدة",
+"organization_id": null
+},
+{
+"id": 1,
+"name": "هاني ذهبي",
+"organization_id": 1
+}
+],
+"lead_sources": [
+{
+"id": 1,
+"name": "Email"
+},
+{
+"id": 2,
+"name": "Web"
+},
+{
+"id": 3,
+"name": "Web Form"
+},
+{
+"id": 4,
+"name": "Phone"
+},
+{
+"id": 5,
+"name": "Direct"
+},
+{
+"id": 6,
+"name": "لينكدإن"
+}
+],
+"lead_types": [
+{
+"id": 1,
+"name": "New Business"
+},
+{
+"id": 2,
+"name": "Existing Business"
+}
+],
+"pipelines": [
+{
+"id": 1,
+"name": "Default Pipeline",
+"is_default": true,
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New"
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect"
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation"
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won"
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost"
+}
+]
+}
+],
+"projects": [
+{
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"organization_id": 4
+},
+{
+"id": 1,
+"code": "ZHB",
+"name": "موقع مجوهرات ذهبي",
+"organization_id": 1
+},
+{
+"id": 2,
+"code": "CIT",
+"name": "نظام code it الداخلي",
+"organization_id": null
+}
+],
+"project_types": [
+"web",
+"mobile",
+"system",
+"api",
+"cloud",
+"support"
+],
+"project_stages": [
+"discovery",
+"design",
+"dev",
+"test",
+"live",
+"paused"
+],
+"project_priorities": [
+"normal",
+"urgent",
+"critical"
+],
+"ticket_types": [
+"bug",
+"change",
+"question"
+],
+"ticket_priorities": [
+"normal",
+"urgent",
+"critical"
+],
+"task_priorities": [
+"normal",
+"high",
+"urgent"
+],
+"groups": [
+{
+"id": 5,
+"name": "DevOps"
+},
+{
+"id": 9,
+"name": "إدارة المشاريع"
+},
+{
+"id": 11,
+"name": "الإدارة"
+},
+{
+"id": 3,
+"name": "الباك إند"
+},
+{
+"id": 7,
+"name": "التسويق"
+},
+{
+"id": 1,
+"name": "التصميم"
+},
+{
+"id": 6,
+"name": "الجودة"
+},
+{
+"id": 10,
+"name": "الدعم الفني"
+},
+{
+"id": 2,
+"name": "الفرونت إند"
+},
+{
+"id": 8,
+"name": "المبيعات"
+},
+{
+"id": 4,
+"name": "الموبايل"
+},
+{
+"id": 12,
+"name": "فريق الموبايل"
+}
+]
+}
+},
+"tasks": {
+"columns": {
+"todo": [
+{
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-18T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5
+},
+{
+"id": 8,
+"title": "مهمة معدلة",
+"status": "todo",
+"priority": "urgent",
+"due_date": "2026-11-25T18:30:00+05:30",
+"late": false,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": null,
+"group_id": 5
+}
+],
+"doing": [],
+"review": [
+{
+"id": 3,
+"title": "إصلاح بطء صندوق البريد",
+"status": "review",
+"priority": "urgent",
+"due_date": "2026-11-17T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5
+}
+],
+"done": []
+},
+"queue": [],
+"stats": {
+"open": 3,
+"late": 2,
+"today": 0,
+"review": 1,
+"done": 0
+},
+"manager": false,
+"team": [],
+"groups": [],
+"projects": [
+{
+"id": 2,
+"code": "CIT",
+"name": "نظام code it الداخلي",
+"stage": "dev",
+"due_date": "2027-01-15",
+"open": 2,
+"n": 2
+}
+]
+},
+"tasks/4": {
+"data": {
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-18T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5,
+"description": "تفاصيل المهمة والمطلوب بالظبط.",
+"link": null,
+"department": "DevOps",
+"assignee_title": "DevOps",
+"creator": {
+"id": 1,
+"name": "محمود صادق"
+},
+"started_at": null,
+"submitted_at": null,
+"done_at": null,
+"files": [],
+"project_files": [],
+"updates": [],
+"can_manage": false,
+"is_mine": true,
+"max_file_mb": 2
+}
+},
+"chat": {
+"conversations": [
+{
+"id": 1,
+"type": "group",
+"title": "فريق التطوير",
+"created_by": 1,
+"members": [
+1,
+2,
+3,
+4,
+5,
+6
+],
+"reads": {
+"1": 9,
+"3": 0,
+"4": 0,
+"5": 0,
+"6": 0
+},
+"unread": 0,
+"last": {
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/admin/chat/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30",
+"sender": "محمود صادق"
+},
+"at": "2026-11-19T04:08:14+05:30",
+"name": "فريق التطوير",
+"other_id": null
+}
+],
+"now": "2026-11-19T08:32:00+05:30",
+"me": 2,
+"names": {
+"1": "محمود صادق",
+"2": "أحمد علي",
+"3": "سارة محمد",
+"4": "يوسف حسن",
+"5": "منى إبراهيم",
+"6": "كريم عادل"
+}
+},
+"chat/1/messages": {
+"messages": [
+{
+"id": 1,
+"user_id": 2,
+"kind": "text",
+"body": "صباح الخير يا جماعة، السيرفر اتحدث امبارح بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:34:02+05:30",
+"sender": "أحمد علي",
+"mine": true
+},
+{
+"id": 2,
+"user_id": 3,
+"kind": "text",
+"body": "تمام، شاشة الدخول هتخلص النهارده",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:31:02+05:30",
+"sender": "سارة محمد",
+"mine": false
+},
+{
+"id": 3,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز، ابعتوا صور الشاشات أول ما تخلص",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:52:02+05:30",
+"sender": "محمود صادق",
+"mine": false
+},
+{
+"id": 4,
+"user_id": 1,
+"kind": "text",
+"body": "رسالة من التطبيق",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T20:07:29+05:30",
+"sender": "محمود صادق",
+"mine": false
+},
+{
+"id": 5,
+"user_id": 5,
+"kind": "text",
+"body": "شاشة الدخول خلصت، رفعتها على الفيجما",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:27:19+05:30",
+"sender": "منى إبراهيم",
+"mine": false
+},
+{
+"id": 6,
+"user_id": 2,
+"kind": "text",
+"body": "تمام، هنزّلها على الستيجنج بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:32:19+05:30",
+"sender": "أحمد علي",
+"mine": true
+},
+{
+"id": 7,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز يا جماعة 👏 بكرة الصبح نراجعها مع العميل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:47:19+05:30",
+"sender": "محمود صادق",
+"mine": false
+},
+{
+"id": 8,
+"user_id": 6,
+"kind": "text",
+"body": "هاني بعت إيميل بيسأل عن الدفع بفوري",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:53:19+05:30",
+"sender": "كريم عادل",
+"mine": false
+},
+{
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/api/mobile/v1/chat/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30",
+"sender": "محمود صادق",
+"mine": false
+}
+],
+"has_more": false,
+"conversation": {
+"id": 1,
+"type": "group",
+"name": "فريق التطوير"
+}
+},
+"chat/users": {
+"users": [
+{
+"id": 2,
+"name": "أحمد علي",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 3,
+"name": "سارة محمد",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 6,
+"name": "كريم عادل",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 1,
+"name": "محمود صادق",
+"role": "Administrator",
+"active": true,
+"image": null
+},
+{
+"id": 5,
+"name": "منى إبراهيم",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 4,
+"name": "يوسف حسن",
+"role": "موظف",
+"active": true,
+"image": null
+}
+]
+},
+"hr/me": {
+"employee": {
+"id": 2,
+"code": "EMP-001",
+"name": "أحمد علي",
+"email": "ahmed@codeit.test",
+"phone": "01000000000",
+"status": "active",
+"group_id": 5,
+"hire_date": "2025-01-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "DevOps",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0,
+"birth_date": null,
+"address": null,
+"national_id": null,
+"emergency_name": null,
+"emergency_phone": null,
+"annual_leave_days": 21,
+"left_at": null,
+"base_salary": 12000,
+"allowances": 1000,
+"bank_account": null
+},
+"self": true,
+"department": {
+"id": 5,
+"name": "DevOps",
+"manager": "أحمد علي"
+},
+"job_title": "DevOps",
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"calendar": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:36",
+"out": "11:46",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:30",
+"out": "11:41",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:34",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:31",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:37",
+"out": "11:51",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:51",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:52",
+"out": "11:50",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:42",
+"out": "11:39",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+},
+"today": {
+"date": "2026-11-19",
+"check_in": null,
+"check_out": null,
+"late_minutes": 0,
+"status": null
+},
+"balance": {
+"allow": 21,
+"taken": 0,
+"pending": 0,
+"left": 21
+},
+"leaves": [],
+"tasks": [
+{
+"id": 3,
+"title": "إصلاح بطء صندوق البريد",
+"status": "review",
+"due_at": "2026-11-17T17:00:00+05:30"
+},
+{
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"due_at": "2026-11-18T17:00:00+05:30"
+},
+{
+"id": 8,
+"title": "مهمة معدلة",
+"status": "todo",
+"due_at": "2026-11-25T18:30:00+05:30"
+}
+],
+"payslips": [],
+"advances": [],
+"files": [],
+"can_decide": false,
+"work_start": "09:00",
+"work_end": "17:00"
+},
+"hr/employees": {
+"departments": [
+{
+"id": 5,
+"name": "DevOps",
+"prefix": "DEV",
+"manager": "أحمد علي",
+"people": [
+{
+"id": 1,
+"code": "ADM-001",
+"name": "محمود صادق",
+"email": "admin@example.com",
+"phone": null,
+"status": "active",
+"group_id": 5,
+"hire_date": "2024-01-01",
+"contract": "full_time",
+"contract_label": "دوام كامل",
+"job_title": null,
+"today": "none",
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+}
+]
+}
+],
+"stats": {
+"people": 1,
+"in": 0,
+"late": 0,
+"leave": 0,
+"missing": 1,
+"pending": 0
+},
+"counts": {
+"active": 1,
+"left": 0
+},
+"workday": true
+},
+"hr/attendance": {
+"month": "2026-11",
+"days": [
+{
+"date": "2026-11-01",
+"n": 1,
+"dow": 0
+},
+{
+"date": "2026-11-02",
+"n": 2,
+"dow": 1
+},
+{
+"date": "2026-11-03",
+"n": 3,
+"dow": 2
+},
+{
+"date": "2026-11-04",
+"n": 4,
+"dow": 3
+},
+{
+"date": "2026-11-05",
+"n": 5,
+"dow": 4
+},
+{
+"date": "2026-11-06",
+"n": 6,
+"dow": 5
+},
+{
+"date": "2026-11-07",
+"n": 7,
+"dow": 6
+},
+{
+"date": "2026-11-08",
+"n": 8,
+"dow": 0
+},
+{
+"date": "2026-11-09",
+"n": 9,
+"dow": 1
+},
+{
+"date": "2026-11-10",
+"n": 10,
+"dow": 2
+},
+{
+"date": "2026-11-11",
+"n": 11,
+"dow": 3
+},
+{
+"date": "2026-11-12",
+"n": 12,
+"dow": 4
+},
+{
+"date": "2026-11-13",
+"n": 13,
+"dow": 5
+},
+{
+"date": "2026-11-14",
+"n": 14,
+"dow": 6
+},
+{
+"date": "2026-11-15",
+"n": 15,
+"dow": 0
+},
+{
+"date": "2026-11-16",
+"n": 16,
+"dow": 1
+},
+{
+"date": "2026-11-17",
+"n": 17,
+"dow": 2
+},
+{
+"date": "2026-11-18",
+"n": 18,
+"dow": 3
+},
+{
+"date": "2026-11-19",
+"n": 19,
+"dow": 4
+},
+{
+"date": "2026-11-20",
+"n": 20,
+"dow": 5
+},
+{
+"date": "2026-11-21",
+"n": 21,
+"dow": 6
+},
+{
+"date": "2026-11-22",
+"n": 22,
+"dow": 0
+},
+{
+"date": "2026-11-23",
+"n": 23,
+"dow": 1
+},
+{
+"date": "2026-11-24",
+"n": 24,
+"dow": 2
+},
+{
+"date": "2026-11-25",
+"n": 25,
+"dow": 3
+},
+{
+"date": "2026-11-26",
+"n": 26,
+"dow": 4
+},
+{
+"date": "2026-11-27",
+"n": 27,
+"dow": 5
+},
+{
+"date": "2026-11-28",
+"n": 28,
+"dow": 6
+},
+{
+"date": "2026-11-29",
+"n": 29,
+"dow": 0
+},
+{
+"date": "2026-11-30",
+"n": 30,
+"dow": 1
+}
+],
+"rows": [
+{
+"employee": {
+"id": 1,
+"code": "ADM-001",
+"name": "محمود صادق",
+"email": "admin@example.com",
+"phone": null,
+"status": "active",
+"group_id": 5,
+"hire_date": "2024-01-01",
+"contract": "full_time",
+"contract_label": "دوام كامل",
+"job_title": null,
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "leave",
+"in": "03:52",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "casual"
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:35",
+"out": "11:39",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:54",
+"out": "11:34",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:52",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:38",
+"out": "11:48",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:44",
+"out": "11:53",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 7,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 1,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+}
+],
+"departments": [
+{
+"id": 5,
+"name": "DevOps"
+}
+]
+},
+"hr/leaves": {
+"mine": [],
+"inbox": [],
+"history": [
+{
+"id": 2,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-08",
+"to": "2026-11-08",
+"days": 1,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "ظرف",
+"manager_note": null,
+"employee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"created_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"balance": {
+"allow": 21,
+"taken": 0,
+"pending": 0,
+"left": 21
+},
+"deciding": true,
+"has_file": true,
+"types": {
+"annual": "اعتيادية",
+"casual": "عارضة",
+"sick": "مرضية",
+"unpaid": "بدون مرتب",
+"other": "أخرى"
+}
+},
+"settings": {
+"data": [],
+"web": {
+"workflows": "/admin/settings/workflows",
+"webhooks": "/admin/settings/webhooks",
+"web_forms": "/admin/settings/web-forms",
+"attributes": "/admin/settings/attributes",
+"warehouses": "/admin/settings/warehouses",
+"events": "/admin/settings/marketing/events",
+"campaigns": "/admin/settings/marketing/campaigns",
+"imports": "/admin/settings/data-transfer/imports",
+"configuration": "/admin/configuration"
+}
+}
+}

@@ -564,7 +564,7 @@ class _NewActivityScreenState extends State<NewActivityScreen> {
       body: ListView(padding: const EdgeInsets.fromLTRB(16, 16, 16, 32), children: [
         FieldLabel('النوع', child: Wrap(spacing: 8, runSpacing: 8, children: [
           for (final k in ['call', 'meeting', 'lunch', 'task', 'note'])
-            ChoiceChip(selected: type == k, showCheckmark: false, label: Text(lbl(activityType, k)), onSelected: (_) => setState(() => type = k)),
+            CiChip(selected: type == k, label: lbl(activityType, k), onSelected: (_) => setState(() => type = k)),
         ])),
         if (!note) FieldLabel('العنوان', child: TextField(controller: title, decoration: InputDecoration(hintText: type == 'call' ? 'مكالمة متابعة مع...' : 'اجتماع عن...'))),
         if (!note) ...[
@@ -580,7 +580,7 @@ class _NewActivityScreenState extends State<NewActivityScreen> {
             }))),
           ]),
           FieldLabel('المدة', child: Wrap(spacing: 8, children: [
-            for (final m in [15, 30, 60, 90, 120]) ChoiceChip(selected: minutes == m, showCheckmark: false, label: Text(m < 60 ? '$m دقيقة' : '${m / 60 == (m ~/ 60) ? m ~/ 60 : m / 60} ساعة'), onSelected: (_) => setState(() => minutes = m)),
+            for (final m in [15, 30, 60, 90, 120]) CiChip(selected: minutes == m, label: m < 60 ? '$m دقيقة' : '${m / 60 == (m ~/ 60) ? m ~/ 60 : m / 60} ساعة', onSelected: (_) => setState(() => minutes = m)),
           ])),
           if (type == 'meeting' || type == 'lunch') FieldLabel('المكان', child: TextField(controller: location)),
         ],

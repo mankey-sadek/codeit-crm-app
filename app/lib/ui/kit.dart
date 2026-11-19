@@ -276,6 +276,8 @@ class KpiStrip extends StatelessWidget {
       );
 }
 
+final _latin = RegExp(r'^[\x20-\x7E]+$');
+
 class KV extends StatelessWidget {
   const KV(this.k, this.v, {super.key, this.monoValue = false, this.onTap});
   final String k;
@@ -289,7 +291,8 @@ class KV extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 9),
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(width: 110, child: Text(k, style: context.tt.bodySmall)),
-            Expanded(child: Text(v.isEmpty ? '—' : v, style: monoValue ? mono(context, size: 13, color: context.ci.ink) : context.tt.bodyMedium!.copyWith(color: onTap != null ? context.ci.brand : null))),
+            // phone numbers, e-mails, codes: keep them left-to-right inside the Arabic line ("+20 10..." not "10... 20+")
+            Expanded(child: Text(v.isEmpty ? '—' : (_latin.hasMatch(v) ? '\u2066$v\u2069' : v), style: monoValue ? mono(context, size: 13, color: context.ci.ink) : context.tt.bodyMedium!.copyWith(color: onTap != null ? context.ci.brand : null))),
           ]),
         ),
       );
@@ -380,4 +383,36 @@ void toast(BuildContext context, String msg, {bool error = false}) {
       ]),
       duration: Duration(milliseconds: error ? 4200 : 2600),
     ));
+}
+
+/// Filter / choice chip in the brand's style. Our own widget so the text is always readable in both themes.
+class CiChip extends StatelessWidget {
+  const CiChip({super.key, required this.label, required this.selected, required this.onSelected});
+  final String label;
+  final bool selected;
+  final ValueChanged<bool> onSelected;
+  @override
+  Widget build(BuildContext context) {
+    final c = context.ci;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: Material(
+        color: selected ? c.brandSoft : c.sunken,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6), side: BorderSide(color: selected ? c.brand.withValues(alpha: .55) : c.line)),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: () => onSelected(!selected),
+          child: Center(
+            widthFactor: 1,
+            heightFactor: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+              child: Text(label, style: context.tt.labelMedium!.copyWith(color: selected ? c.brand : c.ink, fontWeight: selected ? FontWeight.w600 : FontWeight.w500)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -829,10 +829,9 @@ class _HrFormState extends State<_HrForm> {
       ]),
       FieldLabel('أيام الإجازة الأسبوعية', child: Wrap(spacing: 6, runSpacing: 6, children: [
         for (final e in _days.entries)
-          FilterChip(
-            label: Text(e.value, style: TextStyle(color: weekend.contains(e.key) ? c.ci.brand : c.ci.ink)),
+          CiChip(
+            label: e.value,
             selected: weekend.contains(e.key),
-            showCheckmark: false,
             onSelected: (v) => setState(() => v ? weekend.add(e.key) : weekend.remove(e.key)),
           ),
       ])),
