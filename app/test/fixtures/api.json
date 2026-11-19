@@ -1,0 +1,8178 @@
+{
+"home": {
+"now": "2026-11-19T08:36:39+05:30",
+"tasks": {
+"open": 0,
+"late": 0,
+"today": 0,
+"review": 0,
+"next": []
+},
+"attendance": {
+"check_in": null,
+"check_out": null,
+"late_minutes": 0,
+"work_start": "09:00",
+"work_end": "17:00"
+},
+"approvals": 1,
+"tickets": {
+"open": 5,
+"mine": 2,
+"late": 1,
+"next": [
+{
+"id": 3,
+"number": "T-103",
+"subject": "مشكلة في الدفع بالفيزا",
+"priority": "urgent",
+"status": "open",
+"client": {
+"id": 0,
+"name": "شركة النيل للتوريدات"
+},
+"sla_minutes": -249
+},
+{
+"id": 2,
+"number": "T-102",
+"subject": "عايز أغير صور البانر",
+"priority": "urgent",
+"status": "progress",
+"client": {
+"id": 0,
+"name": "مجوهرات ذهبي"
+},
+"sla_minutes": 771
+},
+{
+"id": 1,
+"number": "T-101",
+"subject": "الموقع بطيء جداً",
+"priority": "critical",
+"status": "progress",
+"client": {
+"id": 0,
+"name": "مجوهرات ذهبي"
+},
+"sla_minutes": null
+},
+{
+"id": 4,
+"number": "T-104",
+"subject": "الموقع واقع",
+"priority": "urgent",
+"status": "open",
+"client": {
+"id": 0,
+"name": "شركة تجربة"
+},
+"sla_minutes": null
+},
+{
+"id": 5,
+"number": "T-105",
+"subject": "Test from app UI",
+"priority": "normal",
+"status": "open",
+"client": {
+"id": 0,
+"name": "شركة تجربة"
+},
+"sla_minutes": null
+}
+]
+},
+"pipeline": [
+{
+"id": 1,
+"name": "New",
+"code": "new",
+"count": 3,
+"value": 48000
+},
+{
+"id": 2,
+"name": "Follow Up",
+"code": "follow-up",
+"count": 2,
+"value": 325000
+},
+{
+"id": 3,
+"name": "Prospect",
+"code": "prospect",
+"count": 1,
+"value": 410000
+},
+{
+"id": 4,
+"name": "Negotiation",
+"code": "negotiation",
+"count": 1,
+"value": 120000
+},
+{
+"id": 5,
+"name": "Won",
+"code": "won",
+"count": 1,
+"value": 65000
+},
+{
+"id": 6,
+"name": "Lost",
+"code": "lost",
+"count": 1,
+"value": 36000
+}
+],
+"activities": [
+{
+"id": 2,
+"type": "call",
+"title": "مكالمة متابعة",
+"schedule_from": "2026-11-19T10:00:00+00:00",
+"schedule_to": "2026-11-19T10:30:00+00:00"
+}
+],
+"invoices": {
+"count": 1,
+"due": 0,
+"overdue": 0,
+"reported": 0
+},
+"chat_unread": 0,
+"notifications_unread": 3,
+"sentence": "عندك 1 تذكرة عدّت وقت الرد، و1 طلب إجازة مستني قرارك."
+},
+"me": {
+"user": {
+"id": 1,
+"name": "محمود صادق",
+"email": "admin@example.com",
+"role": "Administrator",
+"avatar": null,
+"is_admin": true,
+"is_manager": false,
+"department": "DevOps",
+"employee_code": "ADM-001",
+"job_title": null,
+"permissions": [
+"*"
+],
+"screens": [
+"dashboard",
+"leads",
+"quotes",
+"activities",
+"mail",
+"persons",
+"organizations",
+"products",
+"projects",
+"team_tasks",
+"tickets",
+"support_packages",
+"invoices",
+"careers",
+"chat",
+"chat_monitor",
+"hr_me",
+"hr_employees",
+"hr_attendance",
+"hr_leaves",
+"hr_payroll",
+"settings",
+"task_edit",
+"task_create",
+"project_edit",
+"project_create",
+"invoice_edit",
+"invoice_create",
+"ticket_create",
+"lead_create",
+"person_create",
+"organization_create"
+]
+},
+"min_build": 1
+},
+"notifications": {
+"data": [
+{
+"id": 7,
+"title": "طلب إجازة من سارة محمد",
+"body": "سارة محمد: طلب إجازة عارضة يوم 30/11 (1 يوم).",
+"kind": "codeit-hr-leave",
+"entity_id": 3,
+"link": "https://crm.example.test/admin/employees/leaves",
+"is_read": false,
+"created_at": "2026-11-18T20:07:48+05:30"
+},
+{
+"id": 4,
+"title": "مهمة جديدة",
+"body": "اتعيّنت لك مهمة: تصميم شاشة الدخول",
+"kind": "task",
+"entity_id": 1,
+"link": "/admin",
+"is_read": false,
+"created_at": "2026-11-18T12:31:19+05:30"
+},
+{
+"id": 3,
+"title": "طلب إجازة جديد",
+"body": "سارة محمد طلبت إجازة 3 أيام",
+"kind": "hr",
+"entity_id": 1,
+"link": "/admin",
+"is_read": false,
+"created_at": "2026-11-18T14:01:19+05:30"
+}
+],
+"meta": {
+"total": 3,
+"current_page": 1,
+"last_page": 1
+},
+"unread": 3
+},
+"search": {
+"data": {
+"leads": [],
+"persons": [],
+"organizations": [],
+"projects": [],
+"tickets": [
+{
+"id": 5,
+"name": "Test from app UI",
+"number": "T-105"
+}
+],
+"tasks": [],
+"employees": []
+}
+},
+"pipelines": {
+"data": [
+{
+"id": 1,
+"name": "Default Pipeline",
+"is_default": true,
+"rotten_days": 30,
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New",
+"probability": 100
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up",
+"probability": 100
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect",
+"probability": 100
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation",
+"probability": 100
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won",
+"probability": 100
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost",
+"probability": 0
+}
+]
+}
+]
+},
+"forms/options": {
+"data": {
+"users": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 6,
+"name": "كريم عادل"
+},
+{
+"id": 1,
+"name": "محمود صادق"
+},
+{
+"id": 5,
+"name": "منى إبراهيم"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+],
+"organizations": [
+{
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+{
+"id": 4,
+"name": "شركة تجربة"
+},
+{
+"id": 1,
+"name": "مجوهرات ذهبي"
+}
+],
+"persons": [
+{
+"id": 2,
+"name": "رانيا سمير",
+"organization_id": 2
+},
+{
+"id": 3,
+"name": "علي تجربة",
+"organization_id": null
+},
+{
+"id": 4,
+"name": "منى جديدة",
+"organization_id": null
+},
+{
+"id": 1,
+"name": "هاني ذهبي",
+"organization_id": 1
+}
+],
+"lead_sources": [
+{
+"id": 1,
+"name": "Email"
+},
+{
+"id": 2,
+"name": "Web"
+},
+{
+"id": 3,
+"name": "Web Form"
+},
+{
+"id": 4,
+"name": "Phone"
+},
+{
+"id": 5,
+"name": "Direct"
+},
+{
+"id": 6,
+"name": "لينكدإن"
+}
+],
+"lead_types": [
+{
+"id": 1,
+"name": "New Business"
+},
+{
+"id": 2,
+"name": "Existing Business"
+}
+],
+"pipelines": [
+{
+"id": 1,
+"name": "Default Pipeline",
+"is_default": true,
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New"
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect"
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation"
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won"
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost"
+}
+]
+}
+],
+"projects": [
+{
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"organization_id": 4
+},
+{
+"id": 1,
+"code": "ZHB",
+"name": "موقع مجوهرات ذهبي",
+"organization_id": 1
+},
+{
+"id": 2,
+"code": "CIT",
+"name": "نظام code it الداخلي",
+"organization_id": null
+}
+],
+"project_types": [
+"web",
+"mobile",
+"system",
+"api",
+"cloud",
+"support"
+],
+"project_stages": [
+"discovery",
+"design",
+"dev",
+"test",
+"live",
+"paused"
+],
+"project_priorities": [
+"normal",
+"urgent",
+"critical"
+],
+"ticket_types": [
+"bug",
+"change",
+"question"
+],
+"ticket_priorities": [
+"normal",
+"urgent",
+"critical"
+],
+"task_priorities": [
+"normal",
+"high",
+"urgent"
+],
+"groups": [
+{
+"id": 5,
+"name": "DevOps"
+},
+{
+"id": 9,
+"name": "إدارة المشاريع"
+},
+{
+"id": 11,
+"name": "الإدارة"
+},
+{
+"id": 3,
+"name": "الباك إند"
+},
+{
+"id": 7,
+"name": "التسويق"
+},
+{
+"id": 1,
+"name": "التصميم"
+},
+{
+"id": 6,
+"name": "الجودة"
+},
+{
+"id": 10,
+"name": "الدعم الفني"
+},
+{
+"id": 2,
+"name": "الفرونت إند"
+},
+{
+"id": 8,
+"name": "المبيعات"
+},
+{
+"id": 4,
+"name": "الموبايل"
+},
+{
+"id": 12,
+"name": "فريق الموبايل"
+}
+]
+}
+},
+"leads": {
+"data": [
+{
+"id": 8,
+"title": "موقع لشركة تجربة",
+"value": 25000,
+"status": "won",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 3,
+"name": "علي تجربة"
+},
+"organization": null,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01000000000",
+"email": "ali.test@example.com",
+"expected_close_date": null,
+"rotten_days": -29,
+"created_at": "2026-11-19T04:07:50+05:30",
+"tags": []
+},
+{
+"id": 9,
+"title": "تطبيق جديد",
+"value": 5000,
+"status": "won",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"organization": null,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01111111111",
+"email": "mona.new@example.com",
+"expected_close_date": null,
+"rotten_days": -29,
+"created_at": "2026-11-19T04:07:50+05:30",
+"tags": []
+},
+{
+"id": 7,
+"title": "هوية بصرية لمطعم",
+"value": 18000,
+"status": "open",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-29",
+"rotten_days": -21,
+"created_at": "2026-11-10T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 6,
+"title": "صيانة سنوية للسيرفرات",
+"value": 36000,
+"status": "lost",
+"stage": {
+"id": 6,
+"code": "lost",
+"name": "Lost"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-12-23",
+"rotten_days": 0,
+"created_at": "2026-11-08T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 5,
+"title": "لوحة تحكم للمبيعات",
+"value": 65000,
+"status": "won",
+"stage": {
+"id": 5,
+"code": "won",
+"name": "Won"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-17",
+"rotten_days": 0,
+"created_at": "2026-11-06T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 4,
+"title": "متجر إلكتروني للملابس",
+"value": 120000,
+"status": "open",
+"stage": {
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-12-11",
+"rotten_days": -15,
+"created_at": "2026-11-04T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 3,
+"title": "نظام ERP للمخازن",
+"value": 410000,
+"status": "open",
+"stage": {
+"id": 3,
+"code": "prospect",
+"name": "Prospect"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-05",
+"rotten_days": -13,
+"created_at": "2026-11-02T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 2,
+"title": "تطبيق موبايل للتوصيل",
+"value": 240000,
+"status": "open",
+"stage": {
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-11-29",
+"rotten_days": -11,
+"created_at": "2026-10-31T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 1,
+"title": "موقع إلكتروني لمجوهرات ذهبي",
+"value": 85000,
+"status": "open",
+"stage": {
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-11-23",
+"rotten_days": -9,
+"created_at": "2026-10-29T19:58:02+05:30",
+"tags": []
+}
+],
+"meta": {
+"total": 9,
+"current_page": 1,
+"last_page": 1
+}
+},
+"leads/8": {
+"data": {
+"id": 8,
+"title": "موقع لشركة تجربة",
+"value": 25000,
+"status": "won",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 3,
+"name": "علي تجربة"
+},
+"organization": null,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01000000000",
+"email": "ali.test@example.com",
+"expected_close_date": null,
+"rotten_days": -29,
+"created_at": "2026-11-19T04:07:50+05:30",
+"tags": [],
+"description": "",
+"source": "Email",
+"type": "New Business",
+"lost_reason": null,
+"pipeline": {
+"id": 1,
+"name": "Default Pipeline",
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New",
+"probability": 100
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up",
+"probability": 100
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect",
+"probability": 100
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation",
+"probability": 100
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won",
+"probability": 100
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost",
+"probability": 0
+}
+]
+},
+"products": [],
+"quotes": [],
+"activities": [
+{
+"id": 8,
+"type": "system",
+"title": "تم الإنشاء",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 9,
+"type": "system",
+"title": "تم تحديث العنوان",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 10,
+"type": "system",
+"title": "تم تحديث القيمة المتوقعة",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 11,
+"type": "system",
+"title": "تم تحديث المصدر",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 12,
+"type": "system",
+"title": "تم تحديث النوع",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 13,
+"type": "system",
+"title": "تم تحديث المسؤول",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 14,
+"type": "system",
+"title": "تم تحديث مسار البيع",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 15,
+"type": "system",
+"title": "تم تحديث المرحلة",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 8,
+"name": "موقع لشركة تجربة"
+},
+"person": null,
+"created_at": "2026-11-19T04:07:50+05:30"
+}
+]
+}
+},
+"leads/board": {
+"pipeline": {
+"id": 1,
+"name": "Default Pipeline"
+},
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New",
+"probability": 100,
+"count": 3,
+"value": 48000,
+"leads": [
+{
+"id": 8,
+"title": "موقع لشركة تجربة",
+"value": 25000,
+"status": "won",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 3,
+"name": "علي تجربة"
+},
+"organization": null,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01000000000",
+"email": "ali.test@example.com",
+"expected_close_date": null,
+"rotten_days": -29,
+"created_at": "2026-11-19T04:07:50+05:30",
+"tags": []
+},
+{
+"id": 9,
+"title": "تطبيق جديد",
+"value": 5000,
+"status": "won",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"organization": null,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01111111111",
+"email": "mona.new@example.com",
+"expected_close_date": null,
+"rotten_days": -29,
+"created_at": "2026-11-19T04:07:50+05:30",
+"tags": []
+},
+{
+"id": 7,
+"title": "هوية بصرية لمطعم",
+"value": 18000,
+"status": "open",
+"stage": {
+"id": 1,
+"code": "new",
+"name": "New"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-29",
+"rotten_days": -21,
+"created_at": "2026-11-10T19:58:02+05:30",
+"tags": []
+}
+]
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up",
+"probability": 100,
+"count": 2,
+"value": 325000,
+"leads": [
+{
+"id": 1,
+"title": "موقع إلكتروني لمجوهرات ذهبي",
+"value": 85000,
+"status": "open",
+"stage": {
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-11-23",
+"rotten_days": -9,
+"created_at": "2026-10-29T19:58:02+05:30",
+"tags": []
+},
+{
+"id": 2,
+"title": "تطبيق موبايل للتوصيل",
+"value": 240000,
+"status": "open",
+"stage": {
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-11-29",
+"rotten_days": -11,
+"created_at": "2026-10-31T19:58:02+05:30",
+"tags": []
+}
+]
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect",
+"probability": 100,
+"count": 1,
+"value": 410000,
+"leads": [
+{
+"id": 3,
+"title": "نظام ERP للمخازن",
+"value": 410000,
+"status": "open",
+"stage": {
+"id": 3,
+"code": "prospect",
+"name": "Prospect"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-05",
+"rotten_days": -13,
+"created_at": "2026-11-02T19:58:02+05:30",
+"tags": []
+}
+]
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation",
+"probability": 100,
+"count": 1,
+"value": 120000,
+"leads": [
+{
+"id": 4,
+"title": "متجر إلكتروني للملابس",
+"value": 120000,
+"status": "open",
+"stage": {
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-12-11",
+"rotten_days": -15,
+"created_at": "2026-11-04T19:58:02+05:30",
+"tags": []
+}
+]
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won",
+"probability": 100,
+"count": 1,
+"value": 65000,
+"leads": [
+{
+"id": 5,
+"title": "لوحة تحكم للمبيعات",
+"value": 65000,
+"status": "won",
+"stage": {
+"id": 5,
+"code": "won",
+"name": "Won"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01012345678",
+"email": "hany@zahabi.test",
+"expected_close_date": "2026-12-17",
+"rotten_days": 0,
+"created_at": "2026-11-06T19:58:02+05:30",
+"tags": []
+}
+]
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost",
+"probability": 0,
+"count": 1,
+"value": 36000,
+"leads": [
+{
+"id": 6,
+"title": "صيانة سنوية للسيرفرات",
+"value": 36000,
+"status": "lost",
+"stage": {
+"id": 6,
+"code": "lost",
+"name": "Lost"
+},
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"phone": "01198765432",
+"email": "rania@nile.test",
+"expected_close_date": "2026-12-23",
+"rotten_days": 0,
+"created_at": "2026-11-08T19:58:02+05:30",
+"tags": []
+}
+]
+}
+]
+},
+"persons": {
+"data": [
+{
+"id": 4,
+"name": "منى جديدة",
+"job_title": null,
+"emails": [
+"mona.new@example.com"
+],
+"phones": [
+"01111111111"
+],
+"organization": null,
+"leads_count": 1
+},
+{
+"id": 3,
+"name": "علي تجربة",
+"job_title": "مدير",
+"emails": [
+"ali.test@example.com"
+],
+"phones": [
+"01000000000"
+],
+"organization": null,
+"leads_count": 1
+},
+{
+"id": 2,
+"name": "رانيا سمير",
+"job_title": null,
+"emails": [
+"rania@nile.test"
+],
+"phones": [
+"01198765432"
+],
+"organization": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"leads_count": 3
+},
+{
+"id": 1,
+"name": "هاني ذهبي",
+"job_title": "المدير",
+"emails": [
+"hany@zahabi.test"
+],
+"phones": [
+"01012345678"
+],
+"organization": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"leads_count": 4
+}
+],
+"meta": {
+"total": 4,
+"current_page": 1,
+"last_page": 1
+}
+},
+"persons/4": {
+"data": {
+"id": 4,
+"name": "منى جديدة",
+"job_title": null,
+"emails": [
+"mona.new@example.com"
+],
+"phones": [
+"01111111111"
+],
+"organization": null,
+"leads": [
+{
+"id": 9,
+"title": "تطبيق جديد",
+"value": 5000,
+"stage": "New"
+}
+],
+"activities": [
+{
+"id": 16,
+"type": "system",
+"title": "تم الإنشاء",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": null,
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 17,
+"type": "system",
+"title": "تم تحديث الاسم",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": null,
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 18,
+"type": "system",
+"title": "تم تحديث الإيميل",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": null,
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 19,
+"type": "system",
+"title": "تم تحديث أرقام التليفون",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": null,
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"created_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 20,
+"type": "system",
+"title": "تم تحديث المسؤول",
+"comment": "",
+"schedule_from": null,
+"schedule_to": null,
+"is_done": true,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": null,
+"person": {
+"id": 4,
+"name": "منى جديدة"
+},
+"created_at": "2026-11-19T04:07:50+05:30"
+}
+],
+"tags": []
+}
+},
+"organizations": {
+"data": [
+{
+"id": 4,
+"name": "شركة تجربة",
+"address": "مدينة نصر، EG",
+"persons_count": 0
+},
+{
+"id": 2,
+"name": "شركة النيل للتوريدات",
+"address": "",
+"persons_count": 1
+},
+{
+"id": 1,
+"name": "مجوهرات ذهبي",
+"address": "القاهرة",
+"persons_count": 1
+}
+],
+"meta": {
+"total": 3,
+"current_page": 1,
+"last_page": 1
+}
+},
+"organizations/4": {
+"data": {
+"id": 4,
+"name": "شركة تجربة",
+"address": "مدينة نصر، EG",
+"persons": [],
+"projects": [
+{
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"stage": "design"
+}
+]
+}
+},
+"activities": {
+"data": [
+{
+"id": 2,
+"type": "call",
+"title": "مكالمة متابعة",
+"comment": "",
+"schedule_from": "2026-11-19T10:00:00+05:30",
+"schedule_to": "2026-11-19T10:30:00+05:30",
+"is_done": false,
+"location": null,
+"user": {
+"id": 1,
+"name": "محمود صادق"
+},
+"lead": {
+"id": 1,
+"name": "موقع إلكتروني لمجوهرات ذهبي"
+},
+"person": null,
+"created_at": "2026-11-18T20:07:29+05:30"
+}
+]
+},
+"quotes": {
+"data": [
+{
+"id": 2,
+"subject": "عرض نظام توريد النيل",
+"grand_total": 193800,
+"expired_at": "2026-12-08T14:57:14+05:30",
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"lead": null
+},
+{
+"id": 1,
+"subject": "عرض متجر مجوهرات ذهبي",
+"grand_total": 91200,
+"expired_at": "2026-11-28T14:57:14+05:30",
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"lead": {
+"id": 1,
+"name": "موقع إلكتروني لمجوهرات ذهبي"
+}
+}
+],
+"meta": {
+"total": 2,
+"current_page": 1,
+"last_page": 1
+}
+},
+"quotes/2": {
+"data": {
+"id": 2,
+"subject": "عرض نظام توريد النيل",
+"grand_total": 193800,
+"expired_at": "2026-12-08T14:57:14+05:30",
+"person": {
+"id": 2,
+"name": "رانيا سمير"
+},
+"lead": null,
+"description": "",
+"sub_total": 170000,
+"discount": 0,
+"tax": 23800,
+"adjustment": 0,
+"owner": {
+"id": 1,
+"name": "محمود صادق"
+},
+"items": [
+{
+"name": "تطبيق موبايل",
+"sku": "APP-MOB",
+"quantity": 1,
+"price": 120000,
+"total": 120000
+},
+{
+"name": "موقع شركة (5 صفحات)",
+"sku": "WEB-CORP",
+"quantity": 2,
+"price": 25000,
+"total": 50000
+}
+],
+"print_url": "https://crm.example.test/admin/quotes/print/2"
+}
+},
+"products": {
+"data": [
+{
+"id": 4,
+"name": "باقة دعم شهرية",
+"sku": "SUP-MON",
+"price": 6000,
+"quantity": 0,
+"description": "4 ساعات يومياً، رد خلال ساعة للحرج"
+},
+{
+"id": 3,
+"name": "تطبيق موبايل",
+"sku": "APP-MOB",
+"price": 120000,
+"quantity": 0,
+"description": "أندرويد وآيفون"
+},
+{
+"id": 2,
+"name": "متجر إلكتروني",
+"sku": "WEB-STORE",
+"price": 85000,
+"quantity": 0,
+"description": "متجر كامل مع دفع أونلاين ولوحة تحكم"
+},
+{
+"id": 1,
+"name": "موقع شركة (5 صفحات)",
+"sku": "WEB-CORP",
+"price": 25000,
+"quantity": 0,
+"description": "تصميم وبرمجة موقع تعريفي بالعربي والإنجليزي"
+}
+],
+"meta": {
+"total": 4,
+"current_page": 1,
+"last_page": 1
+}
+},
+"mail/inbox": {
+"data": [
+{
+"id": 1,
+"subject": "استفسار عن موعد التسليم",
+"from": "هاني ذهبي <hany@zahabi.test>",
+"to": [
+"support@coditvision.com"
+],
+"snippet": "أهلاً، محتاج أعرف هنستلم صفحة المنتج إمتى؟ وعايزين نضيف طريقة دفع فوري.",
+"is_read": true,
+"folder": "inbox",
+"created_at": "2026-11-18T14:17:19+05:30",
+"attachments": []
+},
+{
+"id": 2,
+"subject": "طلب عرض سعر تطبيق",
+"from": "رانيا سمير <rania@nile.test>",
+"to": [
+"no-reply@coditvision.com"
+],
+"snippet": "مساء الخير، عندنا 30 مندوب ومحتاجين تطبيق لمتابعة الطلبات. ممكن عرض سعر؟",
+"is_read": false,
+"folder": "inbox",
+"created_at": "2026-11-18T11:57:19+05:30",
+"attachments": []
+},
+{
+"id": 3,
+"subject": "فاتورة نوفمبر",
+"from": "حسابات ذهبي <accounts@zahabi.test>",
+"to": [
+"support@coditvision.com"
+],
+"snippet": "استلمنا الفاتورة وهيتم التحويل يوم الخميس.",
+"is_read": true,
+"folder": "inbox",
+"created_at": "2026-11-17T14:57:19+05:30",
+"attachments": []
+}
+],
+"meta": {
+"total": 3,
+"current_page": 1,
+"last_page": 1
+}
+},
+"mail/inbox/1": {
+"data": {
+"id": 1,
+"subject": "استفسار عن موعد التسليم",
+"from": "هاني ذهبي <hany@zahabi.test>",
+"to": [
+"support@coditvision.com"
+],
+"snippet": "أهلاً، محتاج أعرف هنستلم صفحة المنتج إمتى؟ وعايزين نضيف طريقة دفع فوري.",
+"is_read": true,
+"folder": "inbox",
+"created_at": "2026-11-18T14:17:19+05:30",
+"attachments": [],
+"body": "أهلاً، محتاج أعرف هنستلم صفحة المنتج إمتى؟ وعايزين نضيف طريقة دفع فوري.",
+"cc": [],
+"thread": [],
+"lead": {
+"id": 1,
+"name": "موقع إلكتروني لمجوهرات ذهبي"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+}
+}
+},
+"mail/sent": {
+"data": [
+{
+"id": 4,
+"subject": "Re: استفسار عن موعد التسليم",
+"from": "code it <no-reply@coditvision.com>",
+"to": [
+"hany@zahabi.test"
+],
+"snippet": "أهلاً أستاذ هاني، صفحة المنتج هتكون جاهزة للمراجعة يوم 26.",
+"is_read": true,
+"folder": "sent",
+"created_at": "2026-11-18T14:37:19+05:30",
+"attachments": []
+}
+],
+"meta": {
+"total": 1,
+"current_page": 1,
+"last_page": 1
+}
+},
+"projects": {
+"data": [
+{
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"stage": "design",
+"stage_label": "تصميم",
+"type": "web",
+"priority": "urgent",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"manager": null,
+"members": [
+{
+"id": 2,
+"name": "أحمد علي"
+}
+],
+"value": 32000,
+"due_date": "2026-12-30",
+"progress": 0,
+"tasks_open": 0,
+"tasks_done": 0
+},
+{
+"id": 2,
+"code": "CIT",
+"name": "نظام code it الداخلي",
+"stage": "dev",
+"stage_label": "تطوير",
+"type": "system",
+"priority": "normal",
+"client": null,
+"manager": {
+"id": 1,
+"name": "محمود صادق"
+},
+"members": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+],
+"value": 0,
+"due_date": "2027-01-15",
+"progress": 0,
+"tasks_open": 0,
+"tasks_done": 0
+},
+{
+"id": 1,
+"code": "ZHB",
+"name": "موقع مجوهرات ذهبي",
+"stage": "dev",
+"stage_label": "تطوير",
+"type": "website",
+"priority": "high",
+"client": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"manager": {
+"id": 1,
+"name": "محمود صادق"
+},
+"members": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+],
+"value": 85000,
+"due_date": "2026-12-20",
+"progress": 50,
+"tasks_open": 2,
+"tasks_done": 2
+}
+],
+"meta": {
+"total": 3,
+"current_page": 1,
+"last_page": 1
+}
+},
+"projects/3": {
+"data": {
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"stage": "design",
+"stage_label": "تصميم",
+"type": "web",
+"priority": "urgent",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"manager": null,
+"members": [
+{
+"id": 2,
+"name": "أحمد علي"
+}
+],
+"value": 32000,
+"due_date": "2026-12-30",
+"progress": 0,
+"tasks_open": 0,
+"tasks_done": 0,
+"description": "",
+"person": {
+"id": 3,
+"name": "علي تجربة"
+},
+"start_date": "2026-11-19",
+"launched_on": null,
+"next_step": null,
+"next_date": null,
+"links": [
+{
+"label": "Figma",
+"url": "https://figma.com/x"
+}
+],
+"tasks": [],
+"team_tasks": [],
+"deploys": []
+}
+},
+"projects/3/form": {
+"data": {
+"id": 3,
+"code": "PRJ-1001",
+"name": "موقع شركة تجربة 2",
+"description": "",
+"organization_id": 4,
+"person_id": 3,
+"lead_id": null,
+"user_id": null,
+"type": "web",
+"priority": "urgent",
+"stage": "design",
+"value": 32000,
+"start_date": "2026-11-19",
+"due_date": "2026-12-30",
+"launched_on": null,
+"next_step": null,
+"next_date": null,
+"links_text": "Figma | https://figma.com/x",
+"members": [
+2
+]
+}
+},
+"tasks": {
+"columns": {
+"todo": [
+{
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-18T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5
+},
+{
+"id": 6,
+"title": "مراجعة تذاكر الدعم",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-19T17:00:00+05:30",
+"late": false,
+"assignee": {
+"id": 6,
+"name": "كريم عادل"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 7
+},
+{
+"id": 2,
+"title": "API المشاريع والمهام",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-20T17:00:00+05:30",
+"late": false,
+"assignee": {
+"id": 4,
+"name": "يوسف حسن"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 11
+},
+{
+"id": 8,
+"title": "مهمة معدلة",
+"status": "todo",
+"priority": "urgent",
+"due_date": "2026-11-25T18:30:00+05:30",
+"late": false,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": null,
+"group_id": 5
+}
+],
+"doing": [
+{
+"id": 1,
+"title": "تصميم شاشة الدخول للتطبيق",
+"status": "doing",
+"priority": "high",
+"due_date": "2026-11-19T17:00:00+05:30",
+"late": false,
+"assignee": {
+"id": 5,
+"name": "منى إبراهيم"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي"
+},
+"group_id": 3
+},
+{
+"id": 5,
+"title": "صفحة المنتج لذهبي",
+"status": "doing",
+"priority": "high",
+"due_date": "2026-11-20T17:00:00+05:30",
+"late": false,
+"assignee": {
+"id": 3,
+"name": "سارة محمد"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي"
+},
+"group_id": 9
+}
+],
+"review": [
+{
+"id": 3,
+"title": "إصلاح بطء صندوق البريد",
+"status": "review",
+"priority": "urgent",
+"due_date": "2026-11-17T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5
+}
+],
+"done": [
+{
+"id": 7,
+"title": "تحديث الهوية في الموقع",
+"status": "done",
+"priority": "normal",
+"due_date": "2026-11-15T17:00:00+05:30",
+"late": false,
+"assignee": {
+"id": 5,
+"name": "منى إبراهيم"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي"
+},
+"group_id": 3
+}
+]
+},
+"queue": [],
+"stats": {
+"open": 7,
+"late": 2,
+"today": 2,
+"review": 1,
+"done": 1
+},
+"manager": true,
+"team": [
+{
+"id": 2,
+"name": "أحمد علي",
+"title": "DevOps",
+"open": 3,
+"late": 2
+},
+{
+"id": 3,
+"name": "سارة محمد",
+"title": "Frontend",
+"open": 1,
+"late": 0
+},
+{
+"id": 6,
+"name": "كريم عادل",
+"title": "Support",
+"open": 1,
+"late": 0
+},
+{
+"id": 5,
+"name": "منى إبراهيم",
+"title": "Design",
+"open": 1,
+"late": 0
+},
+{
+"id": 4,
+"name": "يوسف حسن",
+"title": "Backend",
+"open": 1,
+"late": 0
+},
+{
+"id": 1,
+"name": "محمود صادق",
+"title": null,
+"open": 0,
+"late": 0
+}
+],
+"groups": [
+{
+"id": 1,
+"name": "التصميم",
+"count": 0
+},
+{
+"id": 2,
+"name": "الفرونت إند",
+"count": 0
+},
+{
+"id": 3,
+"name": "الباك إند",
+"count": 1
+},
+{
+"id": 4,
+"name": "الموبايل",
+"count": 0
+},
+{
+"id": 5,
+"name": "DevOps",
+"count": 1
+},
+{
+"id": 6,
+"name": "الجودة",
+"count": 0
+},
+{
+"id": 7,
+"name": "التسويق",
+"count": 1
+},
+{
+"id": 8,
+"name": "المبيعات",
+"count": 0
+},
+{
+"id": 9,
+"name": "إدارة المشاريع",
+"count": 1
+},
+{
+"id": 10,
+"name": "الدعم الفني",
+"count": 0
+},
+{
+"id": 11,
+"name": "الإدارة",
+"count": 1
+},
+{
+"id": 12,
+"name": "فريق الموبايل",
+"count": 0
+}
+],
+"projects": []
+},
+"tasks/4": {
+"data": {
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"status": "todo",
+"priority": "normal",
+"due_date": "2026-11-18T17:00:00+05:30",
+"late": true,
+"assignee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"project": {
+"id": 2,
+"name": "نظام code it الداخلي"
+},
+"group_id": 5,
+"description": "تفاصيل المهمة والمطلوب بالظبط.",
+"link": null,
+"department": "DevOps",
+"assignee_title": "DevOps",
+"creator": {
+"id": 1,
+"name": "محمود صادق"
+},
+"started_at": null,
+"submitted_at": null,
+"done_at": null,
+"files": [],
+"project_files": [],
+"updates": [],
+"can_manage": true,
+"is_mine": false,
+"max_file_mb": 2
+}
+},
+"tasks/4/form": {
+"data": {
+"id": 4,
+"title": "نسخة احتياطية للسيرفر",
+"description": "تفاصيل المهمة والمطلوب بالظبط.",
+"link": null,
+"priority": "normal",
+"assignee_id": 2,
+"group_id": 5,
+"project_id": 2,
+"due_date": "2026-11-18",
+"due_time": "13:30"
+}
+},
+"tickets": {
+"data": [
+{
+"id": 5,
+"number": "T-105",
+"subject": "Test from app UI",
+"priority": "normal",
+"status": "open",
+"status_label": "مفتوحة",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"person": null,
+"project": null,
+"assignee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"sla_due_at": null,
+"sla_minutes": null,
+"created_at": "2026-11-19T04:18:45+05:30",
+"updated_at": "2026-11-19T04:18:45+05:30"
+},
+{
+"id": 4,
+"number": "T-104",
+"subject": "الموقع واقع",
+"priority": "urgent",
+"status": "open",
+"status_label": "مفتوحة",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"person": {
+"id": 3,
+"name": "علي تجربة"
+},
+"project": null,
+"assignee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"sla_due_at": null,
+"sla_minutes": null,
+"created_at": "2026-11-19T04:07:50+05:30",
+"updated_at": "2026-11-19T04:07:50+05:30"
+},
+{
+"id": 1,
+"number": "T-101",
+"subject": "الموقع بطيء جداً",
+"priority": "critical",
+"status": "progress",
+"status_label": "جاري الشغل",
+"client": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي",
+"code": "ZHB"
+},
+"assignee": {
+"id": 6,
+"name": "كريم عادل"
+},
+"sla_due_at": null,
+"sla_minutes": null,
+"created_at": "2026-11-18T17:58:02+05:30",
+"updated_at": "2026-11-18T20:07:29+05:30"
+},
+{
+"id": 2,
+"number": "T-102",
+"subject": "عايز أغير صور البانر",
+"priority": "urgent",
+"status": "progress",
+"status_label": "جاري الشغل",
+"client": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي",
+"code": "ZHB"
+},
+"assignee": {
+"id": 6,
+"name": "كريم عادل"
+},
+"sla_due_at": "2026-11-19T15:58:02+05:30",
+"sla_minutes": 441,
+"created_at": "2026-11-18T17:58:02+05:30",
+"updated_at": "2026-11-18T20:07:29+05:30"
+},
+{
+"id": 3,
+"number": "T-103",
+"subject": "مشكلة في الدفع بالفيزا",
+"priority": "urgent",
+"status": "open",
+"status_label": "مفتوحة",
+"client": {
+"id": 2,
+"name": "شركة النيل للتوريدات"
+},
+"person": {
+"id": 1,
+"name": "هاني ذهبي"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي",
+"code": "ZHB"
+},
+"assignee": {
+"id": 6,
+"name": "كريم عادل"
+},
+"sla_due_at": "2026-11-18T22:58:02+05:30",
+"sla_minutes": -579,
+"created_at": "2026-11-18T17:58:02+05:30",
+"updated_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"meta": {
+"total": 5,
+"current_page": 1,
+"last_page": 1
+}
+},
+"tickets/5": {
+"data": {
+"id": 5,
+"number": "T-105",
+"subject": "Test from app UI",
+"priority": "normal",
+"status": "open",
+"status_label": "مفتوحة",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"person": null,
+"project": null,
+"assignee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"sla_due_at": null,
+"sla_minutes": null,
+"created_at": "2026-11-19T04:18:45+05:30",
+"updated_at": "2026-11-19T04:18:45+05:30",
+"type": "bug",
+"estimate": null,
+"rating": null,
+"rating_comment": null,
+"first_response_at": "2026-11-19T04:18:45+05:30",
+"resolved_at": null,
+"messages": [
+{
+"id": 6,
+"author": "محمود صادق",
+"from_client": false,
+"internal": false,
+"body": "details here",
+"created_at": "2026-11-19T04:18:45+05:30",
+"files": []
+}
+],
+"hours": [],
+"package": {
+"name": "دعم مجاني",
+"hours": 240,
+"used": 0
+},
+"users": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 6,
+"name": "كريم عادل"
+},
+{
+"id": 1,
+"name": "محمود صادق"
+},
+{
+"id": 5,
+"name": "منى إبراهيم"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+]
+}
+},
+"invoices": {
+"data": [
+{
+"id": 4,
+"number": "INV-2026-0003",
+"status": "draft",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"project": {
+"id": 3,
+"name": "موقع شركة تجربة 2"
+},
+"total": 13680,
+"paid": 0,
+"remaining": 13680,
+"issue_date": "2026-11-19",
+"due_date": "2026-11-28"
+},
+{
+"id": 2,
+"number": "INV-2026-0002",
+"status": "draft",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"project": {
+"id": 3,
+"name": "موقع شركة تجربة 2"
+},
+"total": 13680,
+"paid": 0,
+"remaining": 13680,
+"issue_date": "2026-11-19",
+"due_date": "2026-11-26"
+},
+{
+"id": 1,
+"number": "INV-2026-0001",
+"status": "sent",
+"client": {
+"id": 1,
+"name": "مجوهرات ذهبي"
+},
+"project": {
+"id": 1,
+"name": "موقع مجوهرات ذهبي"
+},
+"total": 0,
+"paid": 0,
+"remaining": 0,
+"issue_date": "2026-11-13",
+"due_date": "2026-11-28"
+}
+],
+"meta": {
+"total": 3,
+"current_page": 1,
+"last_page": 1
+}
+},
+"invoices/4": {
+"data": {
+"id": 4,
+"number": "INV-2026-0003",
+"status": "draft",
+"client": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"project": {
+"id": 3,
+"name": "موقع شركة تجربة 2"
+},
+"total": 13680,
+"paid": 0,
+"remaining": 13680,
+"issue_date": "2026-11-19",
+"due_date": "2026-11-28",
+"notes": "دفعة أولى",
+"vat_rate": 0.14,
+"subtotal": 12000,
+"vat": 1680,
+"items": [
+{
+"description": "تصميم",
+"weeks": 0,
+"amount": 12000
+}
+],
+"payments": [],
+"payment_reported_at": null,
+"payment_report_note": null,
+"print_url": "https://crm.example.test/admin/invoices/4/print"
+}
+},
+"invoices/4/form": {
+"data": {
+"id": 4,
+"number": "INV-2026-0003",
+"organization_id": 4,
+"project_id": 3,
+"quote_id": null,
+"issue_date": "2026-11-19",
+"due_date": "2026-11-28",
+"vat_rate": 0.14,
+"notes": "دفعة أولى",
+"items": [
+{
+"description": "تصميم",
+"weeks": null,
+"amount": 12000
+}
+]
+}
+},
+"support-packages": {
+"data": [
+{
+"id": 1,
+"name": "دعم مجاني",
+"organization": {
+"id": 4,
+"name": "شركة تجربة"
+},
+"project": {
+"id": 3,
+"name": "موقع شركة تجربة 2"
+},
+"hours": 240,
+"daily_hours": 4,
+"used": 0,
+"price": 0,
+"is_free": true,
+"is_active": true,
+"period_start": "2026-11-01",
+"renew_on": "2026-12-31"
+}
+]
+},
+"chat": {
+"conversations": [
+{
+"id": 1,
+"type": "group",
+"title": "فريق التطوير",
+"created_by": 1,
+"members": [
+1,
+2,
+3,
+4,
+5,
+6
+],
+"reads": {
+"2": 9,
+"3": 0,
+"4": 0,
+"5": 0,
+"6": 0
+},
+"unread": 0,
+"last": {
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/admin/chat/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30",
+"sender": "محمود صادق"
+},
+"at": "2026-11-19T04:08:14+05:30",
+"name": "فريق التطوير",
+"other_id": null
+}
+],
+"now": "2026-11-19T08:36:40+05:30",
+"me": 1,
+"names": {
+"1": "محمود صادق",
+"2": "أحمد علي",
+"3": "سارة محمد",
+"4": "يوسف حسن",
+"5": "منى إبراهيم",
+"6": "كريم عادل"
+}
+},
+"chat/1/messages": {
+"messages": [
+{
+"id": 1,
+"user_id": 2,
+"kind": "text",
+"body": "صباح الخير يا جماعة، السيرفر اتحدث امبارح بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:34:02+05:30",
+"sender": "أحمد علي",
+"mine": false
+},
+{
+"id": 2,
+"user_id": 3,
+"kind": "text",
+"body": "تمام، شاشة الدخول هتخلص النهارده",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:31:02+05:30",
+"sender": "سارة محمد",
+"mine": false
+},
+{
+"id": 3,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز، ابعتوا صور الشاشات أول ما تخلص",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:52:02+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 4,
+"user_id": 1,
+"kind": "text",
+"body": "رسالة من التطبيق",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T20:07:29+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 5,
+"user_id": 5,
+"kind": "text",
+"body": "شاشة الدخول خلصت، رفعتها على الفيجما",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:27:19+05:30",
+"sender": "منى إبراهيم",
+"mine": false
+},
+{
+"id": 6,
+"user_id": 2,
+"kind": "text",
+"body": "تمام، هنزّلها على الستيجنج بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:32:19+05:30",
+"sender": "أحمد علي",
+"mine": false
+},
+{
+"id": 7,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز يا جماعة 👏 بكرة الصبح نراجعها مع العميل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:47:19+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 8,
+"user_id": 6,
+"kind": "text",
+"body": "هاني بعت إيميل بيسأل عن الدفع بفوري",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:53:19+05:30",
+"sender": "كريم عادل",
+"mine": false
+},
+{
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/api/mobile/v1/chat/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30",
+"sender": "محمود صادق",
+"mine": true
+}
+],
+"has_more": false,
+"conversation": {
+"id": 1,
+"type": "group",
+"name": "فريق التطوير"
+}
+},
+"chat/users": {
+"users": [
+{
+"id": 2,
+"name": "أحمد علي",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 3,
+"name": "سارة محمد",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 6,
+"name": "كريم عادل",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 1,
+"name": "محمود صادق",
+"role": "Administrator",
+"active": true,
+"image": null
+},
+{
+"id": 5,
+"name": "منى إبراهيم",
+"role": "موظف",
+"active": true,
+"image": null
+},
+{
+"id": 4,
+"name": "يوسف حسن",
+"role": "موظف",
+"active": true,
+"image": null
+}
+]
+},
+"chat/monitor": {
+"conversations": [
+{
+"id": 1,
+"type": "group",
+"title": "فريق التطوير",
+"members": [
+1,
+2,
+3,
+4,
+5,
+6
+],
+"past": [],
+"count": 9,
+"deleted": 0,
+"last": {
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/admin/chat/monitor/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30"
+},
+"at": "2026-11-19T04:08:14+05:30"
+}
+]
+},
+"chat/monitor/1": {
+"messages": [
+{
+"id": 1,
+"user_id": 2,
+"kind": "text",
+"body": "صباح الخير يا جماعة، السيرفر اتحدث امبارح بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:34:02+05:30",
+"sender": "أحمد علي",
+"mine": false
+},
+{
+"id": 2,
+"user_id": 3,
+"kind": "text",
+"body": "تمام، شاشة الدخول هتخلص النهارده",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:31:02+05:30",
+"sender": "سارة محمد",
+"mine": false
+},
+{
+"id": 3,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز، ابعتوا صور الشاشات أول ما تخلص",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T18:52:02+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 4,
+"user_id": 1,
+"kind": "text",
+"body": "رسالة من التطبيق",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T20:07:29+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 5,
+"user_id": 5,
+"kind": "text",
+"body": "شاشة الدخول خلصت، رفعتها على الفيجما",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:27:19+05:30",
+"sender": "منى إبراهيم",
+"mine": false
+},
+{
+"id": 6,
+"user_id": 2,
+"kind": "text",
+"body": "تمام، هنزّلها على الستيجنج بالليل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:32:19+05:30",
+"sender": "أحمد علي",
+"mine": false
+},
+{
+"id": 7,
+"user_id": 1,
+"kind": "text",
+"body": "ممتاز يا جماعة 👏 بكرة الصبح نراجعها مع العميل",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:47:19+05:30",
+"sender": "محمود صادق",
+"mine": true
+},
+{
+"id": 8,
+"user_id": 6,
+"kind": "text",
+"body": "هاني بعت إيميل بيسأل عن الدفع بفوري",
+"file": null,
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-18T14:53:19+05:30",
+"sender": "كريم عادل",
+"mine": false
+},
+{
+"id": 9,
+"user_id": 1,
+"kind": "text",
+"body": "ملف",
+"file": {
+"name": "t.txt",
+"size": 5,
+"image": false,
+"url": "https://crm.example.test/api/mobile/v1/chat/monitor/1/files/9"
+},
+"deleted": false,
+"deleted_at": null,
+"at": "2026-11-19T04:08:14+05:30",
+"sender": "محمود صادق",
+"mine": true
+}
+],
+"has_more": false,
+"reads": {
+"1": 9,
+"2": 9,
+"3": 0,
+"4": 0,
+"5": 0,
+"6": 0
+}
+},
+"hr/me": {
+"employee": {
+"id": 1,
+"code": "ADM-001",
+"name": "محمود صادق",
+"email": "admin@example.com",
+"phone": null,
+"status": "active",
+"group_id": 5,
+"hire_date": "2024-01-01",
+"contract": "full_time",
+"contract_label": "دوام كامل",
+"job_title": null,
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0,
+"birth_date": null,
+"address": null,
+"national_id": null,
+"emergency_name": null,
+"emergency_phone": null,
+"annual_leave_days": 21,
+"left_at": null,
+"base_salary": 30000,
+"allowances": 0,
+"bank_account": null
+},
+"self": true,
+"department": {
+"id": 5,
+"name": "DevOps",
+"manager": "أحمد علي"
+},
+"job_title": null,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"calendar": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "leave",
+"in": "03:52",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "casual"
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:35",
+"out": "11:39",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:54",
+"out": "11:34",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:52",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:38",
+"out": "11:48",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:44",
+"out": "11:53",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 7,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 1,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+},
+"today": {
+"date": "2026-11-19",
+"check_in": null,
+"check_out": null,
+"late_minutes": 0,
+"status": null
+},
+"balance": {
+"allow": 21,
+"taken": 1,
+"pending": 0,
+"left": 20
+},
+"leaves": [
+{
+"id": 2,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-08",
+"to": "2026-11-08",
+"days": 1,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "ظرف",
+"manager_note": null,
+"employee": null,
+"created_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"tasks": [],
+"payslips": [
+{
+"id": 1,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 30000,
+"additions": 0,
+"deductions": 6000,
+"net": 24000,
+"status": "draft",
+"employee": null,
+"approved_at": null,
+"paid_at": null
+}
+],
+"advances": [],
+"files": [],
+"can_decide": true,
+"work_start": "09:00",
+"work_end": "17:00"
+},
+"hr/employees": {
+"departments": [
+{
+"id": 3,
+"name": "الباك إند",
+"prefix": "BE",
+"manager": null,
+"people": [
+{
+"id": 5,
+"code": "EMP-004",
+"name": "منى إبراهيم",
+"email": "mona@codeit.test",
+"phone": "01000000003",
+"status": "active",
+"group_id": 3,
+"hire_date": "2025-04-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Design",
+"today": "none",
+"today_in": null,
+"tasks_open": 1,
+"tasks_late": 0
+}
+]
+},
+{
+"id": 5,
+"name": "DevOps",
+"prefix": "DEV",
+"manager": "أحمد علي",
+"people": [
+{
+"id": 2,
+"code": "EMP-001",
+"name": "أحمد علي",
+"email": "ahmed@codeit.test",
+"phone": "01000000000",
+"status": "active",
+"group_id": 5,
+"hire_date": "2025-01-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "DevOps",
+"today": "none",
+"today_in": null,
+"tasks_open": 3,
+"tasks_late": 2
+},
+{
+"id": 1,
+"code": "ADM-001",
+"name": "محمود صادق",
+"email": "admin@example.com",
+"phone": null,
+"status": "active",
+"group_id": 5,
+"hire_date": "2024-01-01",
+"contract": "full_time",
+"contract_label": "دوام كامل",
+"job_title": null,
+"today": "none",
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+}
+]
+},
+{
+"id": 7,
+"name": "التسويق",
+"prefix": "MKT",
+"manager": null,
+"people": [
+{
+"id": 6,
+"code": "EMP-005",
+"name": "كريم عادل",
+"email": "karim@codeit.test",
+"phone": "01000000004",
+"status": "active",
+"group_id": 7,
+"hire_date": "2025-05-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Support",
+"today": "none",
+"today_in": null,
+"tasks_open": 1,
+"tasks_late": 0
+}
+]
+},
+{
+"id": 9,
+"name": "إدارة المشاريع",
+"prefix": "PM",
+"manager": null,
+"people": [
+{
+"id": 3,
+"code": "EMP-002",
+"name": "سارة محمد",
+"email": "sara@codeit.test",
+"phone": "01000000001",
+"status": "active",
+"group_id": 9,
+"hire_date": "2025-02-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Frontend",
+"today": "none",
+"today_in": null,
+"tasks_open": 1,
+"tasks_late": 0
+}
+]
+},
+{
+"id": 11,
+"name": "الإدارة",
+"prefix": "ADM",
+"manager": null,
+"people": [
+{
+"id": 4,
+"code": "EMP-003",
+"name": "يوسف حسن",
+"email": "youssef@codeit.test",
+"phone": "01000000002",
+"status": "active",
+"group_id": 11,
+"hire_date": "2025-03-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Backend",
+"today": "none",
+"today_in": null,
+"tasks_open": 1,
+"tasks_late": 0
+}
+]
+}
+],
+"stats": {
+"people": 6,
+"in": 0,
+"late": 0,
+"leave": 0,
+"missing": 6,
+"pending": 1
+},
+"counts": {
+"active": 6,
+"left": 0
+},
+"workday": true
+},
+"hr/employees/3": {
+"employee": {
+"id": 3,
+"code": "EMP-002",
+"name": "سارة محمد",
+"email": "sara@codeit.test",
+"phone": "01000000001",
+"status": "active",
+"group_id": 9,
+"hire_date": "2025-02-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Frontend",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0,
+"birth_date": null,
+"address": null,
+"national_id": null,
+"emergency_name": null,
+"emergency_phone": null,
+"annual_leave_days": 21,
+"left_at": null,
+"base_salary": 13500,
+"allowances": 1000,
+"bank_account": null
+},
+"self": false,
+"department": {
+"id": 9,
+"name": "إدارة المشاريع",
+"manager": null
+},
+"job_title": "Frontend",
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"calendar": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:48",
+"out": "11:36",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:45",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:42",
+"out": "11:46",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:37",
+"out": "12:00",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:35",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:54",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:52",
+"out": "11:32",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:34",
+"out": "12:00",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "late",
+"in": "16:37",
+"out": "16:37",
+"late": 457,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "leave",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "annual"
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "leave",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "annual"
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 9,
+"late": 1,
+"absent": 5,
+"excused": 0,
+"remote": 0,
+"leave": 2,
+"unpaid": 0,
+"late_minutes": 457,
+"employed_days": 30,
+"calendar_days": 30
+}
+},
+"today": {
+"date": "2026-11-19",
+"check_in": null,
+"check_out": null,
+"late_minutes": 0,
+"status": null
+},
+"balance": {
+"allow": 21,
+"taken": 3,
+"pending": 1,
+"left": 18
+},
+"leaves": [
+{
+"id": 3,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-30",
+"to": "2026-11-30",
+"days": 1,
+"status": "pending",
+"status_label": "مستنية",
+"reason": "",
+"manager_note": null,
+"employee": null,
+"created_at": "2026-11-18T20:07:48+05:30"
+},
+{
+"id": 1,
+"type": "annual",
+"type_label": "اعتيادية",
+"from": "2026-11-25",
+"to": "2026-11-27",
+"days": 3,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "سفر مع العيلة",
+"manager_note": null,
+"employee": null,
+"created_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"tasks": [
+{
+"id": 5,
+"title": "صفحة المنتج لذهبي",
+"status": "doing",
+"due_at": "2026-11-20T17:00:00+05:30"
+}
+],
+"payslips": [
+{
+"id": 3,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 13500,
+"additions": 1000,
+"deductions": 2250,
+"net": 12250,
+"status": "draft",
+"employee": null,
+"approved_at": null,
+"paid_at": null
+}
+],
+"advances": [],
+"files": [],
+"can_decide": true,
+"work_start": "09:00",
+"work_end": "17:00"
+},
+"hr/attendance": {
+"month": "2026-11",
+"days": [
+{
+"date": "2026-11-01",
+"n": 1,
+"dow": 0
+},
+{
+"date": "2026-11-02",
+"n": 2,
+"dow": 1
+},
+{
+"date": "2026-11-03",
+"n": 3,
+"dow": 2
+},
+{
+"date": "2026-11-04",
+"n": 4,
+"dow": 3
+},
+{
+"date": "2026-11-05",
+"n": 5,
+"dow": 4
+},
+{
+"date": "2026-11-06",
+"n": 6,
+"dow": 5
+},
+{
+"date": "2026-11-07",
+"n": 7,
+"dow": 6
+},
+{
+"date": "2026-11-08",
+"n": 8,
+"dow": 0
+},
+{
+"date": "2026-11-09",
+"n": 9,
+"dow": 1
+},
+{
+"date": "2026-11-10",
+"n": 10,
+"dow": 2
+},
+{
+"date": "2026-11-11",
+"n": 11,
+"dow": 3
+},
+{
+"date": "2026-11-12",
+"n": 12,
+"dow": 4
+},
+{
+"date": "2026-11-13",
+"n": 13,
+"dow": 5
+},
+{
+"date": "2026-11-14",
+"n": 14,
+"dow": 6
+},
+{
+"date": "2026-11-15",
+"n": 15,
+"dow": 0
+},
+{
+"date": "2026-11-16",
+"n": 16,
+"dow": 1
+},
+{
+"date": "2026-11-17",
+"n": 17,
+"dow": 2
+},
+{
+"date": "2026-11-18",
+"n": 18,
+"dow": 3
+},
+{
+"date": "2026-11-19",
+"n": 19,
+"dow": 4
+},
+{
+"date": "2026-11-20",
+"n": 20,
+"dow": 5
+},
+{
+"date": "2026-11-21",
+"n": 21,
+"dow": 6
+},
+{
+"date": "2026-11-22",
+"n": 22,
+"dow": 0
+},
+{
+"date": "2026-11-23",
+"n": 23,
+"dow": 1
+},
+{
+"date": "2026-11-24",
+"n": 24,
+"dow": 2
+},
+{
+"date": "2026-11-25",
+"n": 25,
+"dow": 3
+},
+{
+"date": "2026-11-26",
+"n": 26,
+"dow": 4
+},
+{
+"date": "2026-11-27",
+"n": 27,
+"dow": 5
+},
+{
+"date": "2026-11-28",
+"n": 28,
+"dow": 6
+},
+{
+"date": "2026-11-29",
+"n": 29,
+"dow": 0
+},
+{
+"date": "2026-11-30",
+"n": 30,
+"dow": 1
+}
+],
+"rows": [
+{
+"employee": {
+"id": 5,
+"code": "EMP-004",
+"name": "منى إبراهيم",
+"email": "mona@codeit.test",
+"phone": "01000000003",
+"status": "active",
+"group_id": 3,
+"hire_date": "2025-04-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Design",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:36",
+"out": "11:45",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:35",
+"out": "11:46",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:42",
+"out": "11:33",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:31",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:34",
+"out": "11:33",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:46",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:34",
+"out": "11:43",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:39",
+"out": "11:56",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+},
+{
+"employee": {
+"id": 1,
+"code": "ADM-001",
+"name": "محمود صادق",
+"email": "admin@example.com",
+"phone": null,
+"status": "active",
+"group_id": 5,
+"hire_date": "2024-01-01",
+"contract": "full_time",
+"contract_label": "دوام كامل",
+"job_title": null,
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "leave",
+"in": "03:52",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "casual"
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:35",
+"out": "11:39",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:54",
+"out": "11:34",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:52",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:30",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:38",
+"out": "11:48",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:44",
+"out": "11:53",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 7,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 1,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+},
+{
+"employee": {
+"id": 2,
+"code": "EMP-001",
+"name": "أحمد علي",
+"email": "ahmed@codeit.test",
+"phone": "01000000000",
+"status": "active",
+"group_id": 5,
+"hire_date": "2025-01-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "DevOps",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:36",
+"out": "11:46",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:30",
+"out": "11:41",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:34",
+"out": "11:57",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:31",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:37",
+"out": "11:51",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:51",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:52",
+"out": "11:50",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:42",
+"out": "11:39",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+},
+{
+"employee": {
+"id": 6,
+"code": "EMP-005",
+"name": "كريم عادل",
+"email": "karim@codeit.test",
+"phone": "01000000004",
+"status": "active",
+"group_id": 7,
+"hire_date": "2025-05-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Support",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:51",
+"out": "11:55",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:40",
+"out": "11:33",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:45",
+"out": "11:36",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:31",
+"out": "11:55",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:33",
+"out": "11:47",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:35",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:46",
+"out": "11:31",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:37",
+"out": "11:50",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+},
+{
+"employee": {
+"id": 3,
+"code": "EMP-002",
+"name": "سارة محمد",
+"email": "sara@codeit.test",
+"phone": "01000000001",
+"status": "active",
+"group_id": 9,
+"hire_date": "2025-02-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Frontend",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:48",
+"out": "11:36",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:45",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:42",
+"out": "11:46",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:37",
+"out": "12:00",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:35",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:54",
+"out": "11:52",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:52",
+"out": "11:32",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:34",
+"out": "12:00",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "late",
+"in": "16:37",
+"out": "16:37",
+"late": 457,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "leave",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "annual"
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "leave",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": "annual"
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 9,
+"late": 1,
+"absent": 5,
+"excused": 0,
+"remote": 0,
+"leave": 2,
+"unpaid": 0,
+"late_minutes": 457,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+},
+{
+"employee": {
+"id": 4,
+"code": "EMP-003",
+"name": "يوسف حسن",
+"email": "youssef@codeit.test",
+"phone": "01000000002",
+"status": "active",
+"group_id": 11,
+"hire_date": "2025-03-01",
+"contract": "full",
+"contract_label": "full",
+"job_title": "Backend",
+"today": null,
+"today_in": null,
+"tasks_open": 0,
+"tasks_late": 0
+},
+"days": [
+{
+"date": "2026-11-01",
+"dow": 0,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-02",
+"dow": 1,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-03",
+"dow": 2,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-04",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-05",
+"dow": 4,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-06",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-07",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-08",
+"dow": 0,
+"status": "present",
+"in": "03:45",
+"out": "11:48",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-09",
+"dow": 1,
+"status": "present",
+"in": "03:47",
+"out": "11:54",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-10",
+"dow": 2,
+"status": "present",
+"in": "03:49",
+"out": "11:56",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-11",
+"dow": 3,
+"status": "present",
+"in": "03:55",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-12",
+"dow": 4,
+"status": "present",
+"in": "03:41",
+"out": "11:33",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-13",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-14",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-15",
+"dow": 0,
+"status": "present",
+"in": "03:51",
+"out": "11:43",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-16",
+"dow": 1,
+"status": "present",
+"in": "03:53",
+"out": "11:35",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-17",
+"dow": 2,
+"status": "present",
+"in": "03:40",
+"out": "11:43",
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-18",
+"dow": 3,
+"status": "absent",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-19",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-20",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-21",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-22",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-23",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-24",
+"dow": 2,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-25",
+"dow": 3,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-26",
+"dow": 4,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-27",
+"dow": 5,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-28",
+"dow": 6,
+"status": "off",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-29",
+"dow": 0,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+},
+{
+"date": "2026-11-30",
+"dow": 1,
+"status": "future",
+"in": null,
+"out": null,
+"late": 0,
+"note": null,
+"holiday": null,
+"leave": null
+}
+],
+"summary": {
+"sum": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30
+}
+}
+}
+],
+"departments": [
+{
+"id": 1,
+"name": "التصميم"
+},
+{
+"id": 2,
+"name": "الفرونت إند"
+},
+{
+"id": 3,
+"name": "الباك إند"
+},
+{
+"id": 4,
+"name": "الموبايل"
+},
+{
+"id": 5,
+"name": "DevOps"
+},
+{
+"id": 6,
+"name": "الجودة"
+},
+{
+"id": 7,
+"name": "التسويق"
+},
+{
+"id": 8,
+"name": "المبيعات"
+},
+{
+"id": 9,
+"name": "إدارة المشاريع"
+},
+{
+"id": 10,
+"name": "الدعم الفني"
+},
+{
+"id": 11,
+"name": "الإدارة"
+},
+{
+"id": 12,
+"name": "فريق الموبايل"
+}
+]
+},
+"hr/leaves": {
+"mine": [
+{
+"id": 2,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-08",
+"to": "2026-11-08",
+"days": 1,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "ظرف",
+"manager_note": null,
+"employee": null,
+"created_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"inbox": [
+{
+"id": 3,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-30",
+"to": "2026-11-30",
+"days": 1,
+"status": "pending",
+"status_label": "مستنية",
+"reason": "",
+"manager_note": null,
+"employee": {
+"id": 3,
+"name": "سارة محمد"
+},
+"created_at": "2026-11-18T20:07:48+05:30"
+}
+],
+"history": [
+{
+"id": 1,
+"type": "annual",
+"type_label": "اعتيادية",
+"from": "2026-11-25",
+"to": "2026-11-27",
+"days": 3,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "سفر مع العيلة",
+"manager_note": null,
+"employee": {
+"id": 3,
+"name": "سارة محمد"
+},
+"created_at": "2026-11-18T19:58:01+05:30"
+},
+{
+"id": 2,
+"type": "casual",
+"type_label": "عارضة",
+"from": "2026-11-08",
+"to": "2026-11-08",
+"days": 1,
+"status": "approved",
+"status_label": "اتوافق عليها",
+"reason": "ظرف",
+"manager_note": null,
+"employee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"created_at": "2026-11-18T19:58:01+05:30"
+}
+],
+"balance": {
+"allow": 21,
+"taken": 1,
+"pending": 0,
+"left": 20
+},
+"deciding": true,
+"has_file": true,
+"types": {
+"annual": "اعتيادية",
+"casual": "عارضة",
+"sick": "مرضية",
+"unpaid": "بدون مرتب",
+"other": "أخرى"
+}
+},
+"hr/payroll": {
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"prev": "2026-10",
+"next": "2026-12",
+"totals": {
+"base": 105000,
+"add": 5000,
+"ded": 20550,
+"net": 89450,
+"draft": 6,
+"approved": 0,
+"paid": 0
+},
+"rows": [
+{
+"id": 5,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 16500,
+"additions": 1000,
+"deductions": 3300,
+"net": 14200,
+"status": "draft",
+"employee": {
+"id": 5,
+"name": "منى إبراهيم"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "الباك إند",
+"code": "EMP-004"
+},
+{
+"id": 1,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 30000,
+"additions": 0,
+"deductions": 6000,
+"net": 24000,
+"status": "draft",
+"employee": {
+"id": 1,
+"name": "محمود صادق"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "DevOps",
+"code": "ADM-001"
+},
+{
+"id": 2,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 12000,
+"additions": 1000,
+"deductions": 2400,
+"net": 10600,
+"status": "draft",
+"employee": {
+"id": 2,
+"name": "أحمد علي"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "DevOps",
+"code": "EMP-001"
+},
+{
+"id": 6,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 18000,
+"additions": 1000,
+"deductions": 3600,
+"net": 15400,
+"status": "draft",
+"employee": {
+"id": 6,
+"name": "كريم عادل"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "التسويق",
+"code": "EMP-005"
+},
+{
+"id": 3,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 13500,
+"additions": 1000,
+"deductions": 2250,
+"net": 12250,
+"status": "draft",
+"employee": {
+"id": 3,
+"name": "سارة محمد"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "إدارة المشاريع",
+"code": "EMP-002"
+},
+{
+"id": 4,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 15000,
+"additions": 1000,
+"deductions": 3000,
+"net": 13000,
+"status": "draft",
+"employee": {
+"id": 4,
+"name": "يوسف حسن"
+},
+"approved_at": null,
+"paid_at": null,
+"department": "الإدارة",
+"code": "EMP-003"
+}
+],
+"no_salary": []
+},
+"hr/payslips/5": {
+"data": {
+"id": 5,
+"month": "2026-11",
+"month_label": "نوفمبر 2026",
+"base": 16500,
+"additions": 1000,
+"deductions": 3300,
+"net": 14200,
+"status": "draft",
+"employee": {
+"id": 5,
+"name": "منى إبراهيم"
+},
+"approved_at": null,
+"paid_at": null,
+"lines": [
+{
+"group": "add",
+"type": "fixed",
+"label": "بدلات ثابتة",
+"amount": 1000,
+"note": null
+},
+{
+"group": "ded",
+"type": "absence",
+"label": "غياب بدون إذن",
+"amount": 3300,
+"note": "6 يوم × 550"
+}
+],
+"attendance": {
+"workdays": 22,
+"present": 8,
+"late": 0,
+"absent": 6,
+"excused": 0,
+"remote": 0,
+"leave": 0,
+"unpaid": 0,
+"late_minutes": 0,
+"employed_days": 30,
+"calendar_days": 30,
+"base_full": 16500,
+"daily": 550
+}
+}
+},
+"careers": {
+"data": [
+{
+"id": 2,
+"number": "APP-002",
+"name": "ليلى أحمد",
+"position": "designer",
+"experience": "2-4",
+"status": "new",
+"status_label": "جديد",
+"email": "app1@test.com",
+"phone": "+20 1012345678",
+"whatsapp": "",
+"created_at": "2026-11-17T19:58:02+05:30"
+},
+{
+"id": 1,
+"number": "APP-001",
+"name": "عمر خالد",
+"position": "frontend",
+"experience": "2-4",
+"status": "reviewing",
+"status_label": "بنراجعه",
+"email": "app0@test.com",
+"phone": "+20 1012345678",
+"whatsapp": "",
+"created_at": "2026-11-18T19:58:02+05:30"
+}
+],
+"meta": {
+"total": 2,
+"current_page": 1,
+"last_page": 1
+},
+"statuses": {
+"new": "جديد",
+"reviewing": "بنراجعه",
+"interview": "مقابلة",
+"offer": "عرض شغل",
+"hired": "اتعيّن",
+"rejected": "مرفوض"
+}
+},
+"careers/2": {
+"data": {
+"id": 2,
+"number": "APP-002",
+"name": "ليلى أحمد",
+"position": "designer",
+"experience": "2-4",
+"status": "new",
+"status_label": "جديد",
+"email": "app1@test.com",
+"phone": "+20 1012345678",
+"whatsapp": "",
+"created_at": "2026-11-17T19:58:02+05:30",
+"portfolio_url": null,
+"notes": "",
+"answers": [],
+"files": [],
+"can_hire": true
+}
+},
+"settings": {
+"data": [
+"users",
+"roles",
+"groups",
+"pipelines",
+"sources",
+"types",
+"tags",
+"hr_departments",
+"hr_settings",
+"email_templates",
+"workflows",
+"webhooks",
+"web_forms",
+"attributes",
+"warehouses",
+"events",
+"campaigns",
+"imports",
+"configuration"
+],
+"web": {
+"workflows": "/admin/settings/workflows",
+"webhooks": "/admin/settings/webhooks",
+"web_forms": "/admin/settings/web-forms",
+"attributes": "/admin/settings/attributes",
+"warehouses": "/admin/settings/warehouses",
+"events": "/admin/settings/marketing/events",
+"campaigns": "/admin/settings/marketing/campaigns",
+"imports": "/admin/settings/data-transfer/imports",
+"configuration": "/admin/configuration"
+}
+},
+"settings/users": {
+"data": [
+{
+"id": 2,
+"name": "أحمد علي",
+"email": "ahmed@codeit.test",
+"status": true,
+"role_id": 2,
+"role": "موظف",
+"view_permission": "individual",
+"groups": [
+5
+],
+"is_me": false
+},
+{
+"id": 3,
+"name": "سارة محمد",
+"email": "sara@codeit.test",
+"status": true,
+"role_id": 2,
+"role": "موظف",
+"view_permission": "individual",
+"groups": [
+9
+],
+"is_me": false
+},
+{
+"id": 6,
+"name": "كريم عادل",
+"email": "karim@codeit.test",
+"status": true,
+"role_id": 2,
+"role": "موظف",
+"view_permission": "individual",
+"groups": [
+7
+],
+"is_me": false
+},
+{
+"id": 1,
+"name": "محمود صادق",
+"email": "admin@example.com",
+"status": true,
+"role_id": 1,
+"role": "Administrator",
+"view_permission": "global",
+"groups": [],
+"is_me": true
+},
+{
+"id": 5,
+"name": "منى إبراهيم",
+"email": "mona@codeit.test",
+"status": true,
+"role_id": 2,
+"role": "موظف",
+"view_permission": "individual",
+"groups": [
+3
+],
+"is_me": false
+},
+{
+"id": 4,
+"name": "يوسف حسن",
+"email": "youssef@codeit.test",
+"status": true,
+"role_id": 2,
+"role": "موظف",
+"view_permission": "individual",
+"groups": [
+11
+],
+"is_me": false
+}
+],
+"roles": [
+{
+"id": 1,
+"name": "Administrator",
+"permission_type": "all"
+},
+{
+"id": 2,
+"name": "موظف",
+"permission_type": "custom"
+}
+],
+"groups": [
+{
+"id": 5,
+"name": "DevOps"
+},
+{
+"id": 9,
+"name": "إدارة المشاريع"
+},
+{
+"id": 11,
+"name": "الإدارة"
+},
+{
+"id": 3,
+"name": "الباك إند"
+},
+{
+"id": 7,
+"name": "التسويق"
+},
+{
+"id": 1,
+"name": "التصميم"
+},
+{
+"id": 6,
+"name": "الجودة"
+},
+{
+"id": 10,
+"name": "الدعم الفني"
+},
+{
+"id": 2,
+"name": "الفرونت إند"
+},
+{
+"id": 8,
+"name": "المبيعات"
+},
+{
+"id": 4,
+"name": "الموبايل"
+},
+{
+"id": 12,
+"name": "فريق الموبايل"
+}
+]
+},
+"settings/roles": {
+"data": [
+{
+"id": 1,
+"name": "Administrator",
+"description": "Administrator Role",
+"permission_type": "all",
+"permissions": [],
+"users": 1
+},
+{
+"id": 2,
+"name": "موظف",
+"description": "code it: employee, sees only their own tasks",
+"permission_type": "custom",
+"permissions": [
+"codeit-team-tasks",
+"codeit-chat",
+"codeit-hr"
+],
+"users": 5
+}
+],
+"acl": [
+{
+"key": "dashboard",
+"name": "لوحة القيادة",
+"depth": 0
+},
+{
+"key": "codeit-chat",
+"name": "شات الفريق",
+"depth": 0
+},
+{
+"key": "codeit-chat.monitor",
+"name": "الاطلاع على كل المحادثات (إشراف)",
+"depth": 1
+},
+{
+"key": "leads",
+"name": "العملاء المحتملون",
+"depth": 0
+},
+{
+"key": "leads.create",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "leads.create.quick-create",
+"name": "إضافة سريعة",
+"depth": 2
+},
+{
+"key": "leads.view",
+"name": "عرض",
+"depth": 1
+},
+{
+"key": "leads.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "leads.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-invoices",
+"name": "الفواتير",
+"depth": 0
+},
+{
+"key": "codeit-invoices.create",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "codeit-invoices.edit",
+"name": "تعديل وإرسال",
+"depth": 1
+},
+{
+"key": "codeit-invoices.payments",
+"name": "تسجيل الدفعات",
+"depth": 1
+},
+{
+"key": "codeit-invoices.delete",
+"name": "حذف المسودات",
+"depth": 1
+},
+{
+"key": "codeit-projects",
+"name": "المشاريع",
+"depth": 0
+},
+{
+"key": "codeit-projects.view",
+"name": "عرض",
+"depth": 1
+},
+{
+"key": "codeit-projects.create",
+"name": "إضافة",
+"depth": 1
+},
+{
+"key": "codeit-projects.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "codeit-projects.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-projects.tasks",
+"name": "المهام",
+"depth": 1
+},
+{
+"key": "codeit-projects.deploys",
+"name": "سجل النشر",
+"depth": 1
+},
+{
+"key": "quotes",
+"name": "عروض الأسعار",
+"depth": 0
+},
+{
+"key": "quotes.create",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "quotes.create.quick-create",
+"name": "إضافة سريعة",
+"depth": 2
+},
+{
+"key": "quotes.mail",
+"name": "البريد",
+"depth": 1
+},
+{
+"key": "quotes.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "quotes.print",
+"name": "طباعة",
+"depth": 1
+},
+{
+"key": "quotes.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-support",
+"name": "الدعم الفني",
+"depth": 0
+},
+{
+"key": "codeit-support.view",
+"name": "عرض التذاكر",
+"depth": 1
+},
+{
+"key": "codeit-support.create",
+"name": "فتح تذكرة",
+"depth": 1
+},
+{
+"key": "codeit-support.reply",
+"name": "الرد وتسجيل الساعات",
+"depth": 1
+},
+{
+"key": "codeit-support.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-support.packages",
+"name": "باقات الدعم",
+"depth": 1
+},
+{
+"key": "mail",
+"name": "البريد",
+"depth": 0
+},
+{
+"key": "mail.inbox",
+"name": "الوارد",
+"depth": 1
+},
+{
+"key": "mail.draft",
+"name": "المسودات",
+"depth": 1
+},
+{
+"key": "mail.outbox",
+"name": "الصادر",
+"depth": 1
+},
+{
+"key": "mail.sent",
+"name": "المرسل",
+"depth": 1
+},
+{
+"key": "mail.trash",
+"name": "المحذوفات",
+"depth": 1
+},
+{
+"key": "mail.compose",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "mail.compose.quick-create",
+"name": "إضافة سريعة",
+"depth": 2
+},
+{
+"key": "mail.view",
+"name": "عرض",
+"depth": 1
+},
+{
+"key": "mail.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "mail.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "activities",
+"name": "الأنشطة",
+"depth": 0
+},
+{
+"key": "activities.create",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "activities.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "activities.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-team-tasks",
+"name": "المهام (مهامي)",
+"depth": 0
+},
+{
+"key": "codeit-team-tasks.manage",
+"name": "إدارة مهام الفريق (تعيين وتعديل وإضافة موظفين)",
+"depth": 1
+},
+{
+"key": "contacts",
+"name": "جهات الاتصال",
+"depth": 0
+},
+{
+"key": "contacts.persons",
+"name": "الأشخاص",
+"depth": 1
+},
+{
+"key": "contacts.persons.create",
+"name": "إنشاء",
+"depth": 2
+},
+{
+"key": "contacts.persons.create.quick-create",
+"name": "إضافة سريعة",
+"depth": 3
+},
+{
+"key": "contacts.persons.edit",
+"name": "تعديل",
+"depth": 2
+},
+{
+"key": "contacts.persons.delete",
+"name": "حذف",
+"depth": 2
+},
+{
+"key": "contacts.persons.view",
+"name": "عرض",
+"depth": 2
+},
+{
+"key": "contacts.persons.export_google",
+"name": "تصدير",
+"depth": 2
+},
+{
+"key": "contacts.persons.portal",
+"name": "بوابة العملاء",
+"depth": 2
+},
+{
+"key": "contacts.organizations",
+"name": "المنظمات",
+"depth": 1
+},
+{
+"key": "contacts.organizations.create",
+"name": "إنشاء",
+"depth": 2
+},
+{
+"key": "contacts.organizations.create.quick-create",
+"name": "إضافة سريعة",
+"depth": 3
+},
+{
+"key": "contacts.organizations.edit",
+"name": "تعديل",
+"depth": 2
+},
+{
+"key": "contacts.organizations.delete",
+"name": "حذف",
+"depth": 2
+},
+{
+"key": "codeit-hr",
+"name": "الموظفين: ملفي وحضوري وإجازاتي (ومدير القسم يشوف قسمه)",
+"depth": 0
+},
+{
+"key": "codeit-hr.manage",
+"name": "إدارة الموظفين والأقسام والإعدادات",
+"depth": 1
+},
+{
+"key": "codeit-hr.payroll",
+"name": "المرتبات والسلف",
+"depth": 1
+},
+{
+"key": "products",
+"name": "المنتجات",
+"depth": 0
+},
+{
+"key": "products.create",
+"name": "إنشاء",
+"depth": 1
+},
+{
+"key": "products.create.quick-create",
+"name": "إضافة سريعة",
+"depth": 2
+},
+{
+"key": "products.edit",
+"name": "تعديل",
+"depth": 1
+},
+{
+"key": "products.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "products.view",
+"name": "عرض",
+"depth": 1
+},
+{
+"key": "settings",
+"name": "الإعدادات",
+"depth": 0
+},
+{
+"key": "settings.user",
+"name": "المستخدم",
+"depth": 1
+},
+{
+"key": "settings.user.groups",
+"name": "المجموعات",
+"depth": 2
+},
+{
+"key": "settings.user.groups.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.user.groups.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.user.groups.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.user.roles",
+"name": "الأدوار",
+"depth": 2
+},
+{
+"key": "settings.user.roles.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.user.roles.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.user.roles.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.user.users",
+"name": "المستخدمون",
+"depth": 2
+},
+{
+"key": "settings.user.users.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.user.users.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.user.users.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.lead",
+"name": "عميل محتمل",
+"depth": 1
+},
+{
+"key": "settings.lead.pipelines",
+"name": "قنوات البيع",
+"depth": 2
+},
+{
+"key": "settings.lead.pipelines.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.lead.pipelines.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.lead.pipelines.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.lead.sources",
+"name": "المصادر",
+"depth": 2
+},
+{
+"key": "settings.lead.sources.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.lead.sources.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.lead.sources.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.lead.types",
+"name": "الأنواع",
+"depth": 2
+},
+{
+"key": "settings.lead.types.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.lead.types.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.lead.types.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.inventory",
+"name": "المخزون",
+"depth": 1
+},
+{
+"key": "settings.inventory.warehouse",
+"name": "المستودعات",
+"depth": 2
+},
+{
+"key": "settings.inventory.warehouse.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.inventory.warehouse.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.inventory.warehouse.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation",
+"name": "الأتمتة",
+"depth": 1
+},
+{
+"key": "settings.automation.attributes",
+"name": "السمات",
+"depth": 2
+},
+{
+"key": "settings.automation.attributes.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.attributes.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.attributes.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.email_templates",
+"name": "قوالب البريد الإلكتروني",
+"depth": 2
+},
+{
+"key": "settings.automation.email_templates.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.email_templates.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.email_templates.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.workflows",
+"name": "سير العمل",
+"depth": 2
+},
+{
+"key": "settings.automation.workflows.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.workflows.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.workflows.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.events",
+"name": "حدث",
+"depth": 2
+},
+{
+"key": "settings.automation.events.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.events.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.events.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.campaigns",
+"name": "الحملات",
+"depth": 2
+},
+{
+"key": "settings.automation.campaigns.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.campaigns.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.campaigns.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.webhooks",
+"name": "ويب هوك",
+"depth": 2
+},
+{
+"key": "settings.automation.webhooks.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.automation.webhooks.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.automation.webhooks.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.automation.data_transfer",
+"name": "نقل البيانات",
+"depth": 2
+},
+{
+"key": "settings.automation.data_transfer.imports",
+"name": "الاستيرادات",
+"depth": 3
+},
+{
+"key": "settings.automation.data_transfer.imports.create",
+"name": "إنشاء",
+"depth": 4
+},
+{
+"key": "settings.automation.data_transfer.imports.edit",
+"name": "تعديل",
+"depth": 4
+},
+{
+"key": "settings.automation.data_transfer.imports.delete",
+"name": "حذف",
+"depth": 4
+},
+{
+"key": "settings.automation.data_transfer.imports.import",
+"name": "استيراد",
+"depth": 4
+},
+{
+"key": "settings.other_settings",
+"name": "إعدادات أخرى",
+"depth": 1
+},
+{
+"key": "settings.other_settings.web_forms",
+"name": "نماذج الويب",
+"depth": 2
+},
+{
+"key": "settings.other_settings.web_forms.view",
+"name": "عرض",
+"depth": 3
+},
+{
+"key": "settings.other_settings.web_forms.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.other_settings.web_forms.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.other_settings.web_forms.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.other_settings.tags",
+"name": "الوسوم",
+"depth": 2
+},
+{
+"key": "settings.other_settings.tags.create",
+"name": "إنشاء",
+"depth": 3
+},
+{
+"key": "settings.other_settings.tags.edit",
+"name": "تعديل",
+"depth": 3
+},
+{
+"key": "settings.other_settings.tags.delete",
+"name": "حذف",
+"depth": 3
+},
+{
+"key": "settings.other_settings.google_contacts",
+"name": "Google Contacts",
+"depth": 2
+},
+{
+"key": "codeit-careers",
+"name": "طلبات التوظيف",
+"depth": 0
+},
+{
+"key": "codeit-careers.edit",
+"name": "تغيير الحالة والملاحظات",
+"depth": 1
+},
+{
+"key": "codeit-careers.delete",
+"name": "حذف",
+"depth": 1
+},
+{
+"key": "codeit-careers.download",
+"name": "تنزيل ملفات DOC و ZIP (اللي مبتتعرضش في المتصفح)",
+"depth": 1
+},
+{
+"key": "codeit-careers.form",
+"name": "تعديل فورم التقديم والوظايف",
+"depth": 1
+},
+{
+"key": "configuration",
+"name": "التهيئة",
+"depth": 0
+},
+{
+"key": "help",
+"name": "المساعدة",
+"depth": 0
+}
+]
+},
+"settings/pipelines": {
+"data": [
+{
+"id": 1,
+"name": "Default Pipeline",
+"is_default": true,
+"rotten_days": 30,
+"stages": [
+{
+"id": 1,
+"code": "new",
+"name": "New",
+"probability": 100,
+"sort_order": 1,
+"leads": 3
+},
+{
+"id": 2,
+"code": "follow-up",
+"name": "Follow Up",
+"probability": 100,
+"sort_order": 2,
+"leads": 2
+},
+{
+"id": 3,
+"code": "prospect",
+"name": "Prospect",
+"probability": 100,
+"sort_order": 3,
+"leads": 1
+},
+{
+"id": 4,
+"code": "negotiation",
+"name": "Negotiation",
+"probability": 100,
+"sort_order": 4,
+"leads": 1
+},
+{
+"id": 5,
+"code": "won",
+"name": "Won",
+"probability": 100,
+"sort_order": 5,
+"leads": 1
+},
+{
+"id": 6,
+"code": "lost",
+"name": "Lost",
+"probability": 0,
+"sort_order": 6,
+"leads": 1
+}
+]
+}
+]
+},
+"settings/groups": {
+"data": [
+{
+"id": 5,
+"name": "DevOps",
+"description": "code it: DevOps",
+"count": 1
+},
+{
+"id": 9,
+"name": "إدارة المشاريع",
+"description": "code it: Project management",
+"count": 1
+},
+{
+"id": 11,
+"name": "الإدارة",
+"description": "code it: Administration",
+"count": 1
+},
+{
+"id": 3,
+"name": "الباك إند",
+"description": "code it: Backend",
+"count": 1
+},
+{
+"id": 7,
+"name": "التسويق",
+"description": "code it: Marketing",
+"count": 1
+},
+{
+"id": 1,
+"name": "التصميم",
+"description": "code it: UI/UX and design team",
+"count": 0
+},
+{
+"id": 6,
+"name": "الجودة",
+"description": "code it: QA",
+"count": 0
+},
+{
+"id": 10,
+"name": "الدعم الفني",
+"description": "code it: Support",
+"count": 0
+},
+{
+"id": 2,
+"name": "الفرونت إند",
+"description": "code it: Frontend",
+"count": 0
+},
+{
+"id": 8,
+"name": "المبيعات",
+"description": "code it: Sales",
+"count": 0
+},
+{
+"id": 4,
+"name": "الموبايل",
+"description": "code it: Mobile",
+"count": 0
+},
+{
+"id": 12,
+"name": "فريق الموبايل",
+"description": "تطبيقات",
+"count": 0
+}
+]
+},
+"settings/sources": {
+"data": [
+{
+"id": 5,
+"name": "Direct",
+"count": 0
+},
+{
+"id": 1,
+"name": "Email",
+"count": 8
+},
+{
+"id": 4,
+"name": "Phone",
+"count": 0
+},
+{
+"id": 2,
+"name": "Web",
+"count": 1
+},
+{
+"id": 3,
+"name": "Web Form",
+"count": 0
+},
+{
+"id": 6,
+"name": "لينكدإن",
+"count": 0
+}
+]
+},
+"settings/types": {
+"data": [
+{
+"id": 2,
+"name": "Existing Business",
+"count": 0
+},
+{
+"id": 1,
+"name": "New Business",
+"count": 9
+}
+]
+},
+"settings/tags": {
+"data": []
+},
+"settings/hr-departments": {
+"data": [
+{
+"id": 1,
+"name": "التصميم",
+"prefix": "DES",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 2,
+"name": "الفرونت إند",
+"prefix": "FE",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 3,
+"name": "الباك إند",
+"prefix": "BE",
+"manager_id": null,
+"manager": null,
+"size": 1
+},
+{
+"id": 4,
+"name": "الموبايل",
+"prefix": "MOB",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 5,
+"name": "DevOps",
+"prefix": "DEV",
+"manager_id": 2,
+"manager": "أحمد علي",
+"size": 2
+},
+{
+"id": 6,
+"name": "الجودة",
+"prefix": "QA",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 7,
+"name": "التسويق",
+"prefix": "MKT",
+"manager_id": null,
+"manager": null,
+"size": 1
+},
+{
+"id": 8,
+"name": "المبيعات",
+"prefix": "SAL",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 9,
+"name": "إدارة المشاريع",
+"prefix": "PM",
+"manager_id": null,
+"manager": null,
+"size": 1
+},
+{
+"id": 10,
+"name": "الدعم الفني",
+"prefix": "SUP",
+"manager_id": null,
+"manager": null,
+"size": 0
+},
+{
+"id": 11,
+"name": "الإدارة",
+"prefix": "ADM",
+"manager_id": null,
+"manager": null,
+"size": 1
+},
+{
+"id": 12,
+"name": "فريق الموبايل",
+"prefix": null,
+"manager_id": null,
+"manager": null,
+"size": 0
+}
+],
+"users": [
+{
+"id": 2,
+"name": "أحمد علي"
+},
+{
+"id": 3,
+"name": "سارة محمد"
+},
+{
+"id": 6,
+"name": "كريم عادل"
+},
+{
+"id": 1,
+"name": "محمود صادق"
+},
+{
+"id": 5,
+"name": "منى إبراهيم"
+},
+{
+"id": 4,
+"name": "يوسف حسن"
+}
+]
+},
+"settings/hr": {
+"data": {
+"work_start": "09:00",
+"work_end": "17:00",
+"grace_minutes": 15,
+"late_free_minutes": 60,
+"weekend": [
+5,
+6
+],
+"annual_leave_days": 21,
+"month_days": 30,
+"currency": "ج.م",
+"deduct_absence": true,
+"deduct_late": false,
+"holidays": []
+}
+},
+"settings/email-templates": {
+"data": [
+{
+"id": 1,
+"name": "Activity created",
+"subject": "Activity created: {%activities.title%}",
+"content": "<p style=\"font-size: 16px; color: #5e5e5e;\">You have a new activity, please find the details bellow:</p>\n                                <p><strong style=\"font-size: 16px;\">Details</strong></p>\n                                <table style=\"height: 97px; width: 952px;\">\n                                    <tbody>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Title</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.title%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Type</td>\n                                                <td style=\"width: 770.047px; font-size: 16px;\">{%activities.type%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Date</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.schedule_from%} to&nbsp;{%activities.schedule_to%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px; vertical-align: text-top;\">Participants</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.participants%}</td>\n                                        </tr>\n                                    </tbody>\n                                </table>"
+},
+{
+"id": 2,
+"name": "Activity modified",
+"subject": "Activity modified: {%activities.title%}",
+"content": "<p style=\"font-size: 16px; color: #5e5e5e;\">You have a new activity modified, please find the details bellow:</p>\n                                <p><strong style=\"font-size: 16px;\">Details</strong></p>\n                                <table style=\"height: 97px; width: 952px;\">\n                                    <tbody>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Title</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.title%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Type</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.type%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px;\">Date</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.schedule_from%} to&nbsp;{%activities.schedule_to%}</td>\n                                        </tr>\n                                        <tr>\n                                            <td style=\"width: 116.953px; color: #546e7a; font-size: 16px; vertical-align: text-top;\">Participants</td>\n                                            <td style=\"width: 770.047px; font-size: 16px;\">{%activities.participants%}</td>\n                                        </tr>\n                                    </tbody>\n                                </table>"
+}
+]
+}
+}
