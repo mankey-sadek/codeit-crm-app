@@ -110,6 +110,10 @@ class AuthController extends Controller
             'hr_leaves' => 'admin.codeit.hr.leaves',
             'hr_payroll' => 'admin.codeit.hr.payroll',
             'settings' => 'admin.settings.index',
+            // what they may change (the app hides the edit / add buttons otherwise)
+            'task_edit' => 'admin.codeit.team.edit', 'task_create' => 'admin.codeit.team.create', 'project_edit' => 'admin.codeit.projects.edit', 'project_create' => 'admin.codeit.projects.create',
+            'invoice_edit' => 'admin.codeit.invoices.edit', 'invoice_create' => 'admin.codeit.invoices.create', 'ticket_create' => 'admin.codeit.tickets.create',
+            'lead_create' => 'admin.leads.create', 'person_create' => 'admin.contacts.persons.create', 'organization_create' => 'admin.contacts.organizations.create',
         ] as $key => $route) {
             if (\Illuminate\Support\Facades\Route::has($route) && RouteGate::can($route)) {
                 $screens[] = $key;

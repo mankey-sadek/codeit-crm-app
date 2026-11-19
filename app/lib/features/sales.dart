@@ -5,6 +5,7 @@ import '../core/api.dart';
 import '../core/fmt.dart' as f;
 import '../core/labels.dart';
 import '../core/obj.dart';
+import '../core/session.dart';
 import '../core/theme.dart';
 import '../ui/data.dart';
 import '../ui/forms.dart';
@@ -40,7 +41,7 @@ class _LeadsBoardScreenState extends State<LeadsBoardScreen> {
   Widget build(BuildContext context) => CiPage(
         title: 'الفرص',
         eyebrow: 'sales.pipeline',
-        fab: FloatingActionButton(onPressed: () => context.push('/leads/new').then((_) => _boardKey.currentState?.reload()), child: const CiIcon('plus', size: 22)),
+        fab: !Session.I.can('lead_create') ? null : FloatingActionButton(onPressed: () => context.push('/leads/new').then((_) => _boardKey.currentState?.reload()), child: const CiIcon('plus', size: 22)),
         body: Loader(
           key: _boardKey,
           load: () => Api.I.get('leads/board', {if (q.isNotEmpty) 'q': q}),
@@ -272,7 +273,7 @@ class PersonsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'العملاء',
         eyebrow: 'contacts.persons',
-        fab: FloatingActionButton(onPressed: () => context.push('/persons/new').then((_) => _personsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
+        fab: !Session.I.can('person_create') ? null : FloatingActionButton(onPressed: () => context.push('/persons/new').then((_) => _personsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
           key: _personsKey,
           path: 'persons',
@@ -304,7 +305,7 @@ class PersonScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'عميل',
         eyebrow: 'person #$id',
-        actions: [IconButton(tooltip: 'فرصة جديدة', onPressed: () => context.push('/leads/new?person=$id'), icon: const CiIcon('plus', size: 20))],
+        actions: [if (Session.I.can('lead_create')) IconButton(tooltip: 'فرصة جديدة', onPressed: () => context.push('/leads/new?person=$id'), icon: const CiIcon('plus', size: 20))],
         body: Loader(
           load: () => Api.I.get('persons/$id'),
           builder: (c, r, reload) {
@@ -352,7 +353,7 @@ class OrganizationsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'الشركات',
         eyebrow: 'contacts.organizations',
-        fab: FloatingActionButton(onPressed: () => context.push('/organizations/new').then((_) => _orgsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
+        fab: !Session.I.can('organization_create') ? null : FloatingActionButton(onPressed: () => context.push('/organizations/new').then((_) => _orgsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
           key: _orgsKey,
           path: 'organizations',
@@ -387,16 +388,17 @@ class OrganizationScreen extends StatelessWidget {
         title: 'شركة',
         eyebrow: 'organization #$id',
         actions: [
-          PopupMenuButton<String>(
-            icon: const CiIcon('plus', size: 20),
-            onSelected: (v) => context.push(v),
-            itemBuilder: (c) => [
-              PopupMenuItem(value: '/persons/new?organization=$id', child: const Text('جهة اتصال جديدة')),
-              PopupMenuItem(value: '/tickets/new?organization=$id', child: const Text('تذكرة جديدة')),
-              PopupMenuItem(value: '/projects/new?organization=$id', child: const Text('مشروع جديد')),
-              PopupMenuItem(value: '/invoices/new?organization=$id', child: const Text('فاتورة جديدة')),
-            ],
-          ),
+          if (['person_create', 'ticket_create', 'project_create', 'invoice_create'].any(Session.I.can))
+            PopupMenuButton<String>(
+              icon: const CiIcon('plus', size: 20),
+              onSelected: (v) => context.push(v),
+              itemBuilder: (c) => [
+                if (Session.I.can('person_create')) PopupMenuItem(value: '/persons/new?organization=$id', child: const Text('جهة اتصال جديدة')),
+                if (Session.I.can('ticket_create')) PopupMenuItem(value: '/tickets/new?organization=$id', child: const Text('تذكرة جديدة')),
+                if (Session.I.can('project_create')) PopupMenuItem(value: '/projects/new?organization=$id', child: const Text('مشروع جديد')),
+                if (Session.I.can('invoice_create')) PopupMenuItem(value: '/invoices/new?organization=$id', child: const Text('فاتورة جديدة')),
+              ],
+            ),
         ],
         body: Loader(
           load: () => Api.I.get('organizations/$id'),

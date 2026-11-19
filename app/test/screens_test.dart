@@ -20,7 +20,7 @@ final admin = _load('test/fixtures/api.json'), employee = _load('test/fixtures/a
 var fixtures = admin;
 
 /// What an ordinary employee (no sales, no settings) opens.
-const employeeRoutes = ['/home', '/tasks', '/chat', '/me', '/more', '/search', '/notifications', '/settings', '/tasks/new', '/hr/leaves', '/hr/leaves/new', '/chat/new'];
+const employeeRoutes = ['/home', '/tasks', '/chat', '/me', '/more', '/search', '/notifications', '/settings', '/tasks/new', '/tasks/4', '/hr/leaves', '/hr/leaves/new', '/chat/new'];
 
 const routes = [
   '/home', '/tasks', '/chat', '/me', '/more', '/search', '/notifications', '/settings',
@@ -142,6 +142,21 @@ void main() {
         await tester.pump(const Duration(seconds: 6));
       });
     }
+
+    testWidgets('employee sees no edit / add buttons the CRM would refuse', (tester) async {
+      await openScreen(tester, '/tasks/4', Ci.lightTokens);
+      expect(find.byTooltip('تعديل'), findsNothing);
+      await openScreen(tester, '/tasks', Ci.lightTokens);
+      expect(find.byType(FloatingActionButton), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+      await tester.pump(const Duration(seconds: 6));
+    });
+  });
+
+  testWidgets('admin sees the edit button', (tester) async {
+    await openScreen(tester, '/tasks/4', Ci.lightTokens);
+    expect(find.byTooltip('تعديل'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
   });
 
   testWidgets('my file without an employee file offers to make one', (tester) async {

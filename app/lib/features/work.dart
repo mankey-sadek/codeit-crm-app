@@ -42,7 +42,7 @@ class _TasksScreenState extends State<TasksScreen> {
         eyebrow: 'team.tasks',
         back: false,
         actions: [IconButton(onPressed: () => context.push('/search'), icon: const CiIcon('search', size: 20))],
-        fab: FloatingActionButton(
+        fab: !Session.I.can('task_create') ? null : FloatingActionButton(
           onPressed: () async {
             final ok = await context.push<bool>('/tasks/new');
             if (ok == true) _key.currentState?.reload();
@@ -169,7 +169,7 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'مهمة',
         eyebrow: 'task #$id',
-        actions: [IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/tasks/$id/edit', '/tasks/$id'), icon: const CiIcon('edit', size: 20))],
+        actions: [if (Session.I.can('task_edit')) IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/tasks/$id/edit', '/tasks/$id'), icon: const CiIcon('edit', size: 20))],
         body: Loader(
           load: () => Api.I.get('tasks/$id'),
           builder: (c, r, reload) {
@@ -444,7 +444,7 @@ class ProjectsScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'المشاريع',
         eyebrow: 'projects',
-        fab: FloatingActionButton(onPressed: () => context.push('/projects/new').then((_) => _projectsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
+        fab: !Session.I.can('project_create') ? null : FloatingActionButton(onPressed: () => context.push('/projects/new').then((_) => _projectsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
           key: _projectsKey,
           path: 'projects',
@@ -501,13 +501,14 @@ class ProjectScreen extends StatelessWidget {
         title: 'مشروع',
         eyebrow: 'project #$id',
         actions: [
-          IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/projects/$id/edit', '/projects/$id'), icon: const CiIcon('edit', size: 20)),
+          if (Session.I.can('project_edit')) IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/projects/$id/edit', '/projects/$id'), icon: const CiIcon('edit', size: 20)),
+          if (Session.I.can('ticket_create') || Session.I.can('invoice_create'))
           PopupMenuButton<String>(
             icon: const CiIcon('plus', size: 20),
             onSelected: (v) => context.push(v),
             itemBuilder: (c) => [
-              PopupMenuItem(value: '/tickets/new?project=$id', child: const Text('تذكرة جديدة')),
-              PopupMenuItem(value: '/invoices/new?project=$id', child: const Text('فاتورة جديدة')),
+              if (Session.I.can('ticket_create')) PopupMenuItem(value: '/tickets/new?project=$id', child: const Text('تذكرة جديدة')),
+              if (Session.I.can('invoice_create')) PopupMenuItem(value: '/invoices/new?project=$id', child: const Text('فاتورة جديدة')),
             ],
           ),
         ],
@@ -560,7 +561,7 @@ class ProjectScreen extends StatelessWidget {
               ]),
             ],
             if (p.s('description').isNotEmpty) ...[const SectionTitle('عن المشروع'), Panel(child: Text(p.s('description'), style: c.tt.bodyMedium!.copyWith(height: 1.7)))],
-            SectionTitle('مهام الفريق', count: p.l('team_tasks').length, action: 'مهمة جديدة', onAction: () async {
+            SectionTitle('مهام الفريق', count: p.l('team_tasks').length, action: Session.I.can('task_create') ? 'مهمة جديدة' : null, onAction: () async {
               if (await c.push<bool>('/tasks/new?project=$id') == true) reload();
             }),
             if (p.l('team_tasks').isEmpty) Text('مفيش مهام لسه.', style: c.tt.bodySmall),
@@ -661,7 +662,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
         title: 'تذاكر الدعم',
         eyebrow: 'support.tickets',
         actions: [IconButton(tooltip: 'باقات الدعم', onPressed: () => context.push('/support-packages'), icon: const CiIcon('clock', size: 20))],
-        fab: FloatingActionButton(onPressed: () => context.push('/tickets/new').then((_) => _ticketsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
+        fab: !Session.I.can('ticket_create') ? null : FloatingActionButton(onPressed: () => context.push('/tickets/new').then((_) => _ticketsKey.currentState?.refresh()), child: const CiIcon('plus', size: 22)),
         body: PagedList(
           key: _ticketsKey,
           path: 'tickets',
@@ -962,7 +963,7 @@ class InvoiceScreen extends StatelessWidget {
   Widget build(BuildContext context) => CiPage(
         title: 'فاتورة',
         eyebrow: 'invoice #$id',
-        actions: [IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/invoices/$id/edit', '/invoices/$id'), icon: const CiIcon('edit', size: 20))],
+        actions: [if (Session.I.can('invoice_edit')) IconButton(tooltip: 'تعديل', onPressed: () => editThen(context, '/invoices/$id/edit', '/invoices/$id'), icon: const CiIcon('edit', size: 20))],
         body: Loader(
           load: () => Api.I.get('invoices/$id'),
           builder: (c, r, reload) {
