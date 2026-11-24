@@ -7,6 +7,7 @@ import 'core/session.dart';
 import 'core/theme.dart';
 import 'features/home.dart';
 import 'router.dart';
+import 'ui/desktop.dart';
 import 'ui/kit.dart';
 
 Future<void> main() async {
@@ -58,7 +59,7 @@ class CodeItApp extends StatelessWidget {
             routerConfig: router,
             builder: (context, child) => MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaler: MediaQuery.of(context).textScaler.clamp(maxScaleFactor: 1.3)),
-              child: child!,
+              child: DesktopFrame(child: child!),
             ),
           );
         },

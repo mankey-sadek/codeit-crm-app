@@ -12,7 +12,7 @@ import '../ui/kit.dart';
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
 
-  static const _groups = <(String, List<(String screen, String icon, String label, String path)>)>[
+  static const groups = <(String, List<(String screen, String icon, String label, String path)>)>[
     ('المبيعات', [
       ('leads', 'chart', 'الفرص', '/leads'),
       ('activities', 'calendar', 'الأجندة', '/activities'),
@@ -63,7 +63,7 @@ class MoreScreen extends StatelessWidget {
             const CiIcon('gear', size: 20),
           ]),
         ),
-        for (final g in _groups)
+        for (final g in groups)
           if (g.$2.any((m) => s.can(m.$1))) ...[
             SectionTitle(g.$1),
             GridView.count(

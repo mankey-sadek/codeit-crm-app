@@ -107,10 +107,16 @@ Future<void> openFile(BuildContext context, String url, String name) async {
   }
   toast(context, 'جاري فتح $name...');
   try {
-    final dir = await getTemporaryDirectory();
+    final mac = defaultTargetPlatform == TargetPlatform.macOS;
+    // on the Mac the file lands in Downloads, where the person can find it again
+    final dir = mac ? (await getDownloadsDirectory() ?? await getTemporaryDirectory()) : await getTemporaryDirectory();
     final safe = name.replaceAll(RegExp(r'[\\/:*?"<>|]'), '_');
     final path = '${dir.path}/$safe';
     await Api.I.dio.download(url, path, options: Options(headers: Api.I.authHeaders));
+    if (mac) {
+      if (!await launchUrl(Uri.file(path)) && context.mounted) toast(context, 'الملف اتحفظ في Downloads.');
+      return;
+    }
     final r = await OpenFilex.open(path);
     if (r.type != ResultType.done && context.mounted) toast(context, 'مفيش برنامج على الموبايل يفتح الملف ده.', error: true);
     if (!await File(path).exists() && context.mounted) toast(context, 'الملف ماتحملش.', error: true);

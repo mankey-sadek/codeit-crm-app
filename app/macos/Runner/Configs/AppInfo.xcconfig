@@ -1,0 +1,9 @@
+// Application-level settings for the Runner target.
+
+// The app's name, shown in the menu bar and the Dock.
+PRODUCT_NAME = code it CRM
+
+// Its own id on the Mac (no push on the Mac, so it can be signed without a paid team).
+PRODUCT_BUNDLE_IDENTIFIER = com.codeit.crm.mac
+
+PRODUCT_COPYRIGHT = Copyright © 2026 code it. All rights reserved.

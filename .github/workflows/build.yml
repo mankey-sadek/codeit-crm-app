@@ -1,6 +1,6 @@
 name: Build app
 
-# Builds the native code it CRM app for Android and iOS.
+# Builds the native code it CRM app for Android, iOS and the Mac.
 # - Every push / PR: analyze + tests, Android APK, iOS build check.
 # - Signed builds use repository secrets (Settings > Secrets and variables > Actions).
 #   Without them the APK is debug-signed (installable for testing) and iOS is built without signing.
@@ -194,3 +194,23 @@ jobs:
             app/build/ios/ipa/*.ipa
           if-no-files-found: error
           retention-days: 30
+
+  macos:
+    needs: check
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Build the Mac app
+        run: flutter build macos --release --build-number=${{ github.run_number }} --dart-define=BUILD=${{ github.run_number }}
+      - name: Zip it
+        run: cd "build/macos/Build/Products/Release" && ditto -c -k --keepParent "code it CRM.app" "$GITHUB_WORKSPACE/codeit-crm-mac.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: codeit-crm-mac-${{ github.run_number }}
+          path: codeit-crm-mac.zip

@@ -6,6 +6,7 @@ import 'package:codeit_crm/core/obj.dart';
 import 'package:codeit_crm/core/session.dart';
 import 'package:codeit_crm/core/theme.dart';
 import 'package:codeit_crm/router.dart';
+import 'package:codeit_crm/ui/desktop.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -55,14 +56,14 @@ void installFakeApi() {
     }));
 }
 
-Future<void> openScreen(WidgetTester tester, String route, Ci tokens, {double textScale = 1}) async {
+Future<void> openScreen(WidgetTester tester, String route, Ci tokens, {double textScale = 1, bool desktop = false}) async {
   router.go(route);
   await tester.pumpWidget(MaterialApp.router(
     theme: buildTheme(tokens),
     locale: const Locale('ar'),
     builder: (c, child) => MediaQuery(
       data: MediaQuery.of(c).copyWith(textScaler: TextScaler.linear(textScale)),
-      child: Directionality(textDirection: TextDirection.rtl, child: child!),
+      child: Directionality(textDirection: TextDirection.rtl, child: desktop ? DesktopFrame(child: child!) : child!),
     ),
     routerConfig: router,
   ));
@@ -165,5 +166,24 @@ void main() {
     await openScreen(tester, '/me', Ci.darkTokens);
     expect(find.text('اعمل ملفي'), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
+  });
+
+  group('Mac window (wide)', () {
+    for (final r in ['/home', '/tasks', '/tasks/4', '/projects/3', '/chat', '/leads', '/hr/employees', '/crm-settings']) {
+      testWidgets('wide $r', (tester) async {
+        tester.view.physicalSize = const Size(1280 * 2, 820 * 2);
+        tester.view.devicePixelRatio = 2;
+        addTearDown(tester.view.reset);
+        final errors = <String>[];
+        final old = FlutterError.onError;
+        FlutterError.onError = (d) => errors.add(d.exceptionAsString().split('\n').first);
+        await openScreen(tester, r, Ci.lightTokens, desktop: true);
+        FlutterError.onError = old;
+        expect(errors, isEmpty);
+        expect(find.text('المشاريع'), findsWidgets, reason: 'the sidebar lists the modules');
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(const Duration(seconds: 6));
+      });
+    }
   });
 }

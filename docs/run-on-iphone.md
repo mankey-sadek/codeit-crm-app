@@ -57,7 +57,17 @@ cd ~/codeit-crm-app && git checkout -- . && git pull && cd app && flutter pub ge
 ```
 Then press ▶ Run again in Xcode.
 
-## On the Mac itself
-Your MacBook (Apple chip) runs the iPhone app as is, no separate Mac version needed:
-at the top of Xcode, open the device list and pick **My Mac (Designed for iPhone)**, then press ▶ Run.
-The app opens in its own window and stays in Launchpad / Applications.
+## The Mac app
+The Mac has its own version: a sidebar with every module, and pages at a comfortable width. Make the window narrow and it switches to the phone layout.
+No Apple team or Xcode signing is needed. In Terminal:
+```
+cd ~/codeit-crm-app && git checkout -- . && git pull
+cd app && flutter pub get
+flutter build macos --release
+cp -R "build/macos/Build/Products/Release/code it CRM.app" /Applications/
+open "/Applications/code it CRM.app"
+```
+After that it's in Launchpad like any app. To update it, run the same commands again.
+The first time macOS may ask to allow access to the login keychain (that's where the sign-in is kept): choose **Always Allow**.
+No push notifications on the Mac for now. Files you open from the app are saved in Downloads.
+Every push to the branch also builds the Mac app on GitHub: Actions → the run → Artifacts → `codeit-crm-mac-<number>`.

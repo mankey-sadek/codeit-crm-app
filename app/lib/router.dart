@@ -15,6 +15,7 @@ import 'features/more.dart';
 import 'features/sales.dart';
 import 'features/settings.dart';
 import 'features/work.dart';
+import 'ui/desktop.dart';
 import 'ui/kit.dart';
 
 final rootKey = GlobalKey<NavigatorState>();
@@ -117,7 +118,7 @@ class AppShell extends StatelessWidget {
     final current = tabs.indexWhere((t) => t.$1 == shell.currentIndex);
     return Scaffold(
       body: shell,
-      bottomNavigationBar: ListenableBuilder(
+      bottomNavigationBar: isWide(context) ? null : ListenableBuilder(
         listenable: s,
         builder: (context, _) => Container(
           decoration: BoxDecoration(color: context.ci.surface, border: Border(top: BorderSide(color: context.ci.line))),

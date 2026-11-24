@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform;
 import 'package:material_ui/material_ui.dart';
 
 import '../core/api.dart';
@@ -42,7 +43,8 @@ Future<void> openWebSettings(BuildContext context, String path) async {
   final r = await doAction(context, () => Api.I.post('settings/web-link', {'to': path}));
   final url = r?.s('url') ?? '';
   if (url.isEmpty) return;
-  await launchUrl(Uri.parse(url), mode: LaunchMode.inAppBrowserView);
+  // the Mac has no in-app browser: the page opens in Safari / the default browser
+  await launchUrl(Uri.parse(url), mode: defaultTargetPlatform == TargetPlatform.macOS ? LaunchMode.externalApplication : LaunchMode.inAppBrowserView);
 }
 
 class CrmSettingsScreen extends StatelessWidget {

@@ -35,7 +35,8 @@ class Api {
   /// Demo answers instead of the CRM: DEMO builds, or after the reviewers' sign-in.
   static bool demo = kDemo;
 
-  final _store = const FlutterSecureStorage();
+  // on the Mac: the login keychain, which needs no paid Apple team to sign the app
+  final _store = const FlutterSecureStorage(mOptions: MacOsOptions(usesDataProtectionKeychain: false));
   String? _token;
   void Function()? onUnauthorized;
 
