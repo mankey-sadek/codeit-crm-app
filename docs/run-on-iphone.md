@@ -35,6 +35,14 @@ In Xcode, click **Runner** at the top of the left list → target **Runner** →
 - Team: pick your team (WH59D9JVTK).
 - Bundle Identifier stays `com.coditvision.crm`.
 
+If the Team list only shows **"(Personal Team)"** and Xcode says personal teams don't support Push Notifications:
+- Best fix: pick the company's paid team instead. It appears only if Xcode is signed in with the Apple ID that owns the Apple Developer membership, and the membership is active (renew it if it expired). With it, nothing else changes.
+- Quick fix with the free Personal Team, for testing only:
+  1. In **Signing & Capabilities**, click **All** at the top, then the 🗑 next to **Push Notifications** (keep Background Modes).
+  2. Change **Bundle Identifier** to something of your own, for example `com.codeit.crm.mahmoud`.
+  3. Run. The app works normally, only without notifications. A Personal Team build stops opening after 7 days; just press Run again.
+  Don't commit these two changes (`git checkout -- ios` undoes them before the next `git pull`).
+
 ## Run
 1. Connect the iPhone with a cable, unlock it, and tap **Trust**.
 2. At the top of Xcode, pick your iPhone as the device.
@@ -48,6 +56,6 @@ Faster from Terminal, without opening Xcode: `flutter run --release` inside `app
 
 ## After each update
 ```
-cd ~/codeit-crm-app && git pull && cd app && flutter pub get && flutter build ios --config-only --release
+cd ~/codeit-crm-app && git checkout -- app/ios && git pull && cd app && flutter pub get && flutter build ios --config-only --release
 ```
 Then press ▶ Run again in Xcode.
