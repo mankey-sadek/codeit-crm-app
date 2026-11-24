@@ -10,7 +10,6 @@ This needs a Mac. Xcode doesn't run on Windows.
    echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> ~/.zprofile
    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
    brew install --cask flutter
-   brew install cocoapods
    sudo xcodebuild -runFirstLaunch
    flutter doctor
    ```
@@ -23,10 +22,11 @@ This needs a Mac. Xcode doesn't run on Windows.
 git clone -b feature/native-app https://github.com/mankey-sadek/codeit-crm-app.git
 cd codeit-crm-app/app
 flutter pub get
-cd ios && pod install && cd ..
+flutter build ios --config-only --release
 open ios/Runner.xcworkspace
 ```
 The app lives on the `feature/native-app` branch (`main` has no `app` folder yet), hence `-b feature/native-app`.
+The project uses Swift Package Manager, so there is no Podfile and no `pod install`. `flutter build ios --config-only` prepares everything Xcode needs.
 Open **Runner.xcworkspace**, not Runner.xcodeproj.
 
 ## Signing (once)
@@ -48,6 +48,6 @@ Faster from Terminal, without opening Xcode: `flutter run --release` inside `app
 
 ## After each update
 ```
-cd ~/codeit-crm-app && git pull && cd app && flutter pub get && cd ios && pod install && cd ..
+cd ~/codeit-crm-app && git pull && cd app && flutter pub get && flutter build ios --config-only --release
 ```
 Then press ▶ Run again in Xcode.
