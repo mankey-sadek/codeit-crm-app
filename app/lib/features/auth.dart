@@ -30,6 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
       await Session.I.login(email.text, pass.text);
     } on ApiError catch (e) {
       setState(() => error = e.message);
+    } catch (e) {
+      // anything that isn't the CRM's answer (phone storage, a plugin): say so instead of doing nothing
+      if (mounted) setState(() => error = 'حصلت مشكلة على الموبايل: $e');
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -92,6 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextField(
                     controller: email,
                     keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    smartDashesType: SmartDashesType.disabled,
+                    smartQuotesType: SmartQuotesType.disabled,
+                    textCapitalization: TextCapitalization.none,
                     textDirection: TextDirection.ltr,
                     autofillHints: const [AutofillHints.email, AutofillHints.username],
                     textInputAction: TextInputAction.next,
@@ -102,6 +110,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextField(
                     controller: pass,
                     obscureText: hide,
+                    keyboardType: TextInputType.visiblePassword,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    smartDashesType: SmartDashesType.disabled,
+                    smartQuotesType: SmartQuotesType.disabled,
+                    textCapitalization: TextCapitalization.none,
                     textDirection: TextDirection.ltr,
                     autofillHints: const [AutofillHints.password],
                     onSubmitted: (_) => submit(),

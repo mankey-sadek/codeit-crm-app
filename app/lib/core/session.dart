@@ -51,7 +51,25 @@ class Session extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// What a phone keyboard may type that the web never does: Arabic-Indic digits (٠-٩, ۰-۹) and
+  /// iOS "smart" quotes and dashes. Turned back into the plain characters the CRM stored.
+  static String plainKeys(String v) {
+    final b = StringBuffer();
+    for (final r in v.runes) {
+      if (r >= 0x660 && r <= 0x669) {
+        b.writeCharCode(0x30 + r - 0x660);
+      } else if (r >= 0x6F0 && r <= 0x6F9) {
+        b.writeCharCode(0x30 + r - 0x6F0);
+      } else {
+        b.write(switch (r) { 0x2018 || 0x2019 => "'", 0x201C || 0x201D => '"', 0x2013 || 0x2014 => '-', _ => String.fromCharCode(r) });
+      }
+    }
+    return b.toString();
+  }
+
   Future<void> login(String email, String password) async {
+    email = plainKeys(email).trim().toLowerCase();
+    password = plainKeys(password);
     final p = await SharedPreferences.getInstance();
     if (email.trim().toLowerCase() == kReviewEmail && password == kReviewPassword) {
       // App Store / Google Play reviewers: the demo with made-up data, no CRM data is shown

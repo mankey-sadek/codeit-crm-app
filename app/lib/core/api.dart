@@ -69,10 +69,16 @@ class Api {
   Future<void> saveToken(String? t) async {
     _token = t;
     if (demo) return;
-    if (t == null) {
-      await _store.delete(key: 'token');
-    } else {
-      await _store.write(key: 'token', value: t);
+    // The keychain can refuse (e.g. an app signed without the usual entitlements). Signing in must
+    // still work: the token then lives in memory only, and the next start asks to sign in again.
+    try {
+      if (t == null) {
+        await _store.delete(key: 'token');
+      } else {
+        await _store.write(key: 'token', value: t);
+      }
+    } catch (e) {
+      debugPrint('token storage: $e');
     }
   }
 

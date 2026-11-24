@@ -33,4 +33,24 @@ void main() {
     expect((await Api.I.get('settings/users')).l('data'), isNotEmpty);
     Api.demo = false;
   });
+
+  test('signing in still works when the phone refuses to store the token', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
+    // no keychain in tests: every secure-storage call throws, like a refused keychain on a phone
+    Api.I.dio.interceptors.add(InterceptorsWrapper(onRequest: (o, h) {
+      if (o.path == 'auth/login') return h.resolve(Response(requestOptions: o, statusCode: 200, data: {'token': 't1', 'user': {'id': 1, 'email': 'a@b.c', 'screens': {}}}));
+      h.resolve(Response(requestOptions: o, statusCode: 200, data: {'ok': true}));
+    }));
+    await Session.I.login('a@b.c', 'x');
+    expect(Api.I.hasToken, isTrue);
+    expect(Session.I.me?.s('email'), 'a@b.c');
+  });
+
+  test('a phone keyboard types the same password as the web', () {
+    expect(Session.plainKeys('Abc١٢٣'), 'Abc123');
+    expect(Session.plainKeys('x۴۵'), 'x45');
+    expect(Session.plainKeys('it\u2019s\u2014ok'), "it's-ok");
+    expect(Session.plainKeys('Pass#2026!'), 'Pass#2026!');
+  });
 }
