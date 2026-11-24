@@ -1,0 +1,169 @@
+<?php
+
+use CodeIt\Mobile\Http\Controllers\AuthController;
+use CodeIt\Mobile\Http\Controllers\CareersController;
+use CodeIt\Mobile\Http\Controllers\ChatController;
+use CodeIt\Mobile\Http\Controllers\FormsController;
+use CodeIt\Mobile\Http\Controllers\HomeController;
+use CodeIt\Mobile\Http\Controllers\HrController;
+use CodeIt\Mobile\Http\Controllers\MailController;
+use CodeIt\Mobile\Http\Controllers\SalesController;
+use CodeIt\Mobile\Http\Controllers\SettingsController;
+use CodeIt\Mobile\Http\Controllers\WorkController;
+use CodeIt\Mobile\Http\Middleware\MobileAuth;
+use Illuminate\Support\Facades\Route;
+
+// /api/mobile/v1/...
+Route::post('auth/login', [AuthController::class, 'login'])->middleware('throttle:codeit-mobile-login');
+
+Route::middleware([MobileAuth::class, 'throttle:codeit-mobile'])->group(function () {
+    Route::get('me', [AuthController::class, 'me']);
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::post('devices', [AuthController::class, 'device']);
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('home', 'home');
+        Route::get('search', 'search');
+        Route::get('notifications', 'notifications');
+        Route::post('notifications/read-all', 'readAllNotifications');
+        Route::post('notifications/{id}/read', 'readNotification')->whereNumber('id');
+    });
+
+    Route::controller(SalesController::class)->group(function () {
+        Route::get('pipelines', 'pipelines');
+        Route::get('leads', 'leads');
+        Route::get('leads/board', 'board');
+        Route::get('leads/{id}', 'lead')->whereNumber('id');
+        Route::post('leads/{id}/stage', 'leadStage')->whereNumber('id');
+        Route::get('persons', 'persons');
+        Route::get('persons/{id}', 'person')->whereNumber('id');
+        Route::get('organizations', 'organizations');
+        Route::get('organizations/{id}', 'organization')->whereNumber('id');
+        Route::get('activities', 'activities');
+        Route::post('activities', 'storeActivity');
+        Route::put('activities/{id}', 'updateActivity')->whereNumber('id');
+        Route::get('quotes', 'quotes');
+        Route::get('quotes/{id}', 'quote')->whereNumber('id');
+        Route::get('products', 'products');
+    });
+
+    Route::controller(MailController::class)->group(function () {
+        Route::get('mail/attachments/{id}', 'attachment')->whereNumber('id');
+        Route::post('mail', 'send');
+        Route::get('mail/{folder}', 'index')->where('folder', 'inbox|sent|draft|outbox|trash');
+        Route::get('mail/{folder}/{id}', 'show')->where('folder', 'inbox|sent|draft|outbox|trash')->whereNumber('id');
+    });
+
+    Route::controller(WorkController::class)->group(function () {
+        Route::get('projects', 'projects');
+        Route::get('projects/{id}', 'project')->whereNumber('id');
+        Route::post('projects/{id}/tasks', 'storeProjectTask')->whereNumber('id');
+        Route::put('project-tasks/{taskId}', 'updateProjectTask')->whereNumber('taskId');
+
+        Route::get('tasks', 'tasks');
+        Route::post('tasks', 'storeTask');
+        Route::get('tasks/{id}', 'task')->whereNumber('id');
+        Route::post('tasks/{id}/status', 'taskStatus')->whereNumber('id');
+        Route::post('tasks/{id}/comment', 'taskComment')->whereNumber('id');
+        Route::post('tasks/{id}/files', 'taskFiles')->whereNumber('id');
+        Route::get('task-files/{fileId}', 'teamFile')->whereNumber('fileId');
+
+        Route::get('tickets', 'tickets');
+        Route::get('tickets/{id}', 'ticket')->whereNumber('id');
+        Route::post('tickets/{id}/reply', 'ticketReply')->whereNumber('id');
+        Route::put('tickets/{id}', 'ticketUpdate')->whereNumber('id');
+        Route::post('tickets/{id}/hours', 'ticketHours')->whereNumber('id');
+        Route::get('ticket-files/{attachmentId}', 'ticketFile')->whereNumber('attachmentId');
+
+        Route::get('invoices', 'invoices');
+        Route::get('invoices/{id}', 'invoice')->whereNumber('id');
+        Route::post('invoices/{id}/payments', 'invoicePayment')->whereNumber('id');
+    });
+
+    Route::controller(ChatController::class)->prefix('chat')->group(function () {
+        Route::get('', 'index');
+        Route::get('users', 'users');
+        Route::post('conversations', 'open');
+        Route::get('{id}/messages', 'messages')->whereNumber('id');
+        Route::post('{id}/messages', 'send')->whereNumber('id')->middleware('throttle:codeit-chat-send');
+        Route::get('{id}/files/{messageId}', 'file')->whereNumber(['id', 'messageId']);
+        Route::get('monitor', 'monitor');
+        Route::get('monitor/{id}', 'monitorMessages')->whereNumber('id');
+        Route::get('monitor/{id}/files/{messageId}', 'monitorFile')->whereNumber(['id', 'messageId']);
+    });
+
+    // create / edit forms (each save runs the web form action)
+    Route::controller(FormsController::class)->group(function () {
+        Route::get('forms/options', 'options');
+        Route::post('persons', 'storePerson');
+        Route::post('organizations', 'storeOrganization');
+        Route::post('leads', 'storeLead');
+        Route::post('tickets', 'storeTicket');
+        Route::post('projects', 'storeProject');
+        Route::get('projects/{id}/form', 'projectForm')->whereNumber('id');
+        Route::put('projects/{id}', 'updateProject')->whereNumber('id');
+        Route::post('invoices', 'storeInvoice');
+        Route::get('invoices/{id}/form', 'invoiceForm')->whereNumber('id');
+        Route::put('invoices/{id}', 'updateInvoice')->whereNumber('id');
+        Route::get('tasks/{id}/form', 'taskForm')->whereNumber('id');
+        Route::put('tasks/{id}', 'updateTask')->whereNumber('id');
+        Route::get('support-packages', 'packages');
+        Route::post('support-packages/{id}/{action}', 'packageAction')->whereNumber('id')->where('action', 'renew|toggle');
+    });
+
+    Route::controller(HrController::class)->prefix('hr')->group(function () {
+        Route::get('me', 'me');
+        Route::post('me', 'createMyFile');
+        Route::post('punch', 'punch');
+        Route::get('employees', 'employees');
+        Route::get('employees/{id}', 'employee')->whereNumber('id');
+        Route::get('attendance', 'attendance');
+        Route::post('attendance', 'saveAttendance');
+        Route::get('leaves', 'leaves');
+        Route::post('leaves', 'storeLeave');
+        Route::post('leaves/{id}/decide', 'decideLeave')->whereNumber('id');
+        Route::post('leaves/{id}/cancel', 'cancelLeave')->whereNumber('id');
+        Route::get('payroll', 'payroll');
+        Route::post('payroll/{action}', 'payrollAction')->where('action', 'refresh|approve|paid');
+        Route::get('payslips/{id}', 'payslip')->whereNumber('id');
+    });
+
+    Route::controller(CareersController::class)->prefix('careers')->group(function () {
+        Route::get('', 'index');
+        Route::get('{id}', 'show')->whereNumber('id');
+        Route::put('{id}', 'update')->whereNumber('id');
+        Route::get('{id}/files/{fileId}', 'file')->whereNumber(['id', 'fileId']);
+    });
+
+    // CRM settings
+    Route::controller(SettingsController::class)->prefix('settings')->group(function () {
+        Route::get('', 'catalog');
+        Route::get('users', 'users');
+        Route::post('users', 'storeUser');
+        Route::put('users/{id}', 'updateUser')->whereNumber('id');
+        Route::delete('users/{id}', 'destroyUser')->whereNumber('id');
+        Route::get('roles', 'roles');
+        Route::post('roles', 'storeRole');
+        Route::put('roles/{id}', 'updateRole')->whereNumber('id');
+        Route::delete('roles/{id}', 'destroyRole')->whereNumber('id');
+        Route::get('pipelines', 'pipelines');
+        Route::post('pipelines', 'storePipeline');
+        Route::put('pipelines/{id}', 'updatePipeline')->whereNumber('id');
+        Route::delete('pipelines/{id}', 'destroyPipeline')->whereNumber('id');
+        Route::get('hr-departments', 'hrDepartments');
+        Route::post('hr-departments', 'saveHrDepartments');
+        Route::get('hr', 'hrSettings');
+        Route::post('hr', 'saveHrSettings');
+        Route::post('hr/holidays', 'storeHoliday');
+        Route::delete('hr/holidays/{id}', 'deleteHoliday')->whereNumber('id');
+        Route::get('email-templates', 'emailTemplates');
+        Route::post('email-templates', 'storeEmailTemplate');
+        Route::put('email-templates/{id}', 'updateEmailTemplate')->whereNumber('id');
+        Route::delete('email-templates/{id}', 'destroyEmailTemplate')->whereNumber('id');
+        Route::post('web-link', 'webLink');
+        Route::get('{kind}', 'simpleIndex')->where('kind', 'groups|sources|types|tags');
+        Route::post('{kind}', 'simpleStore')->where('kind', 'groups|sources|types|tags');
+        Route::put('{kind}/{id}', 'simpleUpdate')->where('kind', 'groups|sources|types|tags')->whereNumber('id');
+        Route::delete('{kind}/{id}', 'simpleDestroy')->where('kind', 'groups|sources|types|tags')->whereNumber('id');
+    });
+});
