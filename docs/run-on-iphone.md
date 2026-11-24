@@ -56,3 +56,8 @@ Faster from Terminal, without opening Xcode: `flutter run --profile` inside `app
 cd ~/codeit-crm-app && git checkout -- . && git pull && cd app && flutter pub get && flutter build ios --config-only --profile
 ```
 Then press ▶ Run again in Xcode.
+
+## On the Mac itself
+Your MacBook (Apple chip) runs the iPhone app as is, no separate Mac version needed:
+at the top of Xcode, open the device list and pick **My Mac (Designed for iPhone)**, then press ▶ Run.
+The app opens in its own window and stays in Launchpad / Applications.
