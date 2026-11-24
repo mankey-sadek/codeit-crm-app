@@ -7,23 +7,26 @@ This needs a Mac. Xcode doesn't run on Windows.
 2. In Terminal:
    ```
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> ~/.zprofile
+   eval "$(/opt/homebrew/bin/brew shellenv zsh)"
    brew install --cask flutter
    brew install cocoapods
+   sudo xcodebuild -runFirstLaunch
    flutter doctor
    ```
-   `flutter doctor` should show ✓ next to Xcode. If it asks for anything, run the command it prints.
+   `flutter doctor` should show ✓ next to Flutter and Xcode. The Android line can stay ✗: it isn't needed for the iPhone.
 3. Xcode → Settings → **Accounts** → **+** → Apple ID → sign in with the Apple Developer account.
 4. On the iPhone: Settings → Privacy & Security → **Developer Mode** → On (it restarts).
 
 ## Get the code
 ```
-git clone https://github.com/mankey-sadek/codeit-crm-app.git
+git clone -b feature/native-app https://github.com/mankey-sadek/codeit-crm-app.git
 cd codeit-crm-app/app
-git checkout feature/native-app
 flutter pub get
 cd ios && pod install && cd ..
 open ios/Runner.xcworkspace
 ```
+The app lives on the `feature/native-app` branch (`main` has no `app` folder yet), hence `-b feature/native-app`.
 Open **Runner.xcworkspace**, not Runner.xcodeproj.
 
 ## Signing (once)
@@ -45,6 +48,6 @@ Faster from Terminal, without opening Xcode: `flutter run --release` inside `app
 
 ## After each update
 ```
-cd codeit-crm-app && git pull && cd app && flutter pub get
+cd ~/codeit-crm-app && git pull && cd app && flutter pub get && cd ios && pod install && cd ..
 ```
 Then press ▶ Run again in Xcode.
